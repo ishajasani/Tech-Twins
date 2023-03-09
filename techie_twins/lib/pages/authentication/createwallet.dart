@@ -47,7 +47,7 @@ class CreateWallet extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  DefaultButtonWhite(
+                  OutlinedButtonWhite(
                       text: "Create new one",
                       onPress: () => Navigator.push(
                           context,

@@ -67,6 +67,40 @@ class DefaultButtonWhite extends StatelessWidget {
   }
 }
 
+class OutlinedButtonWhite extends StatelessWidget {
+  final String text;
+  final Function onPress;
+  const OutlinedButtonWhite({
+    super.key,
+    required this.text,
+    required this.onPress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onPress();
+      },
+      child: Container(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            border: Border.all(
+              color: Colors.white,
+            )),
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 25, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class WalletAddressTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
@@ -131,6 +165,36 @@ class WalletPinTextField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white, width: 1.0),
             borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}
+
+class TransactionTile extends StatelessWidget {
+  final String name, address;
+  final double amount;
+  const TransactionTile({
+    super.key,
+    required this.name,
+    required this.address,
+    required this.amount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+          color: Colors.black.withOpacity(.1),
+          borderRadius: BorderRadius.circular(20)),
+      child: ListTile(
+        trailing: Text('-$amount Matic'),
+        leading: CircleAvatar(
+          radius: 20,
+          child: Text(name[0]),
+        ),
+        title: Text(name),
+        subtitle: Text(address),
       ),
     );
   }
