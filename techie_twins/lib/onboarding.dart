@@ -32,7 +32,7 @@ class _OnboardingState extends State<Onboarding> {
           ),
           DefaultButton(
             onPress: () {
-              print("Get started");
+              // print("Get started");
             },
             text: 'Get started',
           ),
