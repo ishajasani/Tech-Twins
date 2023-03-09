@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techie_twins/createwallet.dart';
 import 'package:techie_twins/widgets.dart';
 
 class Onboarding extends StatefulWidget {
@@ -31,17 +32,18 @@ class _OnboardingState extends State<Onboarding> {
               ),
               Image.asset("assets/img2.png"),
               Image.asset("assets/img1.png"),
-              const SizedBox(
-                height: 100,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 9,
               ),
               DefaultButton(
-                onPress: () {
-                  // print("Get started");
-                },
+                onPress: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CreateWallet())),
                 text: 'Get started',
               ),
               const SizedBox(
-                height: 40,
+                height: 20,
               )
             ],
           ),
