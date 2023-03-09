@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:techie_twins/authenticatewallet.dart';
+import 'package:techie_twins/pages/authentication/authenticatewallet.dart';
+import 'package:techie_twins/pages/authentication/newwallet.dart';
 import 'package:techie_twins/widgets.dart';
 
 class CreateWallet extends StatelessWidget {
@@ -46,7 +47,12 @@ class CreateWallet extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  DefaultButtonWhite(text: "Create new one", onPress: () {}),
+                  DefaultButtonWhite(
+                      text: "Create new one",
+                      onPress: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const NewWallet()))),
                   const SizedBox(
                     height: 20,
                   )
