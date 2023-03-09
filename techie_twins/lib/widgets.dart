@@ -17,7 +17,7 @@ class DefaultButton extends StatelessWidget {
         onPress();
       },
       child: Container(
-        height: 60,
+        height: 80,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           color: buttonColor,
@@ -26,7 +26,7 @@ class DefaultButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(fontSize: 20, color: Colors.white),
+            style: const TextStyle(fontSize: 25, color: Colors.white),
           ),
         ),
       ),
