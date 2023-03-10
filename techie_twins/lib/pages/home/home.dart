@@ -34,6 +34,37 @@ class _HomeState extends State<Home> {
           elevation: 0,
           backgroundColor: Colors.transparent,
         ),
-        body: const Center(child: Text("This is the home page")));
+        body: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: Colors.black.withOpacity(.2)),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.add,
+                        size: MediaQuery.of(context).size.width / 9,
+                      ),
+                      const Text(
+                        "Enter your initial health information",
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }
