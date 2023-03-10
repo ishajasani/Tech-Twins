@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:techie_twins/pages/home/home.dart';
-import 'package:techie_twins/widgets.dart';
+import 'package:techie_twins/widgets/custom_buttons.dart';
 
 class NewWallet extends StatefulWidget {
   const NewWallet({super.key});

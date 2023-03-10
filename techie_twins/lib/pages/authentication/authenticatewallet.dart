@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:techie_twins/widgets.dart';
+import 'package:techie_twins/widgets/custom_buttons.dart';
+import 'package:techie_twins/widgets/custom_textfields.dart';
 
 class AuthenticateWallet extends StatelessWidget {
   const AuthenticateWallet({super.key});

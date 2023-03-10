@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techie_twins/pages/authentication/createwallet.dart';
-import 'package:techie_twins/widgets.dart';
-
+import 'package:techie_twins/widgets/custom_buttons.dart';
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
 

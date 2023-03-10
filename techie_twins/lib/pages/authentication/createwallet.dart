@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techie_twins/pages/authentication/authenticatewallet.dart';
 import 'package:techie_twins/pages/authentication/newwallet.dart';
-import 'package:techie_twins/widgets.dart';
-
+import 'package:techie_twins/widgets/custom_buttons.dart';
 class CreateWallet extends StatelessWidget {
   const CreateWallet({super.key});
 
