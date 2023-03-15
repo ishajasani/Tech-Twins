@@ -60,7 +60,7 @@ class AuthenticateWallet extends StatelessWidget {
                     WalletAddressTextField(
                       controller: TextEditingController(),
                       hintText: "0xff0000000000000",
-                      labelText: "Wallet address",
+                      labelText: "P",
                     ),
                     const SizedBox(
                       height: 20,

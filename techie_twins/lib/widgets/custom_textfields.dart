@@ -14,6 +14,7 @@ class WalletAddressTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         label: Text(labelText),
         labelStyle: TextStyle(color: Colors.white.withOpacity(.5)),
@@ -49,6 +50,7 @@ class WalletPinTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: true,
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         label: Text(labelText),
         labelStyle: TextStyle(color: Colors.white.withOpacity(.5)),
