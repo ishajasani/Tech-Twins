@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:techie_twins/pages/authentication/createwallet.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
+
+import 'config/walletprovider.dart';
+
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
 
@@ -9,6 +12,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
+  WalletProvider? _walletProvider;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +39,19 @@ class _OnboardingState extends State<Onboarding> {
                 height: MediaQuery.of(context).size.height / 15,
               ),
               DefaultButton(
-                onPress: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CreateWallet())),
+                onPress: () {
+                  // ignore: no_leading_underscores_for_local_identifiers
+                  _walletProvider!.createWallet();
+                  print('hello');
+                },
+                // onPress: () => Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const CreateWallet())),
                 text: 'Get started',
               ),
               const SizedBox(
-                height: 20,
+                height: 50,
               )
             ],
           ),

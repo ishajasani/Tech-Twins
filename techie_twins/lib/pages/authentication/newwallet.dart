@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 
@@ -11,6 +12,13 @@ class NewWallet extends StatefulWidget {
 }
 
 class NewWalletState extends State<NewWallet> {
+  WalletProvider? _walletProvider;
+  // _walletProvider?.createWallet();
+  @override
+  void initState() {
+    _walletProvider?.createWallet();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

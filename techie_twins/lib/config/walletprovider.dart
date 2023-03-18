@@ -61,10 +61,12 @@ class WalletProvider with ChangeNotifier {
     }
   }
 
-  createWallet() async {
+  Future<void> createWallet() async {
+    print('Creating wallet');
     _handleLoading();
+
     _credentials = _walletService.generateRandomAccount();
-    _ethereumAddress = _credentials.address;
+    _ethereumAddress = await _credentials.extractAddress();
     getBalance();
     _handleSuccess();
   }

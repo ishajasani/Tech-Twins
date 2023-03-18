@@ -1,4 +1,4 @@
-//this class helps us get the Client's credentials 
+//this class helps us get the Client's credentials
 import 'dart:math';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +11,8 @@ class WalletService {
   Credentials generateRandomAccount() {
     final cred = EthPrivateKey.createRandom(Random.secure());
     final key = bytesToHex(cred.privateKey, padToEvenLength: true);
+    print("Private Key: $key");
+    print(cred);
     setPrivateKey(key);
     return cred;
   }
