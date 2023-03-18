@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
 
@@ -7,6 +9,8 @@ class AuthenticateWallet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WalletProvider walletProvider = WalletProvider();
+    TextEditingController keyController = TextEditingController();
     return Scaffold(
         body: Container(
             height: MediaQuery.of(context).size.height,
@@ -58,7 +62,7 @@ class AuthenticateWallet extends StatelessWidget {
                       height: 20,
                     ),
                     WalletAddressTextField(
-                      controller: TextEditingController(),
+                      controller: keyController,
                       hintText: "asdfasdfasfasfdfas",
                       labelText: "Private key",
                     ),
@@ -73,7 +77,14 @@ class AuthenticateWallet extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    DefaultButtonWhite(text: "Verify", onPress: () {}),
+                    DefaultButtonWhite(
+                        text: "Verify",
+                        onPress: () async {
+                          
+                         await walletProvider.initializeWallet(keyController.text);
+                            print("object");
+                         
+                        }),
                     const SizedBox(
                       height: 20,
                     )

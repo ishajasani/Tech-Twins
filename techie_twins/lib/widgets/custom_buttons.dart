@@ -37,7 +37,7 @@ class DefaultButton extends StatelessWidget {
 
 class DefaultButtonWhite extends StatelessWidget {
   final String text;
-  final Function onPress;
+  final VoidCallback onPress;
   const DefaultButtonWhite({
     super.key,
     required this.text,
@@ -47,9 +47,7 @@ class DefaultButtonWhite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onPress();
-      },
+      onTap:onPress,
       child: Container(
         height: 80,
         width: MediaQuery.of(context).size.width,

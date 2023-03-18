@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:web3dart/web3dart.dart';
@@ -13,6 +14,13 @@ class NewWallet extends StatefulWidget {
 }
 
 class NewWalletState extends State<NewWallet> {
+  WalletProvider walletProvider = WalletProvider();
+  @override
+  void initState() {
+    super.initState();
+    walletProvider.createWallet();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +67,7 @@ class NewWalletState extends State<NewWallet> {
             Row(
               children: [
                 Expanded(
-                  child: Text("address",
+                  child: Text(walletProvider.ethereumAddress.toString(),
                       style: TextStyle(
                         color: Colors.white.withOpacity(.7),
                         fontWeight: FontWeight.bold,
@@ -68,8 +76,8 @@ class NewWalletState extends State<NewWallet> {
                 ),
                 IconButton(
                     onPressed: () {
-                      Clipboard.setData(
-                          ClipboardData(text: "address.toString()"));
+                      Clipboard.setData(ClipboardData(
+                          text: walletProvider.ethereumAddress.toString()));
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Copied to clipboard'),
                       ));

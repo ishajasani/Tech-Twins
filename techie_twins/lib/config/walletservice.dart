@@ -8,13 +8,10 @@ class WalletService {
   SharedPreferences? _sharedPreferences;
 
   Credentials generateRandomAccount() {
-    print("Generating random account");
     final cred = EthPrivateKey.createRandom(Random.secure());
     final key = bytesToHex(cred.privateKey, padToEvenLength: true);
-    print("Private Key: $key");
-    print(cred);
     setPrivateKey(key);
-    print(key);
+    print("private key: " + key);
     return cred;
   }
 

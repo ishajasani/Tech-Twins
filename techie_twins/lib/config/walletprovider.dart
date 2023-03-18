@@ -27,8 +27,8 @@ class WalletProvider {
   WalletState state = WalletState.empty;
   String errMessage = "";
   Credentials? _credentials;
-  EthereumAddress? _ethereumAddress;
-  EtherAmount? _etherAmount;
+  EthereumAddress? ethereumAddress;
+  EtherAmount? etherAmount;
   GasInfo? _gasInfo;
   Transaction? _transactionInfo;
   double totalAmount = 0;
@@ -36,7 +36,7 @@ class WalletProvider {
   double maticPrice = 0;
   Function? onNetworkConfirmationRun;
   getBalance() async {
-    _etherAmount = await _web3client?.getBalance(_ethereumAddress!);
+    etherAmount = await _web3client?.getBalance(ethereumAddress!);
     _handleLoaded();
   }
 
@@ -50,16 +50,17 @@ class WalletProvider {
     }
   }
 
+// 39bc2eb50999a396fa6ab7ff615bef86fb4cfe9bbd5d6c42bb0668c297a2eaa6
   initializeWallet(String privateKey) async {
     try {
       _credentials = _walletService.initializeWallet(privateKey);
-      _ethereumAddress = _credentials!.address;
+      ethereumAddress = _credentials!.address;
       await _walletService.setPrivateKey(privateKey);
       getBalance();
       _handleSuccess();
+      print("Successfull login");
     } on FormatException catch (e) {
       debugPrint('Error: ${e.message}');
-
       _handleError('Invalid private key');
     } catch (e) {
       debugPrint('Error: $e');
@@ -71,8 +72,7 @@ class WalletProvider {
     print("object");
     _handleLoading();
     _credentials = _walletService.generateRandomAccount();
-    print(_credentials);
-    _ethereumAddress = _credentials!.address;
+    ethereumAddress = _credentials!.address;
     getBalance();
     _handleSuccess();
   }
