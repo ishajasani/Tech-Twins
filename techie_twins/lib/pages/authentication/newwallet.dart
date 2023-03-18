@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:techie_twins/config/walletprovider.dart';
+import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
+import 'package:web3dart/web3dart.dart';
 
 class NewWallet extends StatefulWidget {
   const NewWallet({super.key});
@@ -11,6 +15,13 @@ class NewWallet extends StatefulWidget {
 }
 
 class NewWalletState extends State<NewWallet> {
+   WalletProvider walletProvider = WalletProvider();
+  @override
+  void initState() {
+    walletProvider.createWallet();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,14 +67,22 @@ class NewWalletState extends State<NewWallet> {
             ),
             Row(
               children: [
-                Text("0xff0000000000000",
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(.7),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    )),
+                Expanded(
+                  child: Text("address",
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(.7),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      )),
+                ),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Clipboard.setData(
+                          ClipboardData(text: "address.toString()"));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Copied to clipboard'),
+                      ));
+                    },
                     icon: Icon(
                       Icons.content_copy_rounded,
                       color: Colors.white.withOpacity(.6),

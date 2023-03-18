@@ -1,6 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/pages/authentication/createwallet.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
+import 'package:web3dart/crypto.dart';
+import 'package:web3dart/web3dart.dart';
+
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
 

@@ -59,8 +59,8 @@ class AuthenticateWallet extends StatelessWidget {
                     ),
                     WalletAddressTextField(
                       controller: TextEditingController(),
-                      hintText: "0xff0000000000000",
-                      labelText: "P",
+                      hintText: "asdfasdfasfasfdfas",
+                      labelText: "Private key",
                     ),
                     const SizedBox(
                       height: 20,
