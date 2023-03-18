@@ -1,3 +1,4 @@
+//this class helps us get the Client's credentials 
 import 'dart:math';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,5 +22,5 @@ class WalletService {
       _sharedPreferences.getString('user_private_key') ?? "";
 
   Future<void> setPrivateKey(String value) async =>
-      await _sharedPreferences.setString('user_private_key',value);
+      await _sharedPreferences.setString('user_private_key', value);
 }
