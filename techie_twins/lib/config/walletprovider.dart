@@ -70,9 +70,9 @@ class WalletProvider {
   createWallet() {
     print("object");
     _handleLoading();
-    _credentials = _walletService?.generateRandomAccount();
+    _credentials = _walletService.generateRandomAccount();
     print(_credentials);
-    _ethereumAddress = _credentials?.address;
+    _ethereumAddress = _credentials!.address;
     getBalance();
     _handleSuccess();
   }

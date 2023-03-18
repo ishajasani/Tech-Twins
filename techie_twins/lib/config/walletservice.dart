@@ -11,6 +11,8 @@ class WalletService {
     print("Generating random account");
     final cred = EthPrivateKey.createRandom(Random.secure());
     final key = bytesToHex(cred.privateKey, padToEvenLength: true);
+    print("Private Key: $key");
+    print(cred);
     setPrivateKey(key);
     print(key);
     return cred;
