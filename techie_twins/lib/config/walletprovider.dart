@@ -15,8 +15,12 @@ class WalletProvider with ChangeNotifier {
   final GasPriceService _gasPriceService;
   final ContractService _contractService;
 
-  WalletProvider(this._web3client, this._walletService, this._gasPriceService,
-      this._contractService);
+  WalletProvider(
+    this._web3client,
+    // this._walletService,
+    // this._gasPriceService,
+    // this._contractService
+  );
   WalletState state = WalletState.empty;
   String errMessage = "";
   late Credentials _credentials;
@@ -36,67 +40,9 @@ class WalletProvider with ChangeNotifier {
   getTransactionFee(Transaction transaction) async {
     try {
       _transactionInfo = transaction;
-      _gasInfo = null;
-      _gasInfo = await _gasPriceService.getGasInfo(transaction);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  initializeWallet(String privateKey) async {
-    try {
-      _credentials = _walletService.initializeWallet(privateKey);
-      _ethereumAddress = _credentials.address;
-      await _walletService.setPrivateKey(privateKey);
-      getBalance();
-      _handleSuccess();
-    } on FormatException catch (e) {
-      debugPrint('Error: ${e.message}');
-
-      _handleError('Invalid private key');
-    } catch (e) {
-      debugPrint('Error: $e');
-
-      _handleError(e);
-    }
-  }
-
-  createWallet() async {
-    _handleLoading();
-    _credentials = _walletService.generateRandomAccount();
-    _ethereumAddress = _credentials.address;
-    getBalance();
-    _handleSuccess();
-  }
-
-  void _handleEmpty() {
-    state = WalletState.empty;
-    errMessage = '';
-    notifyListeners();
-  }
-
-  void _handleLoading() {
-    state = WalletState.loading;
-    errMessage = '';
-    notifyListeners();
-  }
-
-  void _handleLoaded() {
-    state = WalletState.loaded;
-    errMessage = '';
-    notifyListeners();
-  }
-
-  void _handleSuccess() {
-    state = WalletState.success;
-    errMessage = '';
-    notifyListeners();
-    Timer(const Duration(milliseconds: 450), _handleEmpty);
-  }
-
-  void _handleError(e) {
-    state = WalletState.error;
-    errMessage = e.toString();
-    notifyListeners();
+      // _gasInfo = null;
+      // _gasInfo = await _gasPriceService.getGasInfo(transaction);
+      
+    } catch (e) {}
   }
 }
