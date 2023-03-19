@@ -1,6 +1,7 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/tiles.dart';
 
 class Home extends StatefulWidget {
@@ -110,7 +111,7 @@ class _HomeState extends State<Home> {
                     size: 30,
                   )),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PaitentProfile())),
                   icon: Icon(
                     Icons.person_outline_rounded,
                     color: Colors.black.withOpacity(.2),
