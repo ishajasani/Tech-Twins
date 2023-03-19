@@ -1,8 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
+import 'package:web3dart/web3dart.dart';
+
+import '../../config/contractLinking.dart';
 
 class AuthenticateWallet extends StatelessWidget {
   const AuthenticateWallet({super.key});
@@ -10,6 +14,7 @@ class AuthenticateWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WalletProvider walletProvider = WalletProvider();
+    final contractLink = Provider.of<ContractLinking>(context);
     TextEditingController keyController = TextEditingController();
     return Scaffold(
         body: Container(
@@ -79,11 +84,11 @@ class AuthenticateWallet extends StatelessWidget {
                     ),
                     DefaultButtonWhite(
                         text: "Verify",
-                        onPress: () async {
-                          
-                         await walletProvider.initializeWallet(keyController.text);
-                            print("object");
-                         
+                        onPress: () {
+                          contractLink.setData(
+                              "isha",
+                              EthereumAddress.fromHex("0xc02855C1D3956ffA9b612e2DCcFfD61183ba4d16"),
+                              "1234");
                         }),
                     const SizedBox(
                       height: 20,

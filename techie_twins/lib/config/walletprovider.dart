@@ -50,8 +50,14 @@ class WalletProvider {
     }
   }
 
+  initializeWallet() async {
+    _credentials = _walletService.initializeWallet();
+    ethereumAddress = _credentials?.address;
+    getBalance();
+  }
+
 // 39bc2eb50999a396fa6ab7ff615bef86fb4cfe9bbd5d6c42bb0668c297a2eaa6
-  initializeWallet(String privateKey) async {
+  initializeFromKey(String privateKey) async {
     try {
       _credentials = _walletService.initializeWallet(privateKey);
       ethereumAddress = _credentials!.address;
