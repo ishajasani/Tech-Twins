@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
-
+import 'package:web3dart/web3dart.dart';
 
 class AuthenticateWallet extends StatelessWidget {
   const AuthenticateWallet({super.key});
@@ -73,7 +73,7 @@ class AuthenticateWallet extends StatelessWidget {
                     DefaultButtonWhite(
                         text: "Verify",
                         onPress: ()async  {
-                       bool val =   await  walletProvider.initializeWallet(keyController.text);
+                       bool val =   await  walletProvider.initializeFromKey(keyController.text);
                               print(val);
                         }),
                     const SizedBox(
