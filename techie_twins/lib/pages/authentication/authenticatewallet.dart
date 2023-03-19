@@ -1,8 +1,9 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
+
 
 class AuthenticateWallet extends StatelessWidget {
   const AuthenticateWallet({super.key});
@@ -69,21 +70,11 @@ class AuthenticateWallet extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    WalletPinTextField(
-                      controller: TextEditingController(),
-                      hintText: "******",
-                      labelText: "Wallet pin",
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
                     DefaultButtonWhite(
                         text: "Verify",
-                        onPress: () async {
-                          
-                         await walletProvider.initializeWallet(keyController.text);
-                            print("object");
-                         
+                        onPress: ()async  {
+                       bool val =   await  walletProvider.initializeWallet(keyController.text);
+                              print(val);
                         }),
                     const SizedBox(
                       height: 20,

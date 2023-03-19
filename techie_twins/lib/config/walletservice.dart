@@ -11,7 +11,6 @@ class WalletService {
     final cred = EthPrivateKey.createRandom(Random.secure());
     final key = bytesToHex(cred.privateKey, padToEvenLength: true);
     setPrivateKey(key);
-    print("private key: " + key);
     return cred;
   }
 

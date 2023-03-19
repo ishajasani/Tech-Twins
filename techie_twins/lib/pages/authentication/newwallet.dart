@@ -18,7 +18,16 @@ class NewWalletState extends State<NewWallet> {
   @override
   void initState() {
     super.initState();
+    createWallet();
+  }
+
+  double ammount = 0;
+  void createWallet() {
     walletProvider.createWallet();
+    setState(() {
+      ammount = walletProvider.accountBalance;
+      
+    });
   }
 
   @override
@@ -103,7 +112,7 @@ class NewWalletState extends State<NewWallet> {
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: const EdgeInsets.only(top: 6),
-                child: Text("0.000 MATIC",
+                child: Text("$ammount ETH",
                     style: TextStyle(
                       color: Colors.white.withOpacity(.7),
                       fontWeight: FontWeight.bold,
@@ -114,7 +123,7 @@ class NewWalletState extends State<NewWallet> {
             const SizedBox(
               height: 40,
             ),
-            DefaultButtonWhite(text: "Get some fresh Matic", onPress: () {}),
+            DefaultButtonWhite(text: "Get some fresh ETH", onPress: () {}),
             const SizedBox(
               height: 10,
             ),
