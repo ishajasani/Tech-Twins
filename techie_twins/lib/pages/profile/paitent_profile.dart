@@ -12,13 +12,8 @@ class _PaitentProfileState extends State<PaitentProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         child: Column(
           children: [
             SizedBox(
@@ -172,10 +167,10 @@ class _PaitentProfileState extends State<PaitentProfile> {
             Icons.home_outlined,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context),
           label: const Text(
             "Home",
-            style: TextStyle(color: Colors.black,fontSize: 16),
+            style: TextStyle(color: Colors.black, fontSize: 16),
           )),
     );
   }

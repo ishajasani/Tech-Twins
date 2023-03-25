@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
-import 'package:web3dart/web3dart.dart';
 
 class NewWallet extends StatefulWidget {
   const NewWallet({super.key});

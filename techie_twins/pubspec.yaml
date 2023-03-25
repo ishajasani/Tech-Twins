@@ -68,7 +68,7 @@ flutter:
   assets:
     - assets/
     - assets/animations/
-    - /Users/ishajasani/Desktop/Isha/GFG_TECHIE TWINS/Techie-Twins/src/abis/test.json
+    # - src/abis/test.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,17 +1,32 @@
-
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/walletprovider.dart';
+import 'package:techie_twins/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
-import 'package:web3dart/web3dart.dart';
 
-class AuthenticateWallet extends StatelessWidget {
+class AuthenticateWallet extends StatefulWidget {
   const AuthenticateWallet({super.key});
 
   @override
+  State<AuthenticateWallet> createState() => _AuthenticateWalletState();
+}
+
+class _AuthenticateWalletState extends State<AuthenticateWallet> {
+  WalletProvider walletProvider = WalletProvider();
+  TextEditingController keyController = TextEditingController();
+  handleLogin() async {
+    bool isValid = await WalletProvider().initializeFromKey(keyController.text);
+    if (isValid) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const Home()));
+    } else {
+      print("Invalid Key");
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    WalletProvider walletProvider = WalletProvider();
-    TextEditingController keyController = TextEditingController();
     return Scaffold(
         body: Container(
             height: MediaQuery.of(context).size.height,
@@ -70,12 +85,7 @@ class AuthenticateWallet extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    DefaultButtonWhite(
-                        text: "Verify",
-                        onPress: ()async  {
-                       bool val =   await  walletProvider.initializeFromKey(keyController.text);
-                              print(val);
-                        }),
+                    DefaultButtonWhite(text: "Verify", onPress: handleLogin),
                     const SizedBox(
                       height: 20,
                     )

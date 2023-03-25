@@ -12,13 +12,13 @@ enum WalletState { empty, loading, loaded, success, error, logout }
 
 class WalletProvider {
   final WalletService _walletService = WalletService();
-  final Web3Client _web3client = Web3Client("HTTP://127.0.0.1:7546", Client());
+  final Web3Client _web3client = Web3Client("HTTP://192.168.43.59:7545", Client());
   GasPriceService? _gasPriceService;
   ContractService? _contractService;
 
   WalletState state = WalletState.empty;
   String errMessage = "";
-   double accountBalance = 0;
+  double accountBalance = 0;
   Credentials? _credentials;
   EthereumAddress? ethereumAddress;
   EtherAmount? etherAmount;
@@ -29,9 +29,10 @@ class WalletProvider {
   double maticPrice = 0;
   Function? onNetworkConfirmationRun;
   getBalance() async {
-    etherAmount = await _web3client.getBalance(EthereumAddress.fromHex("0x28205E1bAdA92C5aA5C2b25f1b57fCBA9bDE0fD6"));
+    etherAmount = await _web3client.getBalance(
+        EthereumAddress.fromHex(ethereumAddress!.hex));
     accountBalance = etherAmount!.getInEther.toDouble();
-    print("Account Balance: " + accountBalance.toString());
+    print("Account Balance: $accountBalance");
     _handleLoaded();
   }
 
@@ -53,13 +54,15 @@ class WalletProvider {
 
 // 39bc2eb50999a396fa6ab7ff615bef86fb4cfe9bbd5d6c42bb0668c297a2eaa6
   initializeFromKey(String privateKey) async {
+    print("object $privateKey");
     try {
       _credentials = _walletService.initializeWallet(
-          "0x731ea81acad629bab2fea7481127f965e830f9b84a448a2754fd3ebd9ff80a20");
+          "0x96eca8c00dab04d66ff5636f9058f0f5bc6644f0001eab5515ae3f62dfa056c2");
       ethereumAddress = _credentials!.address;
       await _walletService.setPrivateKey(privateKey);
       getBalance();
       _handleSuccess();
+       
       return true;
     } on FormatException catch (e) {
       debugPrint('Error: ${e.message}');

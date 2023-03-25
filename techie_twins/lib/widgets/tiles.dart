@@ -66,7 +66,7 @@ class DoctorTileRed extends StatelessWidget {
               "Need a opinion",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(

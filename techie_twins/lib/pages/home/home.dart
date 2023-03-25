@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     "How are you feeling today $_name?",
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 8,
+                        fontSize: MediaQuery.of(context).size.width / 12,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
