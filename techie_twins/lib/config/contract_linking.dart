@@ -43,7 +43,7 @@ class ContractLinking extends ChangeNotifier {
     abiCode = jsonEncode(jsonAbi['abi']);
     contractAddress =
         EthereumAddress.fromHex(jsonAbi['networks']['5777']['address']);
-    print(contractAddress);
+    // print(contractAddress);
   }
 
   Future<void> getCredentials() async {
@@ -68,10 +68,10 @@ class ContractLinking extends ChangeNotifier {
             parameters: [username, walletAdrress, pin]));
   }
 
-  getUserData(EthereumAddress _walletAdrress) async {
+  getUserData(EthereumAddress walletAdrress) async {
     // ignore: no_leading_underscores_for_local_identifiers
     var _username = await _client!.call(
-        contract: contract!, function: _userdata!, params: [_walletAdrress]);
+        contract: contract!, function: _userdata!, params: [walletAdrress]);
     deployedName = _username[0];
     isLoading = false;
     notifyListeners();

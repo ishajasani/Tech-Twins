@@ -5,8 +5,7 @@ import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
 class WalletService {
-  SharedPreferences? _sharedPreferences;
-
+  SharedPreferences? prefs;
   Credentials generateRandomAccount() {
     final cred = EthPrivateKey.createRandom(Random.secure());
     final key = bytesToHex(cred.privateKey, padToEvenLength: true);
@@ -14,12 +13,23 @@ class WalletService {
     return cred;
   }
 
-  Credentials initializeWallet([String? key]) =>
-      EthPrivateKey.fromHex(key ?? getPrivateKey());
+  Credentials initializeWallet(String key) {
+    return EthPrivateKey.fromHex(key);
+  }
 
-  String getPrivateKey() =>
-      _sharedPreferences?.getString('user_private_key') ?? "";
+  Future<Credentials> initializeWalletAgain() async {
+    return EthPrivateKey.fromHex(await getPrivateKey());
+  }
 
-  Future<void> setPrivateKey(String value) async =>
-      await _sharedPreferences?.setString('user_private_key', value);
+  Future<String> getPrivateKey() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_private_key') ?? "";
+  }
+
+  setPrivateKey(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('user_private_key', value);
+  }
 }
+// 0x96eca8c00dab04d66ff5636f9058f0f5bc6644f0001eab5515ae3f62dfa056c2

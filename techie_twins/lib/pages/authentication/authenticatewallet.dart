@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/pages/home/home.dart';
@@ -12,7 +13,7 @@ class AuthenticateWallet extends StatefulWidget {
 }
 
 class _AuthenticateWalletState extends State<AuthenticateWallet> {
-  WalletProvider walletProvider = WalletProvider();
+ 
   TextEditingController keyController = TextEditingController();
   handleLogin() async {
     bool isValid = await WalletProvider().initializeFromKey(keyController.text);
@@ -21,7 +22,9 @@ class _AuthenticateWalletState extends State<AuthenticateWallet> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Home()));
     } else {
-      print("Invalid Key");
+      if (kDebugMode) {
+        print("Invalid Key");
+      }
     }
   }
 
@@ -77,9 +80,10 @@ class _AuthenticateWalletState extends State<AuthenticateWallet> {
                     const SizedBox(
                       height: 20,
                     ),
-                    WalletAddressTextField(
+                    PrivateKeyField(
                       controller: keyController,
-                      hintText: "asdfasdfasfasfdfas",
+                      hintText:
+                          "39bc2eb50999a396fa6ab7ff615bef86fb4cfe9bbd5d6c42bb0668c297a2eaa6",
                       labelText: "Private key",
                     ),
                     const SizedBox(

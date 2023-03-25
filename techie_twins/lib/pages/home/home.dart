@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final String _name = 'Tom';
 
-  //TODO: Remove extraspace from the image
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +111,7 @@ class _HomeState extends State<Home> {
                     size: 30,
                   )),
               IconButton(
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PaitentProfile())),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const PaitentProfile())),
                   icon: Icon(
                     Icons.person_outline_rounded,
                     color: Colors.black.withOpacity(.2),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
+import 'package:web3dart/web3dart.dart';
 
 class NewWallet extends StatefulWidget {
   const NewWallet({super.key});
@@ -20,12 +22,16 @@ class NewWalletState extends State<NewWallet> {
     createWallet();
   }
 
+
   double ammount = 0;
-  void createWallet() {
+  Future<void> createWallet() async {
     walletProvider.createWallet();
+     EtherAmount etherAmount =
+        await Web3Client("HTTP://192.168.43.59:7545", Client()).getBalance(
+            EthereumAddress.fromHex(walletProvider.ethereumAddress!.hex));
+   
     setState(() {
-      ammount = walletProvider.accountBalance;
-      
+       ammount = etherAmount.getInEther.toDouble();
     });
   }
 

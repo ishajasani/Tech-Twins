@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class WalletAddressTextField extends StatelessWidget {
+class PrivateKeyField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String labelText;
-  const WalletAddressTextField({
+  const PrivateKeyField({
     super.key,
     required this.controller,
     required this.hintText,
@@ -14,6 +14,7 @@ class WalletAddressTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         label: Text(labelText),
@@ -49,6 +50,7 @@ class WalletPinTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       obscureText: true,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(

@@ -1,5 +1,6 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:techie_twins/pages/profile/wallet_profile.dart';
 
 class PaitentProfile extends StatefulWidget {
   const PaitentProfile({super.key});
@@ -40,7 +41,10 @@ class _PaitentProfileState extends State<PaitentProfile> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10.0),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const WalletProfile())),
                       child: BlurryContainer(
                         borderRadius: BorderRadius.circular(25),
                         width: MediaQuery.of(context).size.width / 3.6,
