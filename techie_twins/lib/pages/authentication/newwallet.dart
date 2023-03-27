@@ -19,19 +19,19 @@ class NewWalletState extends State<NewWallet> {
   @override
   void initState() {
     super.initState();
-    createWallet();
+    walletProvider.createWallet();
+    walletFun();
   }
 
-
+  void getBalance() async {}
   double ammount = 0;
-  Future<void> createWallet() async {
-    walletProvider.createWallet();
-     EtherAmount etherAmount =
+  Future<void> walletFun() async {
+    EtherAmount etherAmount =
         await Web3Client("HTTP://192.168.43.59:7545", Client()).getBalance(
             EthereumAddress.fromHex(walletProvider.ethereumAddress!.hex));
-   
+
     setState(() {
-       ammount = etherAmount.getInEther.toDouble();
+      ammount = etherAmount.getInEther.toDouble();
     });
   }
 
@@ -117,12 +117,24 @@ class NewWalletState extends State<NewWallet> {
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: const EdgeInsets.only(top: 6),
-                child: Text("$ammount ETH",
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(.7),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    )),
+                child: Row(
+                  children: [
+                    Text("$ammount ETH",
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(.7),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          walletFun();
+                        },
+                        icon: const Icon(
+                          Icons.refresh_outlined,
+                          color: Colors.white,
+                        ))
+                  ],
+                ),
               ),
             ),
             const SizedBox(
