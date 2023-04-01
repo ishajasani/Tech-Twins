@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../constants.dart';
 import 'gaspriceservice.dart';
 
 enum WalletState { empty, loading, loaded, success, error, logout }
@@ -11,7 +12,7 @@ enum WalletState { empty, loading, loaded, success, error, logout }
 class WalletProvider {
   final WalletService _walletService = WalletService();
   final Web3Client _web3client =
-      Web3Client("HTTP://192.168.43.59:7545", Client());
+      Web3Client(rpcUrl, Client());
   GasPriceService? _gasPriceService;
   // ContractService? _contractService;
 

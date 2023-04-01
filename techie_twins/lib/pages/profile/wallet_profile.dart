@@ -7,6 +7,8 @@ import 'package:techie_twins/widgets/custom_transaction_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../../constants.dart';
+
 class WalletProfile extends StatefulWidget {
   const WalletProfile({super.key});
 
@@ -32,7 +34,7 @@ class _WalletProfileState extends State<WalletProfile> {
   getUserData() async {
     await walletProvider.initializeWallet();
     EtherAmount etherAmount =
-        await Web3Client("HTTP://192.168.43.59:7545", Client()).getBalance(
+        await Web3Client(rpcUrl, Client()).getBalance(
             EthereumAddress.fromHex(walletProvider.ethereumAddress!.hex));
     accountBalance = etherAmount.getInEther.toDouble();
 

@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../constants.dart';
+
 class ContractLinking extends ChangeNotifier {
-  final String rpcUrl = "http://127.0.0.1:7545";
-  final String wsUrl = "ws://127.0.0.1:7545";
   final String privateKey =
       "005cef10e1b23162c2865c9a809dfac4d8b19e04be692d448944b814a5de4045";
 
