@@ -33,7 +33,9 @@ class _OnboardingState extends State<Onboarding> {
                 height: 10,
               ),
               Image.asset("assets/img2.png"),
-              Image.asset("assets/img1.png"),
+              SizedBox(
+                width: MediaQuery.of(context).size.width/1.3,
+                child: Image.asset("assets/img1.png")),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 15,
               ),

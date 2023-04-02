@@ -18,7 +18,7 @@ class DefaultButton extends StatelessWidget {
         onPress();
       },
       child: Container(
-        height: 80,
+        height: 70,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           color: buttonColor,

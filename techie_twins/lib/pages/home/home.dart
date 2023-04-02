@@ -2,7 +2,7 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/pages/profile/paitent_profile.dart';
-import 'package:techie_twins/widgets/tiles.dart';
+import 'package:techie_twins/widgets/custom_tiles.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
