@@ -1,6 +1,10 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:techie_twins/config/contract_linking.dart';
+import 'package:techie_twins/config/walletservice.dart';
+import 'package:techie_twins/models/patient_model.dart';
 import 'package:techie_twins/pages/profile/wallet_profile.dart';
+import 'package:web3dart/web3dart.dart';
 
 class PaitentProfile extends StatefulWidget {
   const PaitentProfile({super.key});
@@ -10,6 +14,31 @@ class PaitentProfile extends StatefulWidget {
 }
 
 class _PaitentProfileState extends State<PaitentProfile> {
+  ContractLinking contractLinking = ContractLinking();
+  WalletService walletService = WalletService();
+  Credentials? credentials;
+  PatientModel? patientModel;
+  getData() async {
+    String privKey = await walletService.getPrivateKey();
+    credentials = EthPrivateKey.fromHex(privKey);
+    setState(() {});
+  }
+
+  getPatientData() async {
+    await getData();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      print(credentials!.address);
+      patientModel = contractLinking.getUserData(credentials!.address);
+      setState(() {});
+    });
+  }
+
+  @override
+  void initState() {
+    getPatientData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

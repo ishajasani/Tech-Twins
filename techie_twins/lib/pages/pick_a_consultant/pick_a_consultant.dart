@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techie_twins/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 
 class PickAConsultant extends StatefulWidget {
@@ -55,13 +56,16 @@ class _PickAConsultantState extends State<PickAConsultant> {
           FloatingActionButton.extended(
               heroTag: "BTN1",
               icon: const Icon(Icons.home_outlined),
-              onPressed: () {},
+              onPressed: () => Navigator.pop(context),
               label: const Text("Home")),
           FloatingActionButton(
             elevation: 0,
             backgroundColor: Colors.black.withOpacity(.2),
             heroTag: "BTN2",
-            onPressed: () {},
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PaitentProfile())),
             child: const Icon(Icons.person_2_outlined),
           )
         ],

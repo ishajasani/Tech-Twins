@@ -1,27 +1,28 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:techie_twins/config/walletservice.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../constants.dart';
 
-class ContractLinking extends ChangeNotifier {
-  final String privateKey =
-      "005cef10e1b23162c2865c9a809dfac4d8b19e04be692d448944b814a5de4045";
-
-  Web3Client? _client;
+class ContractLinking {
+  String privateKey = "";
+  final Web3Client _client = Web3Client(rpcUrl, Client());
   bool isLoading = true;
 
   String? abiCode;
   EthereumAddress? contractAddress;
 
   Credentials? credentials;
+  WalletService walletServices = WalletService();
 
   DeployedContract? contract;
-  ContractFunction? _userdata;
-  ContractFunction? _setUserData;
+  ContractFunction? registerPatient;
+  ContractFunction? getPatientData;
+  ContractFunction? setPatientRecordCids;
+  ContractFunction? getPatientRecordCids;
 
   String? deployedName;
 
@@ -30,50 +31,71 @@ class ContractLinking extends ChangeNotifier {
   }
 
   setup() async {
-    _client = Web3Client(rpcUrl, Client());
+    await getData();
     await getAbi();
-    await getCredentials();
-    await getDeployedContract();
+    getCredentials();
+    getDeployedContract();
+  }
+
+  getData() async {
+    privateKey = await walletServices.getPrivateKey();
   }
 
   Future<void> getAbi() async {
-    String abiStringfile = await rootBundle.loadString(
-        "/Users/ishajasani/Desktop/Isha/GFG_TECHIE TWINS/Techie-Twins/src/abis/test.json");
+    String abiStringfile =
+        await rootBundle.loadString("src/abis/PatientRegistration.json");
     final jsonAbi = jsonDecode(abiStringfile);
     abiCode = jsonEncode(jsonAbi['abi']);
     contractAddress =
         EthereumAddress.fromHex(jsonAbi['networks']['5777']['address']);
-    // print(contractAddress);
   }
 
-  Future<void> getCredentials() async {
+  void getCredentials() {
     credentials = EthPrivateKey.fromHex(privateKey);
   }
 
-  Future<void> getDeployedContract() async {
+  void getDeployedContract() {
     contract = DeployedContract(
-        ContractAbi.fromJson(abiCode!, "test"), contractAddress!);
-    _userdata = contract!.function('userdata');
-    _setUserData = contract!.function('setUserData');
+        ContractAbi.fromJson(abiCode!, "PatientRegistration"),
+        contractAddress!);
+    registerPatient = contract!.function('registerPatient');
+    getPatientData = contract!.function('getPatient');
+    setPatientRecordCids = contract!.function('setPatientRecordCids');
+    getPatientRecordCids = contract!.function('getPatientRecordCids');
+    // print(contract);
   }
 
-  void setData(String username, EthereumAddress walletAdrress, String pin) async {
+  void regUser(String username, UintType age, UintType height, UintType weight,
+      String gender, String email, String phone, String profileUrl) async {
     isLoading = true;
-    notifyListeners();
-    await _client!.sendTransaction(
+    // notifyListeners();
+    await _client.sendTransaction(
         credentials!,
         Transaction.callContract(
             contract: contract!,
-            function: _setUserData!,
-            parameters: [username, walletAdrress, pin]));
+            function: registerPatient!,
+            parameters: [
+              username,
+              age,
+              height,
+              weight,
+              gender,
+              email,
+              phone,
+              profileUrl
+            ]));
   }
 
   getUserData(EthereumAddress walletAdrress) async {
-    // ignore: no_leading_underscores_for_local_identifiers
-    var _username = await _client!.call(
-        contract: contract!, function: _userdata!, params: [walletAdrress]);
-    deployedName = _username[0];
+    print("-----------------------------");
+    print(contract);
+    var patients = await _client.call(
+        contract: contract!,
+        function: getPatientData!,
+        params: [walletAdrress]);
+    deployedName = patients[0];
+    print(deployedName);
     isLoading = false;
-    notifyListeners();
+    // notifyListeners();
   }
 }

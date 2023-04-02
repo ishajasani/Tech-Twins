@@ -7,4 +7,4 @@ const consultantTileButtonColor = Color(0xFF16145B);
 const ipfsApiKey =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEYzMThkQmU4NzlFMTJBYjhFODE4MThBMmQ4MzEzN0QzMzEyNjM5NGUiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3OTc0NzUzNjUxMCwibmFtZSI6Ik1lZFZhdWx0In0.e42aSPGZU6VUKZEuyeJ3YWwgFqtapVNniBUPfvEa_Ro";
 const ipfsURL = 'https://ipfs.io/ipfs/';
-const rpcUrl = "HTTP://192.168.153.141:7545";
+const rpcUrl = "HTTP://192.168.43.59:7545";

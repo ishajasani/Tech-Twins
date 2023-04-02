@@ -1,17 +1,15 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:techie_twins/pages/authentication/createwallet.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 
-class Onboarding extends StatefulWidget {
-  const Onboarding({super.key});
+class OnBoarding extends StatefulWidget {
+  const OnBoarding({super.key});
 
   @override
-  State<Onboarding> createState() => _OnboardingState();
+  State<OnBoarding> createState() => _OnBoardingState();
 }
 
-class _OnboardingState extends State<Onboarding> {
+class _OnBoardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +32,8 @@ class _OnboardingState extends State<Onboarding> {
               ),
               Image.asset("assets/img2.png"),
               SizedBox(
-                width: MediaQuery.of(context).size.width/1.3,
-                child: Image.asset("assets/img1.png")),
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  child: Image.asset("assets/img1.png")),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 15,
               ),

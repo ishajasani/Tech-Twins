@@ -1,6 +1,7 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/pages/pick_a_consultant/pick_a_consultant.dart';
 import 'package:techie_twins/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 
@@ -13,7 +14,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final String _name = 'Tom';
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,14 +104,20 @@ class _HomeState extends State<Home> {
                     size: 30,
                   )),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const PickAConsultant()))),
                   icon: Icon(
                     Icons.local_hospital_outlined,
                     color: Colors.black.withOpacity(.2),
                     size: 30,
                   )),
               IconButton(
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const PaitentProfile())),
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PaitentProfile())),
                   icon: Icon(
                     Icons.person_outline_rounded,
                     color: Colors.black.withOpacity(.2),
