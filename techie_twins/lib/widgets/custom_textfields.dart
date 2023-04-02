@@ -72,3 +72,219 @@ class WalletPinTextField extends StatelessWidget {
     );
   }
 }
+
+class NameField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  const NameField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        hintText: hintText,
+        prefixIcon: Icon(
+          Icons.person_2_outlined,
+          color: Colors.black.withOpacity(.5),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}
+
+class WeightField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  const WeightField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        hintText: hintText,
+        prefixIcon: Icon(
+          Icons.line_weight_rounded,
+          color: Colors.black.withOpacity(.5),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}
+
+class HeightField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  const HeightField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        hintText: hintText,
+        prefixIcon: Icon(
+          Icons.height_outlined,
+          color: Colors.black.withOpacity(.5),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}
+
+class BloodField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  const BloodField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        hintText: hintText,
+        prefixIcon: Icon(
+          Icons.bloodtype_outlined,
+          color: Colors.black.withOpacity(.5),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}
+
+class AgeField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  const AgeField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        hintText: hintText,
+        prefixIcon: Icon(
+          Icons.numbers,
+          color: Colors.black.withOpacity(.5),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}
+
+class GenderField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  const GenderField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        hintText: hintText,
+        prefixIcon: Icon(
+          Icons.person_3,
+          color: Colors.black.withOpacity(.5),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}

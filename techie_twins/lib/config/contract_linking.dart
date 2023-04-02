@@ -65,7 +65,7 @@ class ContractLinking {
     // print(contract);
   }
 
-  void regUser(String username, UintType age, UintType height, UintType weight,
+  void regUser(String username, String age, String height, String weight,
       String gender, String email, String phone, String profileUrl) async {
     isLoading = true;
     // notifyListeners();
@@ -84,18 +84,18 @@ class ContractLinking {
               phone,
               profileUrl
             ]));
+    print("User Registered");
   }
 
   getUserData(EthereumAddress walletAdrress) async {
-    print("-----------------------------");
-    print(contract);
     var patients = await _client.call(
         contract: contract!,
         function: getPatientData!,
         params: [walletAdrress]);
-    deployedName = patients[0];
-    print(deployedName);
+    print('---------------------------');
+    print(patients[0]);
     isLoading = false;
+    return patients[0];
     // notifyListeners();
   }
 }
