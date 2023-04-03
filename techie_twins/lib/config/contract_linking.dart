@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:techie_twins/config/walletservice.dart';
+import 'package:techie_twins/models/patient_model.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../constants.dart';
@@ -23,6 +24,7 @@ class ContractLinking {
   ContractFunction? getPatientData;
   ContractFunction? setPatientRecordCids;
   ContractFunction? getPatientRecordCids;
+  int chainId = 1337;
 
   String? deployedName;
 
@@ -65,10 +67,11 @@ class ContractLinking {
     // print(contract);
   }
 
-  void regUser(String username, String age, String height, String weight,
+  regUser(String username, String age, String height, String weight,
       String gender, String email, String phone, String profileUrl) async {
     isLoading = true;
     // notifyListeners();
+
     await _client.sendTransaction(
         credentials!,
         Transaction.callContract(
@@ -83,19 +86,42 @@ class ContractLinking {
               email,
               phone,
               profileUrl
-            ]));
+            ]),
+        chainId: chainId);
     print("User Registered");
   }
 
-  getUserData(EthereumAddress walletAdrress) async {
-    var patients = await _client.call(
+  sendUserCid(String cid) async {
+    isLoading = true;
+    // notifyListeners();
+
+    await _client.sendTransaction(
+        credentials!,
+        Transaction.callContract(
+            contract: contract!,
+            function: setPatientRecordCids!,
+            parameters: [cid]),
+        chainId: chainId);
+    print("User Registered");
+  }
+
+  Future<List> getUserData(EthereumAddress walletAdrress) async {
+    List patients = await _client.call(
         contract: contract!,
         function: getPatientData!,
         params: [walletAdrress]);
+    print(patients);
+    return patients;
+    // notifyListeners();
+  }
+
+  getUserCid() async {
+    List patients = await _client
+        .call(contract: contract!, function: getPatientRecordCids!, params: []);
     print('---------------------------');
-    print(patients[0]);
+    print(patients);
     isLoading = false;
-    return patients[0];
+    return patients;
     // notifyListeners();
   }
 }

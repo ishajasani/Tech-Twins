@@ -17,7 +17,7 @@ class _EditDetailsState extends State<EditDetails> {
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   ContractLinking contractLinking = ContractLinking();
-  void sendData() {
+  sendData() {
     if (nameController.text.isNotEmpty &&
         weightController.text.isNotEmpty &&
         heightController.text.isNotEmpty &&
@@ -112,7 +112,7 @@ class _EditDetailsState extends State<EditDetails> {
           ),
           onPressed: () {
             sendData();
-            // Navigator.pop(context);
+            Navigator.pop(context);
           },
           label: const Text(
             "Save",

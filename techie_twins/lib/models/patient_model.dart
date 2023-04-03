@@ -1,10 +1,8 @@
-import 'package:web3dart/web3dart.dart';
-
 class PatientModel {
   final String name;
-  final UintType age;
-  final UintType height;
-  final UintType weight;
+  final String age;
+  final String height;
+  final String weight;
   final String gender;
   final String email;
   final String phone;

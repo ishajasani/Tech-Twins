@@ -2,7 +2,6 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking.dart';
 import 'package:techie_twins/config/walletservice.dart';
-import 'package:techie_twins/models/patient_model.dart';
 import 'package:techie_twins/pages/profile/edit_details.dart';
 import 'package:techie_twins/pages/profile/wallet_profile.dart';
 import 'package:web3dart/web3dart.dart';
@@ -18,7 +17,16 @@ class _PaitentProfileState extends State<PaitentProfile> {
   ContractLinking contractLinking = ContractLinking();
   WalletService walletService = WalletService();
   Credentials? credentials;
-  PatientModel? patientModel;
+  Future<List>? patientModel_;
+  String name = "";
+  String age = "";
+  String gender = "";
+  String email = "";
+  String phone = "";
+  String height = "";
+  String weight = "";
+  String profileUrl = "";
+
   getData() async {
     String privKey = await walletService.getPrivateKey();
     credentials = EthPrivateKey.fromHex(privKey);
@@ -27,27 +35,37 @@ class _PaitentProfileState extends State<PaitentProfile> {
 
   getPatientData() async {
     await getData();
-    Future.delayed(const Duration(milliseconds: 500), () {
-      print(credentials!.address);
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      patientModel_ = contractLinking.getUserData(credentials!.address);
+    });
 
-      contractLinking.getUserData(credentials!.address);
-      setState(() {});
+    setState(() {});
+  }
+
+  populateData() {
+    setState(() {
+      patientModel_!.then((value) {
+        name = value[0];
+        age = value[1];
+        gender = value[2];
+        email = value[3];
+        phone = value[4];
+        height = value[5];
+        weight = value[6];
+        profileUrl = value[7];
+      });
     });
   }
 
   @override
   void initState() {
-    getPatientData();
     super.initState();
+    getPatientData();
   }
-
-  UintType? age;
-  UintType? height;
-  UintType? weight;
-  // UintType? blood;
 
   @override
   Widget build(BuildContext context) {
+    populateData();
     return Scaffold(
         body: Container(
           margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
@@ -93,6 +111,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                                 Icon(
                                   Icons.wallet_outlined,
                                   color: Colors.white,
+                                  size: 20,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -118,7 +137,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Male: 24",
+                          "$gender: $age",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: MediaQuery.of(context).size.width / 20),
@@ -126,7 +145,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 3,
                           child: Text(
-                            "Jackson Da Vinci",
+                            name,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -139,18 +158,27 @@ class _PaitentProfileState extends State<PaitentProfile> {
                   ),
                   Positioned(
                     top: MediaQuery.of(context).size.height / 2.5,
-                    child: Row(
-                      children: const [
-                        HeightTile(),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        WeightTile(),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        BloodTile()
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Row(
+                        children: [
+                          HeightTile(
+                            height: height,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          WeightTile(
+                            weight: weight,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const BloodTile(
+                            blood: "b",
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -243,14 +271,16 @@ class _PaitentProfileState extends State<PaitentProfile> {
 }
 
 class HeightTile extends StatelessWidget {
+  final String height;
   const HeightTile({
     super.key,
+    required this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlurryContainer(
-        elevation: 1,
+        // elevation: 1,
         width: 110,
         height: 120,
         color: Colors.black.withOpacity(.2),
@@ -258,21 +288,21 @@ class HeightTile extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Height",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.normal),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
-                "189",
-                style: TextStyle(
+                height,
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
-              Text(
+              const Text(
                 "CM",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.normal),
@@ -284,14 +314,16 @@ class HeightTile extends StatelessWidget {
 }
 
 class WeightTile extends StatelessWidget {
+  final String weight;
   const WeightTile({
     super.key,
+    required this.weight,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlurryContainer(
-        elevation: 1,
+        // elevation: 1,
         width: 110,
         height: 120,
         color: Colors.black.withOpacity(.2),
@@ -299,21 +331,21 @@ class WeightTile extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Weight",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.normal),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
-                "77",
-                style: TextStyle(
+                weight,
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
-              Text(
+              const Text(
                 "KG",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.normal),
@@ -325,14 +357,16 @@ class WeightTile extends StatelessWidget {
 }
 
 class BloodTile extends StatelessWidget {
+  final String blood;
   const BloodTile({
     super.key,
+    required this.blood,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlurryContainer(
-        elevation: 1,
+        // elevation: 1,
         width: 110,
         height: 120,
         color: Colors.black.withOpacity(.2),
@@ -340,21 +374,21 @@ class BloodTile extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Blood",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.normal),
               ),
-              Spacer(),
+              const Spacer(),
               Text(
-                "B",
-                style: TextStyle(
+                blood,
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
-              Text(
+              const Text(
                 "+VE",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.normal),

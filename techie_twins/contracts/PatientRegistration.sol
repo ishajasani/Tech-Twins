@@ -28,19 +28,20 @@ contract PatientRegistration {
         string memory phone,
         string memory profileImageURL
     ) public {
-        Patient storage patient = patients[msg.sender];
-        patient.name = name;
-        patient.age = age;
-        patient.gender = gender;
-        patient.email = email;
-        patient.height = height;
-        patient.weight = weight;
-        patient.phone = phone;
-        patient.profileImageURL = profileImageURL;
+        patients[msg.sender].name = name;
+        patients[msg.sender].age = age;
+        patients[msg.sender].gender = gender;
+        patients[msg.sender].email = email;
+        patients[msg.sender].height = height;
+        patients[msg.sender].weight = weight;
+        patients[msg.sender].phone = phone;
+        patients[msg.sender].profileImageURL = profileImageURL;
         emit PatientRegistered(msg.sender, name);
     }
 
-    function getPatient(address patientAddress)
+    function getPatient(
+        address patientAddress
+    )
         public
         view
         returns (
@@ -67,13 +68,11 @@ contract PatientRegistration {
         );
     }
 
-    function setPatientRecordCids(string memory cid) public
-    {
+    function setPatientRecordCids(string memory cid) public {
         patients[msg.sender].recordCids.push(cid);
     }
 
-    function getPatientRecordCids() public view returns (string[] memory cid_)
-    {
+    function getPatientRecordCids() public view returns (string[] memory cid_) {
         cid_ = patients[msg.sender].recordCids;
     }
 }
