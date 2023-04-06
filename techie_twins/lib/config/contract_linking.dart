@@ -1,14 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:techie_twins/config/walletservice.dart';
-import 'package:techie_twins/models/patient_model.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../constants.dart';
 
-class ContractLinking {
+class ContractLinking extends ChangeNotifier {
   String privateKey = "";
   final Web3Client _client = Web3Client(rpcUrl, Client());
   bool isLoading = true;
@@ -70,7 +70,6 @@ class ContractLinking {
   regUser(String username, String age, String height, String weight,
       String gender, String email, String phone, String profileUrl) async {
     isLoading = true;
-    // notifyListeners();
 
     await _client.sendTransaction(
         credentials!,
@@ -88,12 +87,15 @@ class ContractLinking {
               profileUrl
             ]),
         chainId: chainId);
-    print("User Registered");
+    if (kDebugMode) {
+      print("User Registered");
+    }
+    notifyListeners();
   }
 
   sendUserCid(String cid) async {
     isLoading = true;
-    // notifyListeners();
+    notifyListeners();
 
     await _client.sendTransaction(
         credentials!,
@@ -102,7 +104,9 @@ class ContractLinking {
             function: setPatientRecordCids!,
             parameters: [cid]),
         chainId: chainId);
-    print("User Registered");
+    if (kDebugMode) {
+      print("User Registered");
+    }
   }
 
   Future<List> getUserData(EthereumAddress walletAdrress) async {
@@ -110,18 +114,22 @@ class ContractLinking {
         contract: contract!,
         function: getPatientData!,
         params: [walletAdrress]);
-    print(patients);
+    if (kDebugMode) {
+      print(patients);
+    }
+    notifyListeners();
     return patients;
-    // notifyListeners();
   }
 
   getUserCid() async {
     List patients = await _client
         .call(contract: contract!, function: getPatientRecordCids!, params: []);
-    print('---------------------------');
+    if (kDebugMode) {
+      print('---------------------------');
     print(patients);
+    }
     isLoading = false;
+    notifyListeners();
     return patients;
-    // notifyListeners();
   }
 }

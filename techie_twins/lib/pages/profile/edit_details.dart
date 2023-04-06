@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:techie_twins/config/contract_linking.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
 
@@ -16,28 +17,12 @@ class _EditDetailsState extends State<EditDetails> {
   TextEditingController bloodController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController = TextEditingController();
-  ContractLinking contractLinking = ContractLinking();
-  sendData() {
-    if (nameController.text.isNotEmpty &&
-        weightController.text.isNotEmpty &&
-        heightController.text.isNotEmpty &&
-        bloodController.text.isNotEmpty &&
-        ageController.text.isNotEmpty &&
-        genderController.text.isNotEmpty) {
-      contractLinking.regUser(
-          nameController.text,
-          ageController.text,
-          heightController.text,
-          weightController.text,
-          genderController.text,
-          "",
-          "",
-          "");
-    }
-  }
+  // ContractLinking contractLinking = ContractLinking();
+  sendData() {}
 
   @override
   Widget build(BuildContext context) {
+    var contractLinking = Provider.of<ContractLinking>(context);
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -111,7 +96,22 @@ class _EditDetailsState extends State<EditDetails> {
             color: Colors.black,
           ),
           onPressed: () {
-            sendData();
+            if (nameController.text.isNotEmpty &&
+                weightController.text.isNotEmpty &&
+                heightController.text.isNotEmpty &&
+                bloodController.text.isNotEmpty &&
+                ageController.text.isNotEmpty &&
+                genderController.text.isNotEmpty) {
+              contractLinking.regUser(
+                  nameController.text,
+                  ageController.text,
+                  heightController.text,
+                  weightController.text,
+                  genderController.text,
+                  "",
+                  "",
+                  "");
+            }
             Navigator.pop(context);
           },
           label: const Text(

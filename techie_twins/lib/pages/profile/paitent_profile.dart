@@ -1,5 +1,6 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:techie_twins/config/contract_linking.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/pages/profile/edit_details.dart';
@@ -35,15 +36,17 @@ class _PaitentProfileState extends State<PaitentProfile> {
 
   getPatientData() async {
     await getData();
+
     Future.delayed(const Duration(milliseconds: 1000), () {
       patientModel_ = contractLinking.getUserData(credentials!.address);
     });
+    populateData();
 
     setState(() {});
   }
 
   populateData() {
-    setState(() {
+    Future.delayed(const Duration(milliseconds: 500), () {
       patientModel_!.then((value) {
         name = value[0];
         age = value[1];
@@ -55,6 +58,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
         profileUrl = value[7];
       });
     });
+    setState(() {});
   }
 
   @override
@@ -65,7 +69,6 @@ class _PaitentProfileState extends State<PaitentProfile> {
 
   @override
   Widget build(BuildContext context) {
-    populateData();
     return Scaffold(
         body: Container(
           margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
