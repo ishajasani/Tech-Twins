@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
-import 'package:provider/provider.dart';
-import 'package:techie_twins/config/contract_linking.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/widgets/custom_transaction_tile.dart';
 import 'package:web3dart/web3dart.dart';
@@ -11,7 +9,8 @@ import 'package:web3dart/web3dart.dart';
 import '../../constants.dart';
 
 class WalletProfile extends StatefulWidget {
-  const WalletProfile({super.key});
+  final String imageUrl, name;
+  const WalletProfile({super.key, required this.imageUrl, required this.name});
 
   @override
   State<WalletProfile> createState() => _WalletProfileState();
@@ -26,11 +25,6 @@ class _WalletProfileState extends State<WalletProfile> {
 
   double accountBalance = 0;
   WalletProvider walletProvider = WalletProvider();
-
-  // _openUrl(String url) async {
-  //   await canLaunchUrl(Uri.parse(url));
-  //   await Future.delayed(const Duration(seconds: 2));
-  // }
 
   getUserData() async {
     await walletProvider.initializeWallet();
@@ -72,16 +66,16 @@ class _WalletProfileState extends State<WalletProfile> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 8,
                 ),
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 50,
-                  child: Icon(Icons.person),
+                  backgroundImage: NetworkImage(widget.imageUrl),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  "Tim David",
-                  style: TextStyle(
+                Text(
+                  widget.name,
+                  style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),

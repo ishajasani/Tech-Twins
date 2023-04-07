@@ -120,8 +120,10 @@ class _PaitentProfileState extends State<PaitentProfile> {
                               onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const WalletProfile())),
+                                      builder: (context) => WalletProfile(
+                                            imageUrl: ipfsURL + profileUrl,
+                                            name: name,
+                                          ))),
                               child: BlurryContainer(
                                 borderRadius: BorderRadius.circular(25),
                                 width: MediaQuery.of(context).size.width / 3.6,
