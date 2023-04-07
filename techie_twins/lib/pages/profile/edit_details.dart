@@ -1,6 +1,12 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techie_twins/config/contract_linking.dart';
+import 'package:techie_twins/config/ipfs_service.dart';
+import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
 
 class EditDetails extends StatefulWidget {
@@ -17,8 +23,23 @@ class _EditDetailsState extends State<EditDetails> {
   TextEditingController bloodController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController = TextEditingController();
-  // ContractLinking contractLinking = ContractLinking();
-  sendData() {}
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  String path = "";
+  bool isSelected = false;
+  pickFiles() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      path = file.path;
+      if (kDebugMode) {
+        print(file.path);
+      }
+      setState(() {
+        isSelected = true;
+      });
+    } else {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +103,30 @@ class _EditDetailsState extends State<EditDetails> {
               GenderField(
                   controller: genderController,
                   hintText: "Male",
-                  labelText: "Gender")
+                  labelText: "Gender"),
+              const SizedBox(
+                height: 10,
+              ),
+              PhoneField(
+                  controller: phoneController,
+                  hintText: "1234567890",
+                  labelText: "Phone"),
+              const SizedBox(
+                height: 10,
+              ),
+              EmailField(
+                  controller: emailController,
+                  hintText: "example@gmail.com",
+                  labelText: "Email"),
+              const SizedBox(
+                height: 10,
+              ),
+              DefaultButton(
+                  text: "Image Selected: $isSelected",
+                  onPress: () async {
+                    await pickFiles();
+                  }),
+              const SizedBox(height: 20)
             ],
           ),
         ),
@@ -95,22 +139,28 @@ class _EditDetailsState extends State<EditDetails> {
             Icons.save_as_outlined,
             color: Colors.black,
           ),
-          onPressed: () {
+          onPressed: () async {
             if (nameController.text.isNotEmpty &&
                 weightController.text.isNotEmpty &&
                 heightController.text.isNotEmpty &&
                 bloodController.text.isNotEmpty &&
                 ageController.text.isNotEmpty &&
-                genderController.text.isNotEmpty) {
+                genderController.text.isNotEmpty &&
+                emailController.text.isNotEmpty &&
+                phoneController.text.isNotEmpty && path != "") {
+              IpfsService ipfsService = IpfsService();
+              String cid = await ipfsService.uploadImage(path);
+              print(cid);
               contractLinking.regUser(
                   nameController.text,
+                  bloodController.text,
                   ageController.text,
                   heightController.text,
                   weightController.text,
                   genderController.text,
-                  "",
-                  "",
-                  "");
+                  emailController.text,
+                  phoneController.text,
+                  cid);
             }
             Navigator.pop(context);
           },

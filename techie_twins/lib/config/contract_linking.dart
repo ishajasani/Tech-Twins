@@ -67,7 +67,7 @@ class ContractLinking extends ChangeNotifier {
     // print(contract);
   }
 
-  regUser(String username, String age, String height, String weight,
+  regUser(String username, String blood, String age, String height, String weight,
       String gender, String email, String phone, String profileUrl) async {
     isLoading = true;
 
@@ -78,6 +78,7 @@ class ContractLinking extends ChangeNotifier {
             function: registerPatient!,
             parameters: [
               username,
+              blood,
               age,
               height,
               weight,

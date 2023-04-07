@@ -288,3 +288,77 @@ class GenderField extends StatelessWidget {
     );
   }
 }
+
+class EmailField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  const EmailField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        hintText: hintText,
+        prefixIcon: Icon(
+          Icons.email_outlined,
+          color: Colors.black.withOpacity(.5),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}
+
+
+class PhoneField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  const PhoneField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.labelText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        hintText: hintText,
+        prefixIcon: Icon(
+          Icons.phone,
+          color: Colors.black.withOpacity(.5),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(.5)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            borderRadius: BorderRadius.circular(20)),
+      ),
+    );
+  }
+}
+

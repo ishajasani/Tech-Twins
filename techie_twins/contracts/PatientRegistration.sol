@@ -4,6 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 contract PatientRegistration {
     struct Patient {
         string name;
+        string blood;
         string age;
         string gender;
         string email;
@@ -20,6 +21,7 @@ contract PatientRegistration {
 
     function registerPatient(
         string memory name,
+        string memory blood,
         string memory age,
         string memory height,
         string memory weight,
@@ -29,6 +31,7 @@ contract PatientRegistration {
         string memory profileImageURL
     ) public {
         patients[msg.sender].name = name;
+        patients[msg.sender].blood = blood;
         patients[msg.sender].age = age;
         patients[msg.sender].gender = gender;
         patients[msg.sender].email = email;
@@ -46,6 +49,7 @@ contract PatientRegistration {
         view
         returns (
             string memory name,
+            string memory blood,
             string memory age,
             string memory height,
             string memory weight,
@@ -58,6 +62,7 @@ contract PatientRegistration {
         Patient memory patient = patients[patientAddress];
         return (
             patient.name,
+            patient.blood,
             patient.age,
             patient.height,
             patient.weight,

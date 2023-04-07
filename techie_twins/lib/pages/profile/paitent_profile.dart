@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:techie_twins/config/contract_linking.dart';
 import 'package:techie_twins/config/walletservice.dart';
+import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/pages/profile/edit_details.dart';
 import 'package:techie_twins/pages/profile/wallet_profile.dart';
 import 'package:web3dart/web3dart.dart';
@@ -19,14 +23,17 @@ class _PaitentProfileState extends State<PaitentProfile> {
   WalletService walletService = WalletService();
   Credentials? credentials;
   Future<List>? patientModel_;
-  String name = "";
-  String age = "";
-  String gender = "";
+  String name = "Mohit";
+  String age = "21";
+  String gender = "male";
   String email = "";
   String phone = "";
   String height = "";
   String weight = "";
   String profileUrl = "";
+  String blood = "";
+  bool isSelected = false;
+  String path = "";
 
   getData() async {
     String privKey = await walletService.getPrivateKey();
@@ -34,30 +41,33 @@ class _PaitentProfileState extends State<PaitentProfile> {
     setState(() {});
   }
 
+  bool isFetching = false;
+
   getPatientData() async {
     await getData();
-
+    isFetching = true;
     Future.delayed(const Duration(milliseconds: 1000), () {
       patientModel_ = contractLinking.getUserData(credentials!.address);
+      populateData();
     });
-    populateData();
-
-    setState(() {});
+    setState(() {
+      isFetching = false;
+    });
   }
 
-  populateData() {
-    Future.delayed(const Duration(milliseconds: 500), () {
-      patientModel_!.then((value) {
-        name = value[0];
-        age = value[1];
-        gender = value[2];
-        email = value[3];
-        phone = value[4];
-        height = value[5];
-        weight = value[6];
-        profileUrl = value[7];
-      });
+  populateData() async {
+    await patientModel_!.then((value) {
+      name = value[0];
+      blood = value[1];
+      age = value[2];
+      gender = value[5];
+      email = value[6];
+      phone = value[7];
+      height = value[3];
+      weight = value[4];
+      profileUrl = value[8];
     });
+
     setState(() {});
   }
 
@@ -77,115 +87,127 @@ class _PaitentProfileState extends State<PaitentProfile> {
               SizedBox(
                   width: MediaQuery.of(context).size.width / 1.2,
                   child: Text(
-                    "create or edit your profile",
+                    "Your profile",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: MediaQuery.of(context).size.width / 10),
                   )),
-              Stack(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 15, bottom: 120),
-                    height: MediaQuery.of(context).size.height / 2.5,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(30)),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const WalletProfile())),
-                        child: BlurryContainer(
-                          borderRadius: BorderRadius.circular(25),
-                          width: MediaQuery.of(context).size.width / 3.6,
-                          blur: 5,
-                          color: Colors.black.withOpacity(.2),
+              isFetching
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Stack(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 15, bottom: 120),
+                          height: MediaQuery.of(context).size.height / 2.5,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    ipfsURL + profileUrl ?? imageUrl),
+                              ),
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(30)),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
                           child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: const [
-                                Icon(
-                                  Icons.wallet_outlined,
-                                  color: Colors.white,
-                                  size: 20,
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: GestureDetector(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const WalletProfile())),
+                              child: BlurryContainer(
+                                borderRadius: BorderRadius.circular(25),
+                                width: MediaQuery.of(context).size.width / 3.6,
+                                blur: 5,
+                                color: Colors.black.withOpacity(.2),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Row(
+                                    children: const [
+                                      Icon(
+                                        Icons.wallet_outlined,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "Wallet",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "Wallet",
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: MediaQuery.of(context).size.height / 3.9,
+                          left: 30,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "$gender: $age",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width / 20),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Text(
+                                  name,
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              15),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          top: MediaQuery.of(context).size.height / 2.5,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Row(
+                              children: [
+                                HeightTile(
+                                  height: height,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                WeightTile(
+                                  weight: weight,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                BloodTile(
+                                  blood: blood,
                                 )
                               ],
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height / 3.7,
-                    left: 30,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "$gender: $age",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: MediaQuery.of(context).size.width / 20),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Text(
-                            name,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize:
-                                    MediaQuery.of(context).size.width / 15),
-                          ),
                         )
                       ],
                     ),
-                  ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height / 2.5,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Row(
-                        children: [
-                          HeightTile(
-                            height: height,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          WeightTile(
-                            weight: weight,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const BloodTile(
-                            blood: "b",
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
