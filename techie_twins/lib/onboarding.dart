@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techie_twins/pages/authentication/createwallet.dart';
+import 'package:techie_twins/mobile/pages/authentication/createwallet.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 
 class OnBoarding extends StatefulWidget {

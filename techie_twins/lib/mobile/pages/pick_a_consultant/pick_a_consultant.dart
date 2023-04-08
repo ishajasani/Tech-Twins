@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techie_twins/pages/profile/paitent_profile.dart';
+import 'package:techie_twins/mobile/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 
 class PickAConsultant extends StatefulWidget {

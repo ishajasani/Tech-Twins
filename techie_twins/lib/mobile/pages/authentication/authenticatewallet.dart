@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/walletprovider.dart';
-import 'package:techie_twins/pages/home/home.dart';
+import 'package:techie_twins/mobile/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
 

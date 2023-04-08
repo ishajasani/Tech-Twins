@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/constants.dart';
-import 'package:techie_twins/pages/profile/edit_details.dart';
-import 'package:techie_twins/pages/profile/wallet_profile.dart';
+import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
+import 'package:techie_twins/mobile/pages/profile/wallet_profile.dart';
 import 'package:web3dart/web3dart.dart';
 
 class PaitentProfile extends StatefulWidget {

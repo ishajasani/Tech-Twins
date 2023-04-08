@@ -6,7 +6,7 @@ import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/widgets/custom_transaction_tile.dart';
 import 'package:web3dart/web3dart.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class WalletProfile extends StatefulWidget {
   final String imageUrl, name;
