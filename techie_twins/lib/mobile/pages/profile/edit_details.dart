@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techie_twins/config/patient_contract_linking.dart';
+import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
@@ -163,6 +163,7 @@ class _EditDetailsState extends State<EditDetails> {
                   phoneController.text,
                   cid);
             }
+            // ignore: use_build_context_synchronously
             Navigator.pop(context);
           },
           label: const Text(
