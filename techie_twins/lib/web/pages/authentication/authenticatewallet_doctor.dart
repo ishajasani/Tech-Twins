@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/walletprovider.dart';
+import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
+import 'package:techie_twins/web/edit_details_doctors.dart';
 import 'package:techie_twins/web/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
@@ -20,7 +22,7 @@ class _AuthenticateWalletDoctorState extends State<AuthenticateWalletDoctor> {
     if (isValid) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Home()));
+          context, MaterialPageRoute(builder: (context) => const EditDetailsDoctor()));
     } else {
       if (kDebugMode) {
         print("Invalid Key");

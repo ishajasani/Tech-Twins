@@ -178,3 +178,126 @@ class ConsultantTile extends StatelessWidget {
     );
   }
 }
+
+class PatientTreatedInfoTile extends StatelessWidget {
+  final String patients;
+  const PatientTreatedInfoTile({
+    super.key,
+    required this.patients,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      decoration: BoxDecoration(
+          color: Colors.black54, borderRadius: BorderRadius.circular(22)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Patients",
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            ),
+            Text(
+              "$patients +",
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: Colors.white),
+            ),
+            const Text(
+              "treated",
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ExpInfoTile extends StatelessWidget {
+  final String years;
+  const ExpInfoTile({
+    super.key,
+    required this.years,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      decoration: BoxDecoration(
+          color: Colors.black54, borderRadius: BorderRadius.circular(22)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Exp",
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            ),
+            Text(
+              "$years +",
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: Colors.white),
+            ),
+            const Text(
+              "years",
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RatingInfoTile extends StatelessWidget {
+  final String stars;
+  const RatingInfoTile({
+    super.key,
+    required this.stars,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      decoration: BoxDecoration(
+          color: Colors.black54, borderRadius: BorderRadius.circular(22)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Rating",
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            ),
+            Text(
+              stars,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: Colors.white),
+            ),
+            const Text(
+              "stars",
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

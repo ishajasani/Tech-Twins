@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
+import 'package:techie_twins/web/edit_details_doctors.dart';
 import 'package:techie_twins/web/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:web3dart/web3dart.dart';
@@ -146,7 +147,7 @@ class NewWalletDoctorState extends State<NewWalletDoctor> {
             ),
             TextButton(
                 onPressed: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Home())),
+                    MaterialPageRoute(builder: (context) => const EditDetailsDoctor())),
                 child: const Text(
                   "Skip for now!!",
                   style: TextStyle(
