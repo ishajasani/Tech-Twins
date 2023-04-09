@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
 
@@ -47,7 +46,7 @@ class DefaultButtonWhite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:onPress,
+      onTap: onPress,
       child: Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -93,6 +92,40 @@ class OutlinedButtonWhite extends StatelessWidget {
           child: Text(
             text,
             style: const TextStyle(fontSize: 25, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class OutlinedButtonBlack extends StatelessWidget {
+  final String text;
+  final Function onPress;
+  const OutlinedButtonBlack({
+    super.key,
+    required this.text,
+    required this.onPress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onPress();
+      },
+      child: Container(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            border: Border.all(
+              color: Colors.black,
+            )),
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 25, color: Colors.black),
           ),
         ),
       ),

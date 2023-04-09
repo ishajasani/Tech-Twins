@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techie_twins/config/contract_linking.dart';
+import 'package:techie_twins/config/patient_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
@@ -43,7 +43,7 @@ class _EditDetailsState extends State<EditDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var contractLinking = Provider.of<ContractLinking>(context);
+    var contractLinking = Provider.of<PatientContractLinking>(context);
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -147,7 +147,8 @@ class _EditDetailsState extends State<EditDetails> {
                 ageController.text.isNotEmpty &&
                 genderController.text.isNotEmpty &&
                 emailController.text.isNotEmpty &&
-                phoneController.text.isNotEmpty && path != "") {
+                phoneController.text.isNotEmpty &&
+                path != "") {
               IpfsService ipfsService = IpfsService();
               String cid = await ipfsService.uploadImage(path);
               print(cid);

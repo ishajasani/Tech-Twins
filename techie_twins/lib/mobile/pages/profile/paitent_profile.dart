@@ -4,7 +4,7 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:techie_twins/config/contract_linking.dart';
+import 'package:techie_twins/config/patient_contract_linking.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
@@ -19,7 +19,7 @@ class PaitentProfile extends StatefulWidget {
 }
 
 class _PaitentProfileState extends State<PaitentProfile> {
-  ContractLinking contractLinking = ContractLinking();
+  PatientContractLinking contractLinking = PatientContractLinking();
   WalletService walletService = WalletService();
   Credentials? credentials;
   Future<List>? patientModel_;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/web/pages/authentication/walletcreate_doctor.dart';
 
 class OnBoardingWeb extends StatefulWidget {
   const OnBoardingWeb({super.key});
@@ -84,9 +85,9 @@ class _OnBoardingWebState extends State<OnBoardingWeb> {
                       const SizedBox(
                         height: 70,
                       ),
-                      const Image(
-                        height: 400,
-                        image: AssetImage('assets/heart.png'),
+                      Image(
+                        width: MediaQuery.of(context).size.width / 5,
+                        image: const AssetImage('assets/heart.png'),
                       )
                     ],
                   ),
@@ -114,23 +115,46 @@ class _OnBoardingWebState extends State<OnBoardingWeb> {
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width / 2.5,
-                child: Text(
-                  "When creativity meets technology",
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                      height: 1,
-                      fontSize: MediaQuery.of(context).size.width / 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      fixedSize: const Size(300, 70),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      side: const BorderSide(width: 2, color: Colors.black),
+                    ),
+                    onPressed: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) =>
+                                  const WalletCreateDoctor())),
+                        ),
+                    child: const Text(
+                      "Get Started",
+                      style: TextStyle(color: Colors.black, fontSize: 30),
+                    )),
+              ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  child: Text(
+                    "When creativity meets technology",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        height: 1,
+                        fontSize: MediaQuery.of(context).size.width / 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
                 ),
               ),
-            ),
+            ],
           )
         ],
       ),

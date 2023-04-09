@@ -8,7 +8,7 @@ import 'package:web3dart/web3dart.dart';
 
 import '../constants.dart';
 
-class ContractLinking extends ChangeNotifier {
+class PatientContractLinking extends ChangeNotifier {
   String privateKey = "";
   final Web3Client _client = Web3Client(rpcUrl, Client());
   bool isLoading = true;
@@ -28,7 +28,7 @@ class ContractLinking extends ChangeNotifier {
 
   String? deployedName;
 
-  ContractLinking() {
+  PatientContractLinking() {
     setup();
   }
 
@@ -67,8 +67,16 @@ class ContractLinking extends ChangeNotifier {
     // print(contract);
   }
 
-  regUser(String username, String blood, String age, String height, String weight,
-      String gender, String email, String phone, String profileUrl) async {
+  regUser(
+      String username,
+      String blood,
+      String age,
+      String height,
+      String weight,
+      String gender,
+      String email,
+      String phone,
+      String profileUrl) async {
     isLoading = true;
 
     await _client.sendTransaction(
@@ -127,7 +135,7 @@ class ContractLinking extends ChangeNotifier {
         .call(contract: contract!, function: getPatientRecordCids!, params: []);
     if (kDebugMode) {
       print('---------------------------');
-    print(patients);
+      print(patients);
     }
     isLoading = false;
     notifyListeners();
