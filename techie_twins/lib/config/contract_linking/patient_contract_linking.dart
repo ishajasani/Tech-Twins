@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:web3dart/web3dart.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 
 class PatientContractLinking extends ChangeNotifier {
   String privateKey = "";

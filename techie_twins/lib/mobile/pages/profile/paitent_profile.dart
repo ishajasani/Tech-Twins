@@ -1,10 +1,7 @@
-import 'dart:io';
 
 import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:techie_twins/config/patient_contract_linking.dart';
+import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
@@ -107,7 +104,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                               image: DecorationImage(
                                 fit: BoxFit.cover,
                                 image: NetworkImage(
-                                    ipfsURL + profileUrl ?? imageUrl),
+                                    ipfsURL + profileUrl),
                               ),
                               color: Colors.blue,
                               borderRadius: BorderRadius.circular(30)),
