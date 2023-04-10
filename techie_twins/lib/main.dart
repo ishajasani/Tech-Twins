@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
 import 'package:techie_twins/mobile/pages/onboarding.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -17,10 +18,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if (kIsWeb) {
       return ChangeNotifierProvider(
-        create: (context) => PatientContractLinking(),
+        create: (context) => DoctorContractLinking(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: "Flutter Dapp",
+          title: "MedVault",
           theme: ThemeData(
               primarySwatch: Colors.blue,
               textTheme: GoogleFonts.poppinsTextTheme()),
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         create: (context) => PatientContractLinking(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: "Flutter Dapp",
+          title: "MedVault",
           theme: ThemeData(
               primarySwatch: Colors.blue,
               textTheme: GoogleFonts.poppinsTextTheme()),

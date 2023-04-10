@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
@@ -17,6 +19,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     getUserData();
+
     super.initState();
   }
 
@@ -33,9 +36,50 @@ class _HomeState extends State<Home> {
       print("Balance: $accountBalance");
       print(walletProvider.ethereumAddress);
     }
+    getDetails();
     setState(() {});
   }
 
+  DoctorContractLinking contractLinking = DoctorContractLinking();
+  Credentials? credentials;
+  Future<List>? patientModel_;
+  String name = "Mohit";
+  String exp = "21";
+  String gender = "male";
+  String email = "";
+  String about = "";
+  String rating = "";
+  String profileUrl = "";
+  String patientCount = "";
+  getDetails() async {
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      patientModel_ =
+          contractLinking.getDoctorData(walletProvider.ethereumAddress!);
+      populateData();
+    });
+    setState(() {
+      // isFetching = false;
+    });
+  }
+
+  populateData() async {
+    await patientModel_!.then((value) {
+      name = value[0];
+      patientCount = value[1];
+      exp = value[2];
+      gender = value[3];
+      rating = value[4];
+      email = value[5];
+      about = value[6];
+      profileUrl = value[7];
+    });
+    buildUrl = ipfsURL + profileUrl;
+    print('------------------');
+    print(buildUrl);
+    setState(() {});
+  }
+
+  String buildUrl = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,10 +113,12 @@ class _HomeState extends State<Home> {
                       height: MediaQuery.of(context).size.height / 2.5,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          image: const DecorationImage(
+                          image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"))),
+                              image: profileUrl == ""
+                                  ? const NetworkImage(
+                                      "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80")
+                                  : NetworkImage(buildUrl))),
                     ),
                     const SizedBox(
                       width: 20,
@@ -86,18 +132,18 @@ class _HomeState extends State<Home> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 PatientTreatedInfoTile(
-                                  patients: '123',
+                                  patients: patientCount,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                 ),
-                                ExpInfoTile(years: "3"),
-                                SizedBox(
+                                ExpInfoTile(years: exp),
+                                const SizedBox(
                                   width: 20,
                                 ),
-                                RatingInfoTile(stars: "5")
+                                RatingInfoTile(stars: rating)
                               ],
                             ),
                             const Text(
@@ -105,11 +151,11 @@ class _HomeState extends State<Home> {
                               style: TextStyle(
                                   fontSize: 40, fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(
+                            SizedBox(
                                 width: 400,
                                 child: Text(
-                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                                  style: TextStyle(
+                                  about,
+                                  style: const TextStyle(
                                     fontSize: 20,
                                   ),
                                 )),

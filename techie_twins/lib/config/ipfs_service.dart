@@ -44,13 +44,46 @@ class IpfsService {
       final response = await http.get(Uri.parse(ipfsURL + cid));
       if (kDebugMode) {
         print("........................................");
-      print(response.body);
-      print("........................................");
+        // print(response.body);
+        print("........................................");
       }
       return response;
     } catch (e) {
       debugPrint('Error at IPFS Service - getImage: $e');
 
+      rethrow;
+    }
+  }
+
+  Future<String> uploadImageWeb(Uint8List bytes) async {
+    try {
+      // final bytes = File(imgPath).readAsBytesSync();
+
+      final response = await http.post(
+        Uri.parse('https://api.nft.storage/upload'),
+        headers: {
+          'Authorization': 'Bearer $ipfsApiKey',
+          'content-type': 'image/*'
+        },
+        body: bytes,
+      );
+
+      final data = jsonDecode(response.body);
+
+      final cid = data['value']['cid'];
+
+      if (kDebugMode) {
+        print('CID OF IMAGE -> $cid');
+        getImage(cid);
+      }
+      if (kDebugMode) {
+        print('CID: $cid');
+      }
+      return cid;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error at IPFS Service - uploadImage: $e');
+      }
       rethrow;
     }
   }

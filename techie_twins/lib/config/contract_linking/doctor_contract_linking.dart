@@ -55,22 +55,14 @@ class DoctorContractLinking extends ChangeNotifier {
 
   void getDeployedContract() {
     contract = DeployedContract(
-        ContractAbi.fromJson(abiCode!, "DoctorInfo"),
-        contractAddress!);
+        ContractAbi.fromJson(abiCode!, "DoctorInfo"), contractAddress!);
     registerDoctor = contract!.function('registerDoctor');
     getDoctorInfo = contract!.function('getDoctorInfo');
     print(contract);
   }
 
-  regDoctor(
-      String name,
-      String patientCount,
-      String experience,
-      String gender,
-      String rating,
-      String email,
-      String about,
-      String profileImageURL) async {
+  regDoctor(String name, String patientCount, String experience, String gender,
+      String rating, String email, String about, String profileImageURL) async {
     isLoading = true;
 
     await _client.sendTransaction(
@@ -97,9 +89,7 @@ class DoctorContractLinking extends ChangeNotifier {
 
   Future<List> getDoctorData(EthereumAddress walletAdrress) async {
     List doctors = await _client.call(
-        contract: contract!,
-        function: getDoctorInfo!,
-        params: [walletAdrress]);
+        contract: contract!, function: getDoctorInfo!, params: [walletAdrress]);
     if (kDebugMode) {
       print(doctors);
     }

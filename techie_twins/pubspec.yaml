@@ -72,6 +72,8 @@ flutter:
     - assets/
     - assets/animations/
     - src/abis/PatientRegistration.json
+    - src/abis/DoctorInfo.json
+    - src/abis/LaboratoryInfo.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
