@@ -1,28 +1,29 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/walletprovider.dart';
-import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
-import 'package:techie_twins/web/edit_details_doctors.dart';
-import 'package:techie_twins/web/pages/home/home.dart';
+import 'package:techie_twins/web/laboratory/pages/edit_details_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
 
-class AuthenticateWalletDoctor extends StatefulWidget {
-  const AuthenticateWalletDoctor({super.key});
+class AuthenticateWalletLaboratory extends StatefulWidget {
+  const AuthenticateWalletLaboratory({super.key});
 
   @override
-  State<AuthenticateWalletDoctor> createState() =>
-      _AuthenticateWalletDoctorState();
+  State<AuthenticateWalletLaboratory> createState() =>
+      _AuthenticateWalletLaboratoryState();
 }
 
-class _AuthenticateWalletDoctorState extends State<AuthenticateWalletDoctor> {
+class _AuthenticateWalletLaboratoryState
+    extends State<AuthenticateWalletLaboratory> {
   TextEditingController keyController = TextEditingController();
   handleLogin() async {
     bool isValid = await WalletProvider().initializeFromKey(keyController.text);
     if (isValid) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const EditDetailsDoctor()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => const EditDetailsLaboratory()));
     } else {
       if (kDebugMode) {
         print("Invalid Key");

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
-import 'package:techie_twins/web/pages/home/home.dart';
+import 'package:techie_twins/web/doctor/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
 

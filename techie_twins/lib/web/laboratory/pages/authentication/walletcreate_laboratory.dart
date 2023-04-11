@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:techie_twins/web/pages/authentication/authenticatewallet_doctor.dart';
-import 'package:techie_twins/web/pages/authentication/newwallet_doctor.dart';
+import 'package:techie_twins/web/doctor/pages/authentication/newwallet_doctor.dart';
+import 'package:techie_twins/web/laboratory/pages/authentication/authenticatewallet_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 
-class WalletCreateDoctor extends StatelessWidget {
-  const WalletCreateDoctor({super.key});
+class WalletCreateLaboratory extends StatelessWidget {
+  const WalletCreateLaboratory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,8 @@ class WalletCreateDoctor extends StatelessWidget {
                     onPress: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AuthenticateWalletDoctor())),
+                            builder: (context) =>
+                                const AuthenticateWalletLaboratory())),
                   ),
                   const SizedBox(
                     height: 10,
@@ -56,7 +57,8 @@ class WalletCreateDoctor extends StatelessWidget {
                       onPress: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const NewWalletDoctor()))),
+                              builder: (context) =>
+                                  const NewWalletLaboratory()))),
                   const SizedBox(
                     height: 20,
                   )

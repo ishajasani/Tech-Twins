@@ -3,19 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
-import 'package:techie_twins/web/edit_details_doctors.dart';
-import 'package:techie_twins/web/pages/home/home.dart';
+import 'package:techie_twins/web/laboratory/pages/edit_details_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:web3dart/web3dart.dart';
 
-class NewWalletDoctor extends StatefulWidget {
-  const NewWalletDoctor({super.key});
+class NewWalletLaboratory extends StatefulWidget {
+  const NewWalletLaboratory({super.key});
 
   @override
-  State<NewWalletDoctor> createState() => NewWalletDoctorState();
+  State<NewWalletLaboratory> createState() => NewWalletLaboratoryState();
 }
 
-class NewWalletDoctorState extends State<NewWalletDoctor> {
+class NewWalletLaboratoryState extends State<NewWalletLaboratory> {
   WalletProvider walletProvider = WalletProvider();
   @override
   void initState() {
@@ -49,7 +48,8 @@ class NewWalletDoctorState extends State<NewWalletDoctor> {
         ),
       ),
       child: Container(
-        margin:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 3),
+        margin: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width / 3),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -146,8 +146,10 @@ class NewWalletDoctorState extends State<NewWalletDoctor> {
               height: 10,
             ),
             TextButton(
-                onPressed: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const EditDetailsDoctor())),
+                onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const EditDetailsLaboratory())),
                 child: const Text(
                   "Skip for now!!",
                   style: TextStyle(

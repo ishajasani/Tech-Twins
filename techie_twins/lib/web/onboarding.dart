@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
-import 'package:techie_twins/web/pages/authentication/walletcreate_doctor.dart';
+import 'package:techie_twins/web/doctor/pages/authentication/walletcreate_doctor.dart';
+import 'package:techie_twins/web/laboratory/pages/authentication/walletcreate_laboratory.dart';
 
 class OnBoardingWeb extends StatefulWidget {
   const OnBoardingWeb({super.key});
@@ -134,7 +135,31 @@ class _OnBoardingWebState extends State<OnBoardingWeb> {
                                   const WalletCreateDoctor())),
                         ),
                     child: const Text(
-                      "Get Started",
+                      "Doctor",
+                      style: TextStyle(color: Colors.black, fontSize: 30),
+                    )),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      fixedSize: const Size(300, 70),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      side: const BorderSide(width: 2, color: Colors.black),
+                    ),
+                    onPressed: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) =>
+                                  const WalletCreateLaboratory())),
+                        ),
+                    child: const Text(
+                      "Laboratory",
                       style: TextStyle(color: Colors.black, fontSize: 30),
                     )),
               ),

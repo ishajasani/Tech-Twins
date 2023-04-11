@@ -1,21 +1,20 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
+import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 import 'package:web3dart/web3dart.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeLaboratory extends StatefulWidget {
+  const HomeLaboratory({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeLaboratory> createState() => _HomeLaboratoryState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeLaboratoryState extends State<HomeLaboratory> {
   @override
   void initState() {
     getUserData();
@@ -40,21 +39,20 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 
-  DoctorContractLinking contractLinking = DoctorContractLinking();
+  LaboratoryContractLinking contractLinking = LaboratoryContractLinking();
   Credentials? credentials;
   Future<List>? patientModel_;
   String name = "Mohit";
   String exp = "21";
-  String gender = "male";
+  String rating = "male";
   String email = "";
   String about = "";
-  String rating = "";
   String profileUrl = "";
-  String patientCount = "";
+  String recordsGenerated = "";
   getDetails() async {
     Future.delayed(const Duration(milliseconds: 1000), () {
       patientModel_ =
-          contractLinking.getDoctorData(walletProvider.ethereumAddress!);
+          contractLinking.getLaboratoryData(walletProvider.ethereumAddress!);
       populateData();
     });
     setState(() {
@@ -65,13 +63,12 @@ class _HomeState extends State<Home> {
   populateData() async {
     await patientModel_!.then((value) {
       name = value[0];
-      patientCount = value[1];
+      recordsGenerated = value[1];
       exp = value[2];
-      gender = value[3];
-      rating = value[4];
-      email = value[5];
-      about = value[6];
-      profileUrl = value[7];
+      rating = value[3];
+      email = value[4];
+      about = value[5];
+      profileUrl = value[6];
     });
     buildUrl = ipfsURL + profileUrl;
     print('------------------');
@@ -96,7 +93,7 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 5,
                   child: Text(
-                    "doctor profile",
+                    "lab profile",
                     style: TextStyle(
                         height: 1,
                         fontWeight: FontWeight.bold,
@@ -133,8 +130,8 @@ class _HomeState extends State<Home> {
                           children: [
                             Row(
                               children: [
-                                PatientTreatedInfoTile(
-                                  patients: patientCount,
+                                LabReportGeneratedInfoTile(
+                                  reports: recordsGenerated,
                                 ),
                                 const SizedBox(
                                   width: 20,

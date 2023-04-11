@@ -55,21 +55,14 @@ class LaboratoryContractLinking extends ChangeNotifier {
 
   void getDeployedContract() {
     contract = DeployedContract(
-        ContractAbi.fromJson(abiCode!, "LaboratoryInfo"),
-        contractAddress!);
+        ContractAbi.fromJson(abiCode!, "LaboratoryInfo"), contractAddress!);
     registerLaboratory = contract!.function('registerLaboratory');
     getLaboratoryInfo = contract!.function('getLaboratoryInfo');
     print(contract);
   }
 
-  regDoctor(
-      String name,
-      String recordsDelivered,
-      String experience,
-      String rating,
-      String email,
-      String about,
-      String profileImageURL) async {
+  regLaboratory(String name, String recordsDelivered, String experience,
+      String rating, String email, String about, String profileImageURL) async {
     isLoading = true;
 
     await _client.sendTransaction(

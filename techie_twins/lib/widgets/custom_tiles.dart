@@ -94,7 +94,8 @@ class ConsultantTile extends StatelessWidget {
     required this.designation,
     required this.exp,
     required this.stars,
-    required this.imageUrl, required this.onTap,
+    required this.imageUrl,
+    required this.onTap,
   });
 
   @override
@@ -293,6 +294,47 @@ class RatingInfoTile extends StatelessWidget {
             ),
             const Text(
               "stars",
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LabReportGeneratedInfoTile extends StatelessWidget {
+  final String reports;
+  const LabReportGeneratedInfoTile({
+    super.key,
+    required this.reports,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      decoration: BoxDecoration(
+          color: Colors.black54, borderRadius: BorderRadius.circular(22)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Reports",
+              style: TextStyle(fontSize: 22, color: Colors.white),
+            ),
+            Text(
+              "$reports +",
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: Colors.white),
+            ),
+            const Text(
+              "generated",
               style: TextStyle(fontSize: 22, color: Colors.white),
             )
           ],
