@@ -1,8 +1,8 @@
 module.exports = {
   networks: {
     development: {
-      // host: "192.168.253.141",
-      host: "192.168.43.59",
+      host: "192.168.60.141", // --isha
+      // host: "192.168.43.59", //--mohit
       port: 7545,
       network_id: "5777",
     },

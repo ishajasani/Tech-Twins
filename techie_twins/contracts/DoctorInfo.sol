@@ -9,11 +9,12 @@ contract DoctorInfo{
         string experience;
         string gender;
         string rating;
-        string email;
         string about;
+        string email;
         string profileImageURL;
     }
 
+    address[] docAdd;
     mapping(address => Doctor) doctors;
 
     event DoctorRegistration(address indexed doctorAddress, string name);
@@ -36,6 +37,7 @@ contract DoctorInfo{
         doctors[msg.sender].email = email;
         doctors[msg.sender].about = about;
         doctors[msg.sender].profileImageURL = profileImageURL;
+        docAdd.push(msg.sender);
         emit DoctorRegistration(msg.sender, name);
     }
 
@@ -58,9 +60,13 @@ contract DoctorInfo{
             doctor.experience,
             doctor.gender,
             doctor.rating,
-            doctor.email,
             doctor.about,
+            doctor.email,
             doctor.profileImageURL
         );
+    }
+
+    function getDoctorAdd() public view returns (address[] memory docAdd_){
+        docAdd_ =  docAdd;
     }
 }
