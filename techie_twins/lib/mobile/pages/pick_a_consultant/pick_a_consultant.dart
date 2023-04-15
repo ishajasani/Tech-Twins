@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
+import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/mobile/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 import 'package:web3dart/web3dart.dart';
@@ -19,17 +20,27 @@ class _PickAConsultantState extends State<PickAConsultant> {
   }
 
   DoctorContractLinking contractLinking = DoctorContractLinking();
+  List<dynamic> val = List.empty(growable: true);
   List name = [];
   List desig = [];
   List stars = [];
   List exp = [];
   List imageUrl = [];
+  int countDocs = 0;
   void getDoctorsList() async {
     Future.delayed(const Duration(milliseconds: 1000), () {
       contractLinking.getDoctorAdd().then((value) {
         for (var element in value) {
           for (var ele in element) {
-            getDoctorinfo(ele);
+            contractLinking.getDoctorData(ele).then((value) {
+              setState(() {
+                val.add(value);
+              });
+            });
+            // print(val[0]);
+            setState(() {
+              countDocs++;
+            });
           }
         }
       });
@@ -37,21 +48,7 @@ class _PickAConsultantState extends State<PickAConsultant> {
   }
 
   List<ConsultantTile>? tile;
-  void getDoctorinfo(EthereumAddress address) {
-    contractLinking.getDoctorData(address).then((value) {
-      print("-------------------------------");
-      print(value[0]);
-      print(value[1]);
-      print(value[2]);
-      print(value[3]);
-      print(value[4]);
-      print(value[5]);
-      print(value[6]);
-      print(value[7]);
-      print(value[8]);
-      print("-------------------------------");
-    });
-  }
+  void getDoctorinfo(EthereumAddress address) {}
 
   @override
   Widget build(BuildContext context) {
@@ -76,15 +73,16 @@ class _PickAConsultantState extends State<PickAConsultant> {
                   )),
               ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                  itemCount: 5,
+                  itemCount: countDocs,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
+                    String docImageUrl = ipfsURL + val[index][8];
                     return ConsultantTile(
-                      designation: 'Therapist',
-                      exp: '9',
-                      name: 'Dr. Julie Serenil',
-                      stars: '5.0',
-                      imageUrl: '',
+                      designation: val[index][1],
+                      exp: val[index][3],
+                      name: val[index][0],
+                      stars: val[index][5],
+                      imageUrl: docImageUrl,
                       onTap: () {},
                     );
                   }),
