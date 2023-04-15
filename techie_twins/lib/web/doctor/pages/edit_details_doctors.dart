@@ -21,6 +21,8 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
   TextEditingController nameController = TextEditingController();
   TextEditingController patientCountController = TextEditingController();
   TextEditingController expController = TextEditingController();
+  TextEditingController desigController = TextEditingController();
+
   TextEditingController ratingController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController = TextEditingController();
@@ -101,6 +103,13 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
               const SizedBox(
                 height: 10,
               ),
+              HeightField(
+                  controller: desigController,
+                  hintText: "Surgeon",
+                  labelText: "Designation"),
+              const SizedBox(
+                height: 10,
+              ),
               BloodField(
                   controller: ratingController,
                   hintText: "4 Stars",
@@ -142,6 +151,7 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
       floatingActionButton: TextButton(
         onPressed: () async {
           if (nameController.text.isNotEmpty &&
+                  desigController.text.isNotEmpty &&
                   patientCountController.text.isNotEmpty &&
                   expController.text.isNotEmpty &&
                   ratingController.text.isNotEmpty &&
@@ -155,6 +165,7 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
             print(cid);
             contractLinking.regDoctor(
                 nameController.text,
+                desigController.text,
                 patientCountController.text,
                 expController.text,
                 genderController.text,

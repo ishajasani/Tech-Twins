@@ -21,6 +21,7 @@ class DoctorContractLinking extends ChangeNotifier {
   DeployedContract? contract;
   ContractFunction? registerDoctor;
   ContractFunction? getDoctorInfo;
+  ContractFunction? doctorAddresses;
   int chainId = 1337;
 
   String? deployedName;
@@ -58,11 +59,20 @@ class DoctorContractLinking extends ChangeNotifier {
         ContractAbi.fromJson(abiCode!, "DoctorInfo"), contractAddress!);
     registerDoctor = contract!.function('registerDoctor');
     getDoctorInfo = contract!.function('getDoctorInfo');
+    doctorAddresses = contract!.function("getDoctorAdd");
     print(contract);
   }
 
-  regDoctor(String name, String patientCount, String experience, String gender,
-      String rating, String email, String about, String profileImageURL) async {
+  regDoctor(
+      String name,
+      String desig,
+      String patientCount,
+      String experience,
+      String gender,
+      String rating,
+      String email,
+      String about,
+      String profileImageURL) async {
     isLoading = true;
 
     await _client.sendTransaction(
@@ -72,6 +82,7 @@ class DoctorContractLinking extends ChangeNotifier {
             function: registerDoctor!,
             parameters: [
               name,
+              desig,
               patientCount,
               experience,
               gender,
@@ -90,10 +101,16 @@ class DoctorContractLinking extends ChangeNotifier {
   Future<List> getDoctorData(EthereumAddress walletAdrress) async {
     List doctors = await _client.call(
         contract: contract!, function: getDoctorInfo!, params: [walletAdrress]);
-    if (kDebugMode) {
-      print(doctors);
-    }
+    // if (kDebugMode) {
+    //   print(doctors);
+    // }
     notifyListeners();
+    return doctors;
+  }
+
+  Future<List> getDoctorAdd() async {
+    List doctors = await _client
+        .call(contract: contract!, function: doctorAddresses!, params: []);
     return doctors;
   }
 }

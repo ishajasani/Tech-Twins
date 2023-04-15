@@ -2,9 +2,10 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract DoctorInfo{
-    struct Doctor{
+contract DoctorInfo {
+    struct Doctor {
         string name;
+        string designation;
         string patientCount;
         string experience;
         string gender;
@@ -21,6 +22,7 @@ contract DoctorInfo{
 
     function registerDoctor(
         string memory name,
+        string memory designation,
         string memory patientCount,
         string memory experience,
         string memory gender,
@@ -30,6 +32,7 @@ contract DoctorInfo{
         string memory profileImageURL
     ) public {
         doctors[msg.sender].name = name;
+        doctors[msg.sender].designation = designation;
         doctors[msg.sender].patientCount = patientCount;
         doctors[msg.sender].experience = experience;
         doctors[msg.sender].gender = gender;
@@ -41,21 +44,27 @@ contract DoctorInfo{
         emit DoctorRegistration(msg.sender, name);
     }
 
-    function getDoctorInfo(address doctorAddress)public view
+    function getDoctorInfo(
+        address doctorAddress
+    )
+        public
+        view
         returns (
-        string memory name,
-        string memory patientCount,
-        string memory experience,
-        string memory gender,
-        string memory rating,
-        string memory email,
-        string memory about,
-        string memory profileImageURL
+            string memory name,
+            string memory designation,
+            string memory patientCount,
+            string memory experience,
+            string memory gender,
+            string memory rating,
+            string memory email,
+            string memory about,
+            string memory profileImageURL
         )
     {
         Doctor memory doctor = doctors[doctorAddress];
         return (
             doctor.name,
+            doctor.designation,
             doctor.patientCount,
             doctor.experience,
             doctor.gender,
@@ -66,7 +75,7 @@ contract DoctorInfo{
         );
     }
 
-    function getDoctorAdd() public view returns (address[] memory docAdd_){
-        docAdd_ =  docAdd;
+    function getDoctorAdd() public view returns (address[] memory docAdd_) {
+        docAdd_ = docAdd;
     }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
+import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/web/laboratory/pages/edit_details_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:web3dart/web3dart.dart';
@@ -27,7 +28,7 @@ class NewWalletLaboratoryState extends State<NewWalletLaboratory> {
   double ammount = 0;
   Future<void> walletFun() async {
     EtherAmount etherAmount =
-        await Web3Client("HTTP://192.168.43.59:7545", Client()).getBalance(
+        await Web3Client(rpcUrl, Client()).getBalance(
             EthereumAddress.fromHex(walletProvider.ethereumAddress!.hex));
 
     setState(() {

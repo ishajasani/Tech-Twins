@@ -64,13 +64,13 @@ class _HomeState extends State<Home> {
   populateData() async {
     await patientModel_!.then((value) {
       name = value[0];
-      patientCount = value[1];
-      exp = value[2];
-      gender = value[3];
-      rating = value[4];
-      email = value[5];
-      about = value[6];
-      profileUrl = value[7];
+      patientCount = value[2];
+      exp = value[3];
+      gender = value[4];
+      rating = value[5];
+      email = value[6];
+      about = value[7];
+      profileUrl = value[8];
     });
     buildUrl = ipfsURL + profileUrl;
     print('------------------');
