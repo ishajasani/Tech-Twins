@@ -151,7 +151,9 @@ class _EditDetailsState extends State<EditDetails> {
                 path != "") {
               IpfsService ipfsService = IpfsService();
               String cid = await ipfsService.uploadImage(path);
-              print(cid);
+              if (kDebugMode) {
+                print(cid);
+              }
               contractLinking.regUser(
                   nameController.text,
                   bloodController.text,

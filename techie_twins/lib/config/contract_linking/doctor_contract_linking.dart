@@ -60,7 +60,9 @@ class DoctorContractLinking extends ChangeNotifier {
     registerDoctor = contract!.function('registerDoctor');
     getDoctorInfo = contract!.function('getDoctorInfo');
     doctorAddresses = contract!.function("getDoctorAdd");
-    print(contract);
+    if (kDebugMode) {
+      print(contract);
+    }
   }
 
   regDoctor(

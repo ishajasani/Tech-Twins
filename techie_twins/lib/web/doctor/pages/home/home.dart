@@ -73,8 +73,12 @@ class _HomeState extends State<Home> {
       profileUrl = value[8];
     });
     buildUrl = ipfsURL + profileUrl;
-    print('------------------');
-    print(buildUrl);
+    if (kDebugMode) {
+      print('------------------');
+    }
+    if (kDebugMode) {
+      print(buildUrl);
+    }
     setState(() {});
   }
 

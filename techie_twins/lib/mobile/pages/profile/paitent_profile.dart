@@ -1,4 +1,3 @@
-
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
@@ -103,8 +102,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    ipfsURL + profileUrl),
+                                image: NetworkImage(ipfsURL + profileUrl),
                               ),
                               color: Colors.blue,
                               borderRadius: BorderRadius.circular(30)),
@@ -414,6 +412,135 @@ class BloodTile extends StatelessWidget {
               ),
               const Text(
                 "+VE",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class PatientsTreatedTile extends StatelessWidget {
+  final String patientTreated;
+  const PatientsTreatedTile({
+    super.key,
+    required this.patientTreated,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlurryContainer(
+        // elevation: 1,
+        width: 110,
+        height: 120,
+        color: Colors.black.withOpacity(.2),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Patients",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.normal),
+              ),
+              const Spacer(),
+              Text(
+                patientTreated,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                "treated",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class ExpTile extends StatelessWidget {
+  final String years;
+  const ExpTile({
+    super.key,
+    required this.years,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlurryContainer(
+        // elevation: 1,
+        width: 110,
+        height: 120,
+        color: Colors.black.withOpacity(.2),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Exp",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.normal),
+              ),
+              const Spacer(),
+              Text(
+                "$years+",
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                "years",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class RatingTile extends StatelessWidget {
+  final String stars;
+  const RatingTile({
+    super.key,
+    required this.stars,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlurryContainer(
+        // elevation: 1,
+        width: 110,
+        height: 120,
+        color: Colors.black.withOpacity(.2),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Exp",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.normal),
+              ),
+              const Spacer(),
+              Text(
+                stars,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                "stars",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.normal),
               ),

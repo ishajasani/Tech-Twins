@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -38,7 +37,9 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
       if (result != null) {
         Uint8List? bytes = result.files.single.bytes;
 
-        print('=========================================');
+        if (kDebugMode) {
+          print('=========================================');
+        }
         setState(() {
           path = bytes!;
         });
@@ -50,7 +51,9 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
         });
       } else {}
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -162,7 +165,9 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
               ) {
             IpfsService ipfsService = IpfsService();
             String cid = await ipfsService.uploadImageWeb(path);
-            print(cid);
+            if (kDebugMode) {
+              print(cid);
+            }
             contractLinking.regDoctor(
                 nameController.text,
                 desigController.text,

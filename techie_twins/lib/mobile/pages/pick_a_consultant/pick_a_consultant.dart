@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/mobile/pages/consultant/consultant_profile.dart';
 import 'package:techie_twins/mobile/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 import 'package:web3dart/web3dart.dart';
@@ -21,23 +22,20 @@ class _PickAConsultantState extends State<PickAConsultant> {
 
   DoctorContractLinking contractLinking = DoctorContractLinking();
   List<dynamic> val = List.empty(growable: true);
-  List name = [];
-  List desig = [];
-  List stars = [];
-  List exp = [];
-  List imageUrl = [];
+  List addresses = List.empty(growable: true);
+
   int countDocs = 0;
-  void getDoctorsList() async {
+  void getDoctorsList()  {
     Future.delayed(const Duration(milliseconds: 1000), () {
       contractLinking.getDoctorAdd().then((value) {
         for (var element in value) {
           for (var ele in element) {
+            addresses.add(ele);
             contractLinking.getDoctorData(ele).then((value) {
               setState(() {
                 val.add(value);
               });
             });
-            // print(val[0]);
             setState(() {
               countDocs++;
             });
@@ -77,14 +75,21 @@ class _PickAConsultantState extends State<PickAConsultant> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     String docImageUrl = ipfsURL + val[index][8];
+
                     return ConsultantTile(
-                      designation: val[index][1],
-                      exp: val[index][3],
-                      name: val[index][0],
-                      stars: val[index][5],
-                      imageUrl: docImageUrl,
-                      onTap: () {},
-                    );
+                        designation: val[index][1],
+                        exp: val[index][3],
+                        name: val[index][0],
+                        stars: val[index][5],
+                        imageUrl: docImageUrl,
+                        onTap: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ConsultantProfile(
+                                            address: addresses[index],
+                                          )))
+                            });
                   }),
             ],
           ),

@@ -58,7 +58,9 @@ class LaboratoryContractLinking extends ChangeNotifier {
         ContractAbi.fromJson(abiCode!, "LaboratoryInfo"), contractAddress!);
     registerLaboratory = contract!.function('registerLaboratory');
     getLaboratoryInfo = contract!.function('getLaboratoryInfo');
-    print(contract);
+    if (kDebugMode) {
+      print(contract);
+    }
   }
 
   regLaboratory(String name, String recordsDelivered, String experience,

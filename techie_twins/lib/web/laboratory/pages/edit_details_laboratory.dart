@@ -2,10 +2,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
-import 'package:techie_twins/web/doctor/pages/home/home.dart';
 import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
@@ -36,7 +34,9 @@ class _EditDetailsLaboratoryState extends State<EditDetailsLaboratory> {
       if (result != null) {
         Uint8List? bytes = result.files.single.bytes;
 
-        print('=========================================');
+        if (kDebugMode) {
+          print('=========================================');
+        }
         setState(() {
           path = bytes!;
         });
@@ -48,7 +48,9 @@ class _EditDetailsLaboratoryState extends State<EditDetailsLaboratory> {
         });
       } else {}
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -144,7 +146,9 @@ class _EditDetailsLaboratoryState extends State<EditDetailsLaboratory> {
               ) {
             IpfsService ipfsService = IpfsService();
             String cid = await ipfsService.uploadImageWeb(path);
-            print(cid);
+            if (kDebugMode) {
+              print(cid);
+            }
             contractLinking.regLaboratory(
                 nameController.text,
                 reportsCountController.text,

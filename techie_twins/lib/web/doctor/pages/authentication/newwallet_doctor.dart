@@ -4,7 +4,6 @@ import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/web/doctor/pages/edit_details_doctors.dart';
-import 'package:techie_twins/web/doctor/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:web3dart/web3dart.dart';
 

@@ -71,8 +71,12 @@ class _HomeLaboratoryState extends State<HomeLaboratory> {
       profileUrl = value[6];
     });
     buildUrl = ipfsURL + profileUrl;
-    print('------------------');
-    print(buildUrl);
+    if (kDebugMode) {
+      print('------------------');
+    }
+    if (kDebugMode) {
+      print(buildUrl);
+    }
     setState(() {});
   }
 
