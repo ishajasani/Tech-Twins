@@ -52,19 +52,39 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
   }
 
   String appintmentStatus = "not booked";
+  Widget dateTimePickerWiget() {
+    return DateTimePicker(
+      initialValue: '',
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      dateLabelText: 'Date',
+      onChanged: (val) => print(val),
+      validator: (val) {
+        print(val);
+        return null;
+      },
+      onSaved: (val) => print(val),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0,
         backgroundColor: Colors.transparent,
         actions: [
           Text(
             appintmentStatus,
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black, fontSize: 20),
+          ),
+          const SizedBox(
+            width: 15,
           ),
         ],
       ),
+      extendBodyBehindAppBar: true,
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         child: SingleChildScrollView(
@@ -170,36 +190,26 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
                 height: 10,
               ),
               GestureDetector(
-                  onTap: () {
-                    DateTimePicker(
-                      initialValue: '',
-                      firstDate: DateTime(2000),
-                      lastDate: DateTime(2100),
-                      dateLabelText: 'Date',
-                      onChanged: (val) => print(val),
-                      validator: (val) {
-                        print(val);
-                        return null;
-                      },
-                      onSaved: (val) => print(val),
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: const Color(0xff1D3092).withOpacity(.49),
-                        borderRadius: BorderRadius.circular(30)),
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: Center(
-                      child: Text(
-                        "Book Appointment",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width / 20),
-                      ),
+                onTap: () {
+                  dateTimePickerWiget();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: const Color(0xff1D3092).withOpacity(.49),
+                      borderRadius: BorderRadius.circular(30)),
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  child: Center(
+                    child: Text(
+                      "Book Appointment",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: MediaQuery.of(context).size.width / 20),
                     ),
-                  ))
+                  ),
+                ),
+              ),
             ],
           ),
         ),

@@ -18,6 +18,7 @@ class _PickAConsultantState extends State<PickAConsultant> {
   void initState() {
     getDoctorsList();
     super.initState();
+    print("From init state");
   }
 
   DoctorContractLinking contractLinking = DoctorContractLinking();
@@ -51,7 +52,7 @@ class _PickAConsultantState extends State<PickAConsultant> {
 
   @override
   Widget build(BuildContext context) {
-    getDoctorsList();
+    print("Above Scaffold");
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
