@@ -41,9 +41,9 @@ class _EditDetailsState extends State<EditDetails> {
     } else {}
   }
 
+  PatientContractLinking contractLinking = PatientContractLinking();
   @override
   Widget build(BuildContext context) {
-    var contractLinking = Provider.of<PatientContractLinking>(context);
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),

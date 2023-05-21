@@ -25,9 +25,10 @@ class _PickAConsultantState extends State<PickAConsultant> {
   List addresses = List.empty(growable: true);
 
   int countDocs = 0;
-  void getDoctorsList()  {
+  void getDoctorsList() {
     Future.delayed(const Duration(milliseconds: 1000), () {
       contractLinking.getDoctorAdd().then((value) {
+        print(value);
         for (var element in value) {
           for (var ele in element) {
             addresses.add(ele);
@@ -50,6 +51,7 @@ class _PickAConsultantState extends State<PickAConsultant> {
 
   @override
   Widget build(BuildContext context) {
+    getDoctorsList();
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),

@@ -8,6 +8,8 @@ import 'package:techie_twins/mobile/pages/onboarding.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:techie_twins/web/onboarding.dart';
 
+import 'config/contract_linking/appointment_contract_linking.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,31 +20,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (kIsWeb) {
-      return ChangeNotifierProvider(
-        create: (context) => LaboratoryContractLinking(),
-        child: ChangeNotifierProvider(
-          create: (context) => DoctorContractLinking(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "MedVault",
-            theme: ThemeData(
-                primarySwatch: Colors.blue,
-                textTheme: GoogleFonts.poppinsTextTheme()),
-            home: const OnBoardingWeb(),
-          ),
-        ),
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "MedVault",
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: GoogleFonts.poppinsTextTheme()),
+        home: const OnBoardingWeb(),
       );
     } else {
-      return ChangeNotifierProvider(
-        create: (context) => PatientContractLinking(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: "MedVault",
-          theme: ThemeData(
-              primarySwatch: Colors.blue,
-              textTheme: GoogleFonts.poppinsTextTheme()),
-          home: const OnBoarding(),
-        ),
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "MedVault",
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: GoogleFonts.poppinsTextTheme()),
+        home: const OnBoarding(),
       );
     }
   }

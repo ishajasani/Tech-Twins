@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:web3dart/web3dart.dart';
@@ -50,9 +51,20 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
     super.initState();
   }
 
+  String appintmentStatus = "not booked";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        actions: [
+          Text(
+            appintmentStatus,
+            style: const TextStyle(color: Colors.black),
+          ),
+        ],
+      ),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         child: SingleChildScrollView(
@@ -158,24 +170,36 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: const Color(0xff1D3092).withOpacity(.49),
-                      borderRadius: BorderRadius.circular(30)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  child: Center(
-                    child: Text(
-                      "Book Appointment",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width / 20),
+                  onTap: () {
+                    DateTimePicker(
+                      initialValue: '',
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100),
+                      dateLabelText: 'Date',
+                      onChanged: (val) => print(val),
+                      validator: (val) {
+                        print(val);
+                        return null;
+                      },
+                      onSaved: (val) => print(val),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: const Color(0xff1D3092).withOpacity(.49),
+                        borderRadius: BorderRadius.circular(30)),
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: Center(
+                      child: Text(
+                        "Book Appointment",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: MediaQuery.of(context).size.width / 20),
+                      ),
                     ),
-                  ),
-                )
-              )
+                  ))
             ],
           ),
         ),

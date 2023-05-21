@@ -1,4 +1,3 @@
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -57,9 +56,11 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
     }
   }
 
+  bool isUploaded = false;
+
+  DoctorContractLinking contractLinking = DoctorContractLinking();
   @override
   Widget build(BuildContext context) {
-    var contractLinking = Provider.of<DoctorContractLinking>(context);
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(
@@ -141,6 +142,14 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
               const SizedBox(
                 height: 10,
               ),
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSelected = !isSelected;
+                    });
+                  },
+                  icon:
+                      isSelected ? Icon(Icons.add) : Icon(Icons.abc_outlined)),
               DefaultButton(
                   text: "Image Selected: $isSelected",
                   onPress: () async {
