@@ -48,15 +48,16 @@ class PatientContractLinking extends ChangeNotifier {
         await rootBundle.loadString("src/abis/PatientRegistration.json");
     final jsonAbi = jsonDecode(abiStringfile);
     abiCode = jsonEncode(jsonAbi['abi']);
+
     contractAddress =
-        EthereumAddress.fromHex(jsonAbi['networks']['5777']['address']);
+        EthereumAddress.fromHex(jsonAbi['networks']['5557']['address']);
   }
 
-  void getCredentials() {
+  getCredentials() {
     credentials = EthPrivateKey.fromHex(privateKey);
   }
 
-  void getDeployedContract() {
+  getDeployedContract() {
     contract = DeployedContract(
         ContractAbi.fromJson(abiCode!, "PatientRegistration"),
         contractAddress!);
@@ -64,7 +65,6 @@ class PatientContractLinking extends ChangeNotifier {
     getPatientData = contract!.function('getPatient');
     setPatientRecordCids = contract!.function('setPatientRecordCids');
     getPatientRecordCids = contract!.function('getPatientRecordCids');
-    // print(contract);
   }
 
   regUser(

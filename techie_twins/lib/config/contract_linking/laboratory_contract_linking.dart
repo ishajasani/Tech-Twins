@@ -46,7 +46,7 @@ class LaboratoryContractLinking extends ChangeNotifier {
     final jsonAbi = jsonDecode(abiStringfile);
     abiCode = jsonEncode(jsonAbi['abi']);
     contractAddress =
-        EthereumAddress.fromHex(jsonAbi['networks']['5777']['address']);
+        EthereumAddress.fromHex(jsonAbi['networks']['5557']['address']);
   }
 
   void getCredentials() {
