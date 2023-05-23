@@ -98,7 +98,9 @@ class AppointmentContractLinking extends ChangeNotifier {
         contract: contract!,
         function: getAppointment!,
         params: [appointmentid]);
-    print(appointments);
+    if (kDebugMode) {
+      print(appointments);
+    }
     return appointments;
   }
 }

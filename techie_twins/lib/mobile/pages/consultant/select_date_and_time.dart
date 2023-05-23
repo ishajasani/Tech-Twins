@@ -1,7 +1,6 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking/appointment_contract_linking.dart';
-import 'package:web3dart/contracts.dart';
 
 class DateTimePickerPage extends StatefulWidget {
   const DateTimePickerPage({super.key});
@@ -19,7 +18,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
 
   AppointmentContractLinking contractLinking = AppointmentContractLinking();
   void setAppointment() {
-    int dateTimeInMilliSeconds=0;
+    int dateTimeInMilliSeconds = 0;
     setState(() {
       dateTimeInMilliSeconds = getCustomFormattedDateTime(dateTime);
     });

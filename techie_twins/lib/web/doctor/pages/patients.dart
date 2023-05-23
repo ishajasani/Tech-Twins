@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/widgets/custom_tiles.dart';
 
 class YourPatients extends StatefulWidget {
   const YourPatients({super.key});
@@ -11,71 +13,75 @@ class _YourPatientsState extends State<YourPatients> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Row(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width / 2,
-          child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 400,
-                  childAspectRatio: 2 / 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20),
-              itemBuilder: ((context, index) {
-                return Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              'https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80')),
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(18),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 10,
-                            offset: Offset(0, 5))
-                      ]),
-                  child: Column(
+        extendBody: true,
+        body: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Spacer(),
                       Text(
-                        "David",
+                        'Your',
                         style: TextStyle(
-                            color: Colors.white,
                             height: 1,
-                            fontSize: MediaQuery.of(context).size.width / 30,
+                            color: Colors.black,
+                            fontSize: MediaQuery.of(context).size.width / 25,
                             fontWeight: FontWeight.bold),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "David",
-                            style: TextStyle(
-                                color: Colors.white,
-                                height: 1,
-                                fontSize:
-                                    MediaQuery.of(context).size.width / 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const Spacer(),
-                          Text("Male:24",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  height: 1,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width / 60,
-                                  fontWeight: FontWeight.normal))
-                        ],
-                      )
+                      Text(
+                        'patients',
+                        style: TextStyle(
+                            height: 1,
+                            color: Colors.black,
+                            fontSize: MediaQuery.of(context).size.width / 25,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
-                );
-              })),
-        ),
-      ],
-    ));
+                 const Spacer(),
+                  TextButton(onPressed: (){}, child: Text("your profile",style: TextStyle(color: Colors.black, fontSize: MediaQuery.of(context).size.width / 50),))
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 1.41,
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: GridView.builder(
+                        itemCount: 10,
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 400,
+                                childAspectRatio: 2 / 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20),
+                        itemBuilder: ((context, index) {
+                          return PatientTile(
+                            age: '21',
+                            consultTap: () {},
+                            gender: 'Male',
+                            imageURL:
+                                'https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80',
+                            intoTap: () {},
+                            name: 'David Smith',
+                          );
+                        })),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }
