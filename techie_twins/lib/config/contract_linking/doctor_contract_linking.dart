@@ -22,6 +22,7 @@ class DoctorContractLinking extends ChangeNotifier {
   ContractFunction? registerDoctor;
   ContractFunction? getDoctorInfo;
   ContractFunction? doctorAddresses;
+  ContractFunction? bookAppointment;
   int chainId = 1337;
 
   String? deployedName;
@@ -60,6 +61,7 @@ class DoctorContractLinking extends ChangeNotifier {
     registerDoctor = contract!.function('registerDoctor');
     getDoctorInfo = contract!.function('getDoctorInfo');
     doctorAddresses = contract!.function("getDoctorAdd");
+    bookAppointment = contract!.function("bookAppointment");
     if (kDebugMode) {
       print(contract);
     }
@@ -114,5 +116,22 @@ class DoctorContractLinking extends ChangeNotifier {
     List doctors = await _client
         .call(contract: contract!, function: doctorAddresses!, params: []);
     return doctors;
+  }
+
+  void bookAppointmentFunction(
+      BigInt appointmentTimestamp, EthereumAddress docAddress) async {
+    isLoading = true;
+
+    await _client.sendTransaction(
+        credentials!,
+        Transaction.callContract(
+            contract: contract!,
+            function: bookAppointment!,
+            parameters: [appointmentTimestamp,docAddress]),
+        chainId: chainId);
+    if (kDebugMode) {
+      print("appointment booked");
+    }
+    // getAppointments(BigInt.from(1));
   }
 }

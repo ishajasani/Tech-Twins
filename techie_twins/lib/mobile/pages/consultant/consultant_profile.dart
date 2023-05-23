@@ -180,7 +180,7 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const DateTimePickerPage())),
+                        builder: (context) => DateTimePickerPage(docAddress: widget.address,))),
                 child: Container(
                   decoration: BoxDecoration(
                       color: const Color(0xff1D3092).withOpacity(.49),

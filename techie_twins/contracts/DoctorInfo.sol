@@ -3,6 +3,12 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 contract DoctorInfo {
+    struct Appointment {
+        address patient;
+        uint256 appointmentTime;
+        bool isConfirmed;
+    }
+
     struct Doctor {
         string name;
         string designation;
@@ -13,7 +19,9 @@ contract DoctorInfo {
         string about;
         string email;
         string profileImageURL;
+        Appointment[] appointments;
     }
+    uint appointmentCount = 0;
 
     address[] docAdd;
     mapping(address => Doctor) doctors;
@@ -77,5 +85,23 @@ contract DoctorInfo {
 
     function getDoctorAdd() public view returns (address[] memory docAdd_) {
         docAdd_ = docAdd;
+    }
+
+    function bookAppointment(uint256 _appointmentTime , address docAddress) external {
+        doctors[docAddress].appointments.push(Appointment(msg.sender , _appointmentTime , false));
+        appointmentCount++;
+    }
+
+    function appointmentConfirmed(uint256 index) public{
+        doctors[msg.sender].appointments[index].isConfirmed = true;
+    }
+
+    function getAppointments() public view returns (Appointment[] memory){
+        Appointment[] memory tempAppointment = new Appointment[](appointmentCount);
+        for(uint i = 0 ; i<appointmentCount ; i++){
+            Appointment storage tempappointment = doctors[msg.sender].appointments[i];
+            tempAppointment[i] = tempappointment;
+        }
+        return tempAppointment;
     }
 }

@@ -1,10 +1,11 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:techie_twins/config/contract_linking/appointment_contract_linking.dart';
-import 'package:web3dart/contracts.dart';
+import 'package:web3dart/web3dart.dart';
+import '../../../config/contract_linking/doctor_contract_linking.dart';
 
 class DateTimePickerPage extends StatefulWidget {
-  const DateTimePickerPage({super.key});
+  final EthereumAddress docAddress;
+  const DateTimePickerPage({super.key, required this.docAddress});
 
   @override
   State<DateTimePickerPage> createState() => _DateTimePickerPageState();
@@ -17,14 +18,14 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
     return docDateTime.millisecondsSinceEpoch;
   }
 
-  AppointmentContractLinking contractLinking = AppointmentContractLinking();
+  DoctorContractLinking contractLinking = DoctorContractLinking();
   void setAppointment() {
-    int dateTimeInMilliSeconds=0;
+    int dateTimeInMilliSeconds = 0;
     setState(() {
       dateTimeInMilliSeconds = getCustomFormattedDateTime(dateTime);
     });
-    contractLinking
-        .bookAppointmentFunction(BigInt.from(dateTimeInMilliSeconds));
+    contractLinking.bookAppointmentFunction(
+        BigInt.from(dateTimeInMilliSeconds), widget.docAddress);
   }
 
   @override
