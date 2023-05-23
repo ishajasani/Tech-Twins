@@ -16,23 +16,29 @@ class ConsultantProfile extends StatefulWidget {
 
 class _ConsultantProfileState extends State<ConsultantProfile> {
   DoctorContractLinking contractLinking = DoctorContractLinking();
+  @override
+  void initState() {
+    print('asfasfasfasfas');
+    getDoctorinfo();
+    super.initState();
+  }
 
-  void getDoctorinfo() {
+  getDoctorinfo() {
     Future.delayed(const Duration(milliseconds: 1000), () {
       contractLinking.getDoctorData(widget.address).then((value) {
-        setState(() {
-          name = value[0];
-          desig = value[1];
-          patientTreated = value[2];
-          exp = value[3];
-          gender = value[4];
-          rating = value[5];
-          about = value[6];
-          email = value[7];
-          profileURL = value[8];
-        });
+        print(value);
+        name = value[0];
+        desig = value[1];
+        patientTreated = value[2];
+        exp = value[3];
+        gender = value[4];
+        rating = value[5];
+        about = value[6];
+        email = value[7];
+        profileURL = value[8];
       });
     });
+    setState(() {});
   }
 
   String name = "";
@@ -45,17 +51,12 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
   String rating = "";
   String about = "";
   // String
-  @override
-  void initState() {
-    getDoctorinfo();
-    super.initState();
-  }
 
   String appintmentStatus = "not booked";
-  
 
   @override
   Widget build(BuildContext context) {
+    print(widget.address);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -180,7 +181,9 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DateTimePickerPage(docAddress: widget.address,))),
+                        builder: (context) => DateTimePickerPage(
+                              docAddress: widget.address,
+                            ))),
                 child: Container(
                   decoration: BoxDecoration(
                       color: const Color(0xff1D3092).withOpacity(.49),

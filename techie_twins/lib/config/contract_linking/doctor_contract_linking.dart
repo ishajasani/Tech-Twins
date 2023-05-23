@@ -115,6 +115,7 @@ class DoctorContractLinking extends ChangeNotifier {
   Future<List> getDoctorAdd() async {
     List doctors = await _client
         .call(contract: contract!, function: doctorAddresses!, params: []);
+    print(doctors);
     return doctors;
   }
 
@@ -127,7 +128,7 @@ class DoctorContractLinking extends ChangeNotifier {
         Transaction.callContract(
             contract: contract!,
             function: bookAppointment!,
-            parameters: [appointmentTimestamp,docAddress]),
+            parameters: [appointmentTimestamp, docAddress]),
         chainId: chainId);
     if (kDebugMode) {
       print("appointment booked");

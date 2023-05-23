@@ -16,6 +16,7 @@ class PickAConsultant extends StatefulWidget {
 class _PickAConsultantState extends State<PickAConsultant> {
   @override
   void initState() {
+    print("init");
     getDoctorsList();
     super.initState();
   }
@@ -28,6 +29,8 @@ class _PickAConsultantState extends State<PickAConsultant> {
   void getDoctorsList() {
     Future.delayed(const Duration(milliseconds: 1000), () {
       contractLinking.getDoctorAdd().then((value) {
+        print(value);
+
         for (var element in value) {
           for (var ele in element) {
             addresses.add(ele);

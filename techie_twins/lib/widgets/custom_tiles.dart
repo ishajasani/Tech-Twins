@@ -343,3 +343,99 @@ class LabReportGeneratedInfoTile extends StatelessWidget {
     );
   }
 }
+
+class PatientTile extends StatelessWidget {
+  final String name, gender, age, imageURL;
+  final VoidCallback intoTap, consultTap;
+  const PatientTile({
+    super.key,
+    required this.name,
+    required this.gender,
+    required this.age,
+    required this.imageURL,
+    required this.intoTap,
+    required this.consultTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          image:
+              DecorationImage(fit: BoxFit.cover, image: NetworkImage(imageURL)),
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.black12, blurRadius: 10, offset: Offset(0, 5))
+          ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Spacer(),
+          Text(
+            name.split(' ')[0],
+            style: TextStyle(
+                color: Colors.white,
+                height: 1,
+                fontSize: MediaQuery.of(context).size.width / 45,
+                fontWeight: FontWeight.bold),
+          ),
+          Row(
+            children: [
+              Text(
+                name.split(' ')[1],
+                style: TextStyle(
+                    color: Colors.white,
+                    height: 1,
+                    fontSize: MediaQuery.of(context).size.width / 45,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              Text("$gender:$age",
+                  style: TextStyle(
+                      color: Colors.white,
+                      height: 1,
+                      fontSize: MediaQuery.of(context).size.width / 80,
+                      fontWeight: FontWeight.normal)),
+            ],
+          ),
+          Row(
+            children: [
+              InkWell(
+                onTap: intoTap,
+                child: const CircleAvatar(
+                  radius: 20,
+                  backgroundColor: bottomNavigationBarColor,
+                  child: Icon(Icons.info_outline, color: Colors.white),
+                ),
+              ),
+              InkWell(
+                onTap: consultTap,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  width: 170,
+                  decoration: BoxDecoration(
+                      color: buttonColor.withOpacity(.8),
+                      borderRadius: BorderRadius.circular(22)),
+                  height: 40,
+                  child: const Center(
+                    child: Text(
+                      "consult",
+                      style: TextStyle(
+                          color: Colors.white,
+                          height: 1,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
