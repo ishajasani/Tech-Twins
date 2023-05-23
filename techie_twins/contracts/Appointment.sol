@@ -41,6 +41,7 @@ contract DoctorAppointment {
             _appointmentTime
         );
         appointmentCounter++;
+       
     }
 
     function confirmAppointment(uint256 _appointmentId) external {

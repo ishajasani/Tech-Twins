@@ -65,7 +65,7 @@ class AppointmentContractLinking extends ChangeNotifier {
     }
   }
 
-  bookAppointmentFunction(UintType appointmentTimestamp) async {
+  bookAppointmentFunction(BigInt appointmentTimestamp) async {
     isLoading = true;
 
     await _client.sendTransaction(
@@ -78,6 +78,7 @@ class AppointmentContractLinking extends ChangeNotifier {
     if (kDebugMode) {
       print("appointment booked");
     }
+    getAppointments(BigInt.from(1));
     notifyListeners();
   }
 
@@ -92,9 +93,12 @@ class AppointmentContractLinking extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List> getDoctorAdd() async {
-    List doctors = await _client
-        .call(contract: contract!, function: getAppointment!, params: []);
-    return doctors;
+  Future<List> getAppointments(BigInt appointmentid) async {
+    List appointments = await _client.call(
+        contract: contract!,
+        function: getAppointment!,
+        params: [appointmentid]);
+    print(appointments);
+    return appointments;
   }
 }

@@ -1,6 +1,6 @@
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/mobile/pages/consultant/select_date_and_time.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../config/contract_linking/doctor_contract_linking.dart';
@@ -52,20 +52,7 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
   }
 
   String appintmentStatus = "not booked";
-  Widget dateTimePickerWiget() {
-    return DateTimePicker(
-      initialValue: '',
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-      dateLabelText: 'Date',
-      onChanged: (val) => print(val),
-      validator: (val) {
-        print(val);
-        return null;
-      },
-      onSaved: (val) => print(val),
-    );
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -190,9 +177,10 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () {
-                  dateTimePickerWiget();
-                },
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DateTimePickerPage())),
                 child: Container(
                   decoration: BoxDecoration(
                       color: const Color(0xff1D3092).withOpacity(.49),

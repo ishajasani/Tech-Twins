@@ -55,7 +55,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -84,7 +85,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -97,7 +99,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -152,7 +155,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"appointmentId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"appointmentTime\",\"type\":\"uint256\"}],\"name\":\"AppointmentBooked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"appointmentId\",\"type\":\"uint256\"}],\"name\":\"AppointmentConfirmed\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"appointmentCounter\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"appointments\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"appointmentTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isConfirmed\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_appointmentTime\",\"type\":\"uint256\"}],\"name\":\"bookAppointment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_appointmentId\",\"type\":\"uint256\"}],\"name\":\"confirmAppointment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"doctor\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_appointmentId\",\"type\":\"uint256\"}],\"name\":\"getAppointment\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Appointment.sol\":\"DoctorAppointment\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Appointment.sol\":{\"keccak256\":\"0x23803969edb89b9e0ca6b8459ac4e91ae10c4969ff95d456c8555d6d3d2efe3c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://803d5bea9bd33e39b4a2a108ae6b8901fc08c085a1d74fb1eee197ab5257ff39\",\"dweb:/ipfs/QmVNSgnQKyVmNwqiHp5TELi38PoDQ4N25WThfdGD8rC9Ur\"]}},\"version\":1}",
@@ -5356,9 +5360,17 @@
     "name": "solc",
     "version": "0.8.19+commit.7dd6d404.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5557": {
+      "events": {},
+      "links": {},
+      "address": "0xAB20505F17D9C84DE9F9824Ac5ef21fB688dE6B7",
+      "transactionHash": "0x0494cede21f59d1196d22b6975e7feb9756969ada5c4d2d23685818f6dc9b950"
+    }
+  },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-05-22T13:17:24.004Z",
+  "updatedAt": "2023-05-23T03:59:13.285Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
@@ -5370,4 +5382,3 @@
     "version": 1
   }
 }
-

@@ -1,7 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
 import 'package:techie_twins/web/doctor/pages/home/home.dart';
@@ -149,7 +148,7 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
                     });
                   },
                   icon:
-                      isSelected ? Icon(Icons.add) : Icon(Icons.abc_outlined)),
+                      isSelected ? const Icon(Icons.add) : const Icon(Icons.abc_outlined)),
               DefaultButton(
                   text: "Image Selected: $isSelected",
                   onPress: () async {

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';

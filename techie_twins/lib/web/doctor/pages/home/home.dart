@@ -7,6 +7,8 @@ import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../patients.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -227,7 +229,10 @@ class _HomeState extends State<Home> {
                 ),
                 const Spacer(),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const YourPatients())),
                   child: Text(
                     "proceed",
                     style: TextStyle(
