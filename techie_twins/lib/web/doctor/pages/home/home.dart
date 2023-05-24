@@ -230,12 +230,12 @@ class _HomeState extends State<Home> {
                 const Spacer(),
                 TextButton(
                   onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => YourPatients(
-                                docAddress: EthereumAddress.fromHex(
-                                    '0x86fDC5685b533923e5E7Cd4F7154D692A5643677'),
-                              ))),
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => YourPatients(
+                          docAddress: walletProvider.ethereumAddress!),
+                    ),
+                  ),
                   child: Text(
                     "proceed",
                     style: TextStyle(

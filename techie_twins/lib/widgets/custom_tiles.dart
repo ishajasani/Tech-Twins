@@ -471,7 +471,7 @@ class PatientConfirmationTile extends StatelessWidget {
         children: [
           const Spacer(),
           Text(
-            name.split(' ')[0],
+            name,
             style: TextStyle(
                 color: Colors.white,
                 height: 1,
@@ -481,7 +481,8 @@ class PatientConfirmationTile extends StatelessWidget {
           Row(
             children: [
               Text(
-                name.split(' ')[1],
+                // name.split(' ')[1],
+                "Patient Name",
                 style: TextStyle(
                     color: Colors.white,
                     height: 1,

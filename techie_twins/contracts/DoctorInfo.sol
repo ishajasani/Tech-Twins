@@ -96,12 +96,8 @@ contract DoctorInfo {
         doctors[msg.sender].appointments[index].isConfirmed = true;
     }
 
-    function getAppointments() public view returns (Appointment[] memory){
-        Appointment[] memory tempAppointment = new Appointment[](appointmentCount);
-        for(uint i = 0 ; i<appointmentCount ; i++){
-            Appointment memory tempappointment = doctors[msg.sender].appointments[i];
-            tempAppointment[i] = tempappointment;
-        }
-        return tempAppointment;
+    function getAppointments(address docaddress_) public view returns (Appointment[] memory){
+        return doctors[docaddress_].appointments;
     }
+
 }

@@ -4,6 +4,8 @@ import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../../../config/contract_linking/patient_contract_linking.dart';
+
 class YourPatients extends StatefulWidget {
   final EthereumAddress docAddress;
   const YourPatients({super.key, required this.docAddress});
@@ -14,24 +16,39 @@ class YourPatients extends StatefulWidget {
 
 class _YourPatientsState extends State<YourPatients> {
   DoctorContractLinking doctorContractLinking = DoctorContractLinking();
+  List appointmentData = List.empty(growable: true);
   @override
   void initState() {
     super.initState();
     getDocData();
   }
 
+  List patientData = List.empty(growable: true);
+  PatientContractLinking contractLinking = PatientContractLinking();
   void getDocData() {
-    Future.delayed(Duration(milliseconds: 1000), () {
-      doctorContractLinking.getAppointment().then((value) {
-        print(value);
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      doctorContractLinking.getAppointment(widget.docAddress).then((value) {
+        value.forEach((val) {
+          val.forEach((val1) {
+            // print(val1);
+            setState(() {
+              appointmentData.add(val1);
+            });
+            contractLinking.getUserData(val1[0]).then((value) {
+              setState(() {
+                patientData.add(value);
+              });
+            });
+          });
+        });
       });
     });
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
+    print("Length of patient data: ${patientData.length}");
+    print("Length of appointment data: ${appointmentData.length}");
     return Scaffold(
         extendBody: true,
         body: Container(
@@ -111,7 +128,7 @@ class _YourPatientsState extends State<YourPatients> {
                     height: MediaQuery.of(context).size.height / 1.41,
                     width: MediaQuery.of(context).size.width / 3,
                     child: GridView.builder(
-                      itemCount: 10,
+                      itemCount: appointmentData.length,
                       gridDelegate:
                           const SliverGridDelegateWithMaxCrossAxisExtent(
                               maxCrossAxisExtent: 400,
@@ -120,13 +137,13 @@ class _YourPatientsState extends State<YourPatients> {
                               mainAxisSpacing: 20),
                       itemBuilder: ((context, index) {
                         return PatientConfirmationTile(
-                          age: '21',
+                          age: patientData[index][2],
                           consultTap: () {},
-                          gender: 'Male',
+                          gender: patientData[index][5],
                           imageURL:
                               'https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80',
                           intoTap: () {},
-                          name: 'David Smith',
+                          name: patientData[index][0],
                         );
                       }),
                     ),

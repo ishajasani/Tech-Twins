@@ -22,10 +22,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: YourPatients(
-          docAddress: EthereumAddress.fromHex(
-              '0x86fDC5685b533923e5E7Cd4F7154D692A5643677'),
-        ),
+        home: OnBoardingWeb(),
+        // YourPatients(
+        //   docAddress: EthereumAddress.fromHex(
+        //       '0xe5799c8D70FC05aFA6D227473592999b3D2a654D'),
+        // ),
       );
     } else {
       return MaterialApp(
