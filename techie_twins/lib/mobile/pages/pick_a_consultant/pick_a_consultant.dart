@@ -16,7 +16,6 @@ class PickAConsultant extends StatefulWidget {
 class _PickAConsultantState extends State<PickAConsultant> {
   @override
   void initState() {
-    print("init");
     getDoctorsList();
     super.initState();
   }
@@ -29,8 +28,6 @@ class _PickAConsultantState extends State<PickAConsultant> {
   void getDoctorsList() {
     Future.delayed(const Duration(milliseconds: 1000), () {
       contractLinking.getDoctorAdd().then((value) {
-        print(value);
-
         for (var element in value) {
           for (var ele in element) {
             addresses.add(ele);
@@ -49,7 +46,6 @@ class _PickAConsultantState extends State<PickAConsultant> {
   }
 
   List<ConsultantTile>? tile;
-  void getDoctorinfo(EthereumAddress address) {}
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +64,7 @@ class _PickAConsultantState extends State<PickAConsultant> {
                   child: Text(
                     "pick a consultant",
                     style: TextStyle(
+                        height: 1,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: MediaQuery.of(context).size.width / 10),
@@ -77,22 +74,28 @@ class _PickAConsultantState extends State<PickAConsultant> {
                   itemCount: countDocs,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    String docImageUrl = ipfsURL + val[index][8];
+                    if (val.isEmpty) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      String docImageUrl = ipfsURL + val[index][8];
 
-                    return ConsultantTile(
-                        designation: val[index][1],
-                        exp: val[index][3],
-                        name: val[index][0],
-                        stars: val[index][5],
-                        imageUrl: docImageUrl,
-                        onTap: () => {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ConsultantProfile(
-                                            address: addresses[index],
-                                          )))
-                            });
+                      return ConsultantTile(
+                          designation: val[index][1],
+                          exp: val[index][3],
+                          name: val[index][0],
+                          stars: val[index][5],
+                          imageUrl: docImageUrl,
+                          onTap: () => {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ConsultantProfile(
+                                              address: addresses[index],
+                                            )))
+                              });
+                    }
                   }),
             ],
           ),

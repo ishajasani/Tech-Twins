@@ -40,14 +40,14 @@ class _PaitentProfileState extends State<PaitentProfile> {
   bool isFetching = false;
 
   getPatientData() async {
+    setState(() {
+      isFetching = true;
+    });
     await getData();
-    isFetching = true;
+
     Future.delayed(const Duration(milliseconds: 1000), () {
       patientModel_ = contractLinking.getUserData(credentials!.address);
       populateData();
-    });
-    setState(() {
-      isFetching = false;
     });
   }
 
@@ -64,7 +64,9 @@ class _PaitentProfileState extends State<PaitentProfile> {
       profileUrl = value[8];
     });
 
-    setState(() {});
+    setState(() {
+      isFetching = false;
+    });
   }
 
   @override
@@ -76,181 +78,210 @@ class _PaitentProfileState extends State<PaitentProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-          margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-          child: Column(
-            children: [
-              SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  child: Text(
-                    "Your profile",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: MediaQuery.of(context).size.width / 10),
-                  )),
-              isFetching
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 15, bottom: 120),
-                          height: MediaQuery.of(context).size.height / 2.5,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(ipfsURL + profileUrl),
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.black,
+                ))
+          ],
+        ),
+        body: isFetching
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                child: Column(
+                  children: [
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        child: Text(
+                          "Your profile",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 10),
+                        )),
+                    isFetching
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Stack(
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 15, bottom: 120),
+                                height:
+                                    MediaQuery.of(context).size.height / 2.5,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(ipfsURL + profileUrl),
+                                    ),
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(30)),
                               ),
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(30)),
-                        ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: GestureDetector(
-                              onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => WalletProfile(
-                                            imageUrl: ipfsURL + profileUrl,
-                                            name: name,
-                                          ))),
-                              child: BlurryContainer(
-                                borderRadius: BorderRadius.circular(25),
-                                width: MediaQuery.of(context).size.width / 3.6,
-                                blur: 5,
-                                color: Colors.black.withOpacity(.2),
+                              Align(
+                                alignment: Alignment.topRight,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Row(
-                                    children: const [
-                                      Icon(
-                                        Icons.wallet_outlined,
-                                        color: Colors.white,
-                                        size: 20,
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => WalletProfile(
+                                                  imageUrl:
+                                                      ipfsURL + profileUrl,
+                                                  name: name,
+                                                ))),
+                                    child: BlurryContainer(
+                                      borderRadius: BorderRadius.circular(25),
+                                      width: MediaQuery.of(context).size.width /
+                                          3.6,
+                                      blur: 5,
+                                      color: Colors.black.withOpacity(.2),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Row(
+                                          children: const [
+                                            Icon(
+                                              Icons.wallet_outlined,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              "Wallet",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Wallet",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: MediaQuery.of(context).size.height / 3.9,
+                                left: 30,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "$gender: $age",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              20),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
+                                      child: Text(
+                                        name,
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                15),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                top: MediaQuery.of(context).size.height / 2.5,
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Row(
+                                    children: [
+                                      HeightTile(
+                                        height: height,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      WeightTile(
+                                        weight: weight,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      BloodTile(
+                                        blood: blood,
                                       )
                                     ],
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: MediaQuery.of(context).size.height / 3.9,
-                          left: 30,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "$gender: $age",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width / 20),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 3,
-                                child: Text(
-                                  name,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width /
-                                              15),
-                                ),
                               )
                             ],
                           ),
-                        ),
-                        Positioned(
-                          top: MediaQuery.of(context).size.height / 2.5,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Row(
-                              children: [
-                                HeightTile(
-                                  height: height,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                WeightTile(
-                                  weight: weight,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                BloodTile(
-                                  blood: blood,
-                                )
-                              ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2.7,
+                          height: MediaQuery.of(context).size.height / 6,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              color: Colors.blueAccent),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Text(
+                                "Your health records",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width / 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
-                        )
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: MediaQuery.of(context).size.height / 6,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              color: Colors.blueAccent),
+                          child: Center(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20.0, right: 10),
+                              child: Text(
+                                "Your appointments",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width / 17,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
-                    ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2.7,
-                    height: MediaQuery.of(context).size.height / 6,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        color: Colors.blueAccent),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Text(
-                          "Your health records",
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width / 15,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.height / 6,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        color: Colors.blueAccent),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 10),
-                        child: Text(
-                          "Your appointments",
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width / 17,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
+                    )
+                  ],
+                ),
+              ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,

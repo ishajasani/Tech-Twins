@@ -18,7 +18,6 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
   DoctorContractLinking contractLinking = DoctorContractLinking();
   @override
   void initState() {
-    print('asfasfasfasfas');
     getDoctorinfo();
     super.initState();
   }
@@ -26,19 +25,19 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
   getDoctorinfo() {
     Future.delayed(const Duration(milliseconds: 1000), () {
       contractLinking.getDoctorData(widget.address).then((value) {
-        print(value);
-        name = value[0];
-        desig = value[1];
-        patientTreated = value[2];
-        exp = value[3];
-        gender = value[4];
-        rating = value[5];
-        about = value[6];
-        email = value[7];
-        profileURL = value[8];
+        setState(() {
+          name = value[0];
+          desig = value[1];
+          patientTreated = value[2];
+          exp = value[3];
+          gender = value[4];
+          rating = value[5];
+          about = value[6];
+          email = value[7];
+          profileURL = value[8];
+        });
       });
     });
-    setState(() {});
   }
 
   String name = "";
@@ -52,25 +51,15 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
   String about = "";
   // String
 
-  String appintmentStatus = "not booked";
+  bool appointmentBooked = false;
 
   @override
   Widget build(BuildContext context) {
-    print(widget.address);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        actions: [
-          Text(
-            appintmentStatus,
-            style: const TextStyle(color: Colors.black, fontSize: 20),
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-        ],
       ),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -178,28 +167,55 @@ class _ConsultantProfileState extends State<ConsultantProfile> {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DateTimePickerPage(
-                              docAddress: widget.address,
-                            ))),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: const Color(0xff1D3092).withOpacity(.49),
-                      borderRadius: BorderRadius.circular(30)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  child: Center(
-                    child: Text(
-                      "Book Appointment",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width / 20),
-                    ),
-                  ),
-                ),
+                onTap: () {
+                  if (!appointmentBooked) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DateTimePickerPage(
+                                  docAddress: widget.address,
+                                )));
+
+                    setState(() {
+                      appointmentBooked = true;
+                    });
+                  }
+                },
+                child: !appointmentBooked
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: const Color(0xff1D3092).withOpacity(.49),
+                            borderRadius: BorderRadius.circular(30)),
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            "Book Appointment",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.of(context).size.width / 20),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                            color: const Color(0xff1D3092).withOpacity(.49),
+                            borderRadius: BorderRadius.circular(30)),
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            "Check Appointment",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.of(context).size.width / 20),
+                          ),
+                        ),
+                      ),
               ),
             ],
           ),

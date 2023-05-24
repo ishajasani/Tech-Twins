@@ -12,7 +12,7 @@ class DoctorTileBlue extends StatelessWidget {
       onTap: () {},
       child: Container(
         padding: const EdgeInsets.all(20),
-        height: MediaQuery.of(context).size.height / 6,
+        height: MediaQuery.of(context).size.height / 5.8,
         width: MediaQuery.of(context).size.width / 2.2,
         decoration: BoxDecoration(
           color: Colors.blue,

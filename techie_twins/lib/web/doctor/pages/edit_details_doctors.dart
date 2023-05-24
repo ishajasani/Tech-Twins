@@ -141,14 +141,6 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
               const SizedBox(
                 height: 10,
               ),
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isSelected = !isSelected;
-                    });
-                  },
-                  icon:
-                      isSelected ? const Icon(Icons.add) : const Icon(Icons.abc_outlined)),
               DefaultButton(
                   text: "Image Selected: $isSelected",
                   onPress: () async {
