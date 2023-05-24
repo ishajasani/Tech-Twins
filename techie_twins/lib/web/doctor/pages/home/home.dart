@@ -232,7 +232,10 @@ class _HomeState extends State<Home> {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const YourPatients())),
+                          builder: (context) => YourPatients(
+                                docAddress: EthereumAddress.fromHex(
+                                    '0x86fDC5685b533923e5E7Cd4F7154D692A5643677'),
+                              ))),
                   child: Text(
                     "proceed",
                     style: TextStyle(

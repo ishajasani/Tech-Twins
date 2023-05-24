@@ -23,6 +23,8 @@ class DoctorContractLinking extends ChangeNotifier {
   ContractFunction? getDoctorInfo;
   ContractFunction? doctorAddresses;
   ContractFunction? bookAppointment;
+  ContractFunction? confirmAppointments;
+  ContractFunction? getAppointments;
   int chainId = 1337;
 
   String? deployedName;
@@ -62,6 +64,8 @@ class DoctorContractLinking extends ChangeNotifier {
     getDoctorInfo = contract!.function('getDoctorInfo');
     doctorAddresses = contract!.function("getDoctorAdd");
     bookAppointment = contract!.function("bookAppointment");
+    getAppointments = contract!.function("getAppointments");
+    confirmAppointments = contract!.function("appointmentConfirmed");
     if (kDebugMode) {
       print(contract);
     }
@@ -134,5 +138,27 @@ class DoctorContractLinking extends ChangeNotifier {
       print("appointment booked");
     }
     // getAppointments(BigInt.from(1));
+  }
+
+  Future<void> confirmAppointmentFunction(UintType appointmentId) async {
+    await _client.call(
+        contract: contract!,
+        function: confirmAppointments!,
+        params: [appointmentId]);
+    if (kDebugMode) {
+      print("Appointment Confirmed");
+    }
+    notifyListeners();
+  }
+
+  Future<List> getAppointment() async {
+    List appointments = await _client.call(
+        contract: contract!,
+        function: getAppointments!,
+        params: []);
+    if (kDebugMode) {
+      print(appointments);
+    }
+    return appointments;
   }
 }

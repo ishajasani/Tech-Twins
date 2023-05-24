@@ -99,7 +99,7 @@ contract DoctorInfo {
     function getAppointments() public view returns (Appointment[] memory){
         Appointment[] memory tempAppointment = new Appointment[](appointmentCount);
         for(uint i = 0 ; i<appointmentCount ; i++){
-            Appointment storage tempappointment = doctors[msg.sender].appointments[i];
+            Appointment memory tempappointment = doctors[msg.sender].appointments[i];
             tempAppointment[i] = tempappointment;
         }
         return tempAppointment;
