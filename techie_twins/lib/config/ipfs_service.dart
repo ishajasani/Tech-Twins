@@ -44,8 +44,7 @@ class IpfsService {
       final response = await http.get(Uri.parse(ipfsURL + cid));
       if (kDebugMode) {
         print("........................................");
-        // print(response.body);
-        print("........................................");
+        
       }
       return response;
     } catch (e) {

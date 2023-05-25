@@ -62,7 +62,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
             initialTime: TimeOfDay.now(),
             dateMask: 'd MMMM, yyyy - hh:mm a',
             initialValue: DateTime.now().toString(),
-            firstDate: DateTime(2000),
+            firstDate: DateTime.now(),
             lastDate: DateTime(2100),
             icon: const Icon(Icons.event),
             dateLabelText: 'Date Time',

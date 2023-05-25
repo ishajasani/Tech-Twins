@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
-import 'package:techie_twins/web/doctor/pages/home/home.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
 
@@ -154,37 +153,36 @@ class _EditDetailsDoctorState extends State<EditDetailsDoctor> {
       floatingActionButton: TextButton(
         onPressed: () async {
           if (nameController.text.isNotEmpty &&
-                  desigController.text.isNotEmpty &&
-                  patientCountController.text.isNotEmpty &&
-                  expController.text.isNotEmpty &&
-                  ratingController.text.isNotEmpty &&
-                  genderController.text.isNotEmpty &&
-                  emailController.text.isNotEmpty &&
-                  aboutController.text.isNotEmpty
-              // && path != ""
-              ) {
+              desigController.text.isNotEmpty &&
+              patientCountController.text.isNotEmpty &&
+              expController.text.isNotEmpty &&
+              ratingController.text.isNotEmpty &&
+              genderController.text.isNotEmpty &&
+              emailController.text.isNotEmpty &&
+              aboutController.text.isNotEmpty &&
+              path.isNotEmpty) {
             IpfsService ipfsService = IpfsService();
             String cid = await ipfsService.uploadImageWeb(path);
             if (kDebugMode) {
               print(cid);
             }
-            contractLinking.regDoctor(
-                nameController.text,
-                desigController.text,
-                patientCountController.text,
-                expController.text,
-                genderController.text,
-                ratingController.text,
-                emailController.text,
-                aboutController.text,
-                cid);
+            contractLinking
+                .regDoctor(
+                    nameController.text,
+                    desigController.text,
+                    patientCountController.text,
+                    expController.text,
+                    genderController.text,
+                    ratingController.text,
+                    emailController.text,
+                    aboutController.text,
+                    cid)
+                .then((value) => Navigator.pop(context));
           }
           // ignore: use_build_context_synchronously
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const Home()));
         },
         child: Text(
-          "proceed",
+          "update",
           style: TextStyle(
               height: 1,
               fontWeight: FontWeight.bold,

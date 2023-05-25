@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
-import 'package:techie_twins/web/doctor/pages/edit_details_doctors.dart';
+import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/web/doctor/pages/enter_details_doctors.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -26,9 +27,8 @@ class NewWalletLaboratoryState extends State<NewWalletLaboratory> {
   void getBalance() async {}
   double ammount = 0;
   Future<void> walletFun() async {
-    EtherAmount etherAmount =
-        await Web3Client("HTTP://192.168.43.59:7545", Client()).getBalance(
-            EthereumAddress.fromHex(walletProvider.ethereumAddress!.hex));
+    EtherAmount etherAmount = await Web3Client(rpcUrl, Client()).getBalance(
+        EthereumAddress.fromHex(walletProvider.ethereumAddress!.hex));
 
     setState(() {
       ammount = etherAmount.getInEther.toDouble();
@@ -149,7 +149,7 @@ class NewWalletLaboratoryState extends State<NewWalletLaboratory> {
                 onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const EditDetailsDoctor())),
+                        builder: (context) => const EnterDetails())),
                 child: const Text(
                   "Skip for now!!",
                   style: TextStyle(

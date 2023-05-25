@@ -17,7 +17,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final String _name = 'Tom';
+
   bool isLoading = false;
   int randomNumber = 0;
   @override

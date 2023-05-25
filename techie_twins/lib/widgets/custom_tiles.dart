@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
 
@@ -374,55 +375,37 @@ class PatientTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Spacer(),
-          Text(
-            name.split(' ')[0],
+          AutoSizeText(
+            name,
             style: TextStyle(
                 color: Colors.white,
                 height: 1,
                 fontSize: MediaQuery.of(context).size.width / 45,
                 fontWeight: FontWeight.bold),
           ),
+          const SizedBox(height: 10),
+          AutoSizeText("$gender:$age",
+              style: TextStyle(
+                  color: Colors.white,
+                  height: 1,
+                  fontSize: MediaQuery.of(context).size.width / 80,
+                  fontWeight: FontWeight.normal)),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(
-                name.split(' ')[1],
-                style: TextStyle(
-                    color: Colors.white,
-                    height: 1,
-                    fontSize: MediaQuery.of(context).size.width / 45,
-                    fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-              Text("$gender:$age",
-                  style: TextStyle(
-                      color: Colors.white,
-                      height: 1,
-                      fontSize: MediaQuery.of(context).size.width / 80,
-                      fontWeight: FontWeight.normal)),
-            ],
-          ),
-          Row(
-            children: [
-              InkWell(
-                onTap: intoTap,
-                child: const CircleAvatar(
-                  radius: 20,
-                  backgroundColor: bottomNavigationBarColor,
-                  child: Icon(Icons.info_outline, color: Colors.white),
-                ),
-              ),
               InkWell(
                 onTap: consultTap,
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  width: 170,
                   decoration: BoxDecoration(
                       color: buttonColor.withOpacity(.8),
                       borderRadius: BorderRadius.circular(22)),
-                  height: 40,
-                  child: const Center(
-                    child: Text(
+                  child: const Padding(
+                    padding: EdgeInsets.only(
+                        left: 40.0, right: 40, top: 12, bottom: 12),
+                    child: AutoSizeText(
                       "consult",
+                      maxLines: 1,
                       style: TextStyle(
                           color: Colors.white,
                           height: 1,
@@ -431,7 +414,15 @@ class PatientTile extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
+              InkWell(
+                onTap: intoTap,
+                child: const CircleAvatar(
+                  radius: 20,
+                  backgroundColor: bottomNavigationBarColor,
+                  child: Icon(Icons.info_outline, color: Colors.white),
+                ),
+              ),
             ],
           )
         ],
@@ -460,7 +451,7 @@ class PatientConfirmationTile extends StatelessWidget {
       decoration: BoxDecoration(
           image:
               DecorationImage(fit: BoxFit.cover, image: NetworkImage(imageURL)),
-          color: Colors.red,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(18),
           boxShadow: const [
             BoxShadow(
@@ -470,7 +461,7 @@ class PatientConfirmationTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Spacer(),
-          Text(
+          AutoSizeText(
             name,
             style: TextStyle(
                 color: Colors.white,
@@ -478,45 +469,37 @@ class PatientConfirmationTile extends StatelessWidget {
                 fontSize: MediaQuery.of(context).size.width / 45,
                 fontWeight: FontWeight.bold),
           ),
+          const SizedBox(height: 10),
+          AutoSizeText("$gender:$age",
+              style: TextStyle(
+                  color: Colors.white,
+                  height: 1,
+                  fontSize: MediaQuery.of(context).size.width / 80,
+                  fontWeight: FontWeight.normal)),
+          const SizedBox(height: 10),
           Row(
-            children: [
-              Text(
-                // name.split(' ')[1],
-                "Patient Name",
-                style: TextStyle(
-                    color: Colors.white,
-                    height: 1,
-                    fontSize: MediaQuery.of(context).size.width / 45,
-                    fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-              Text("$gender:$age",
-                  style: TextStyle(
-                      color: Colors.white,
-                      height: 1,
-                      fontSize: MediaQuery.of(context).size.width / 80,
-                      fontWeight: FontWeight.normal)),
-            ],
-          ),
-          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InkWell(
                 onTap: intoTap,
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  width: 105,
                   decoration: BoxDecoration(
                       color: buttonColor.withOpacity(.8),
                       borderRadius: BorderRadius.circular(22)),
-                  height: 40,
                   child: const Center(
-                    child: Text(
-                      "Confirm",
-                      style: TextStyle(
-                          color: Colors.white,
-                          height: 1,
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: 20.0, right: 20, top: 15, bottom: 15),
+                      child: AutoSizeText(
+                        "Confirm",
+                        maxLines: 1,
+                        style: TextStyle(
+                            color: Colors.white,
+                            height: 1,
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                      ),
                     ),
                   ),
                 ),
@@ -525,19 +508,22 @@ class PatientConfirmationTile extends StatelessWidget {
                 onTap: consultTap,
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  width: 105,
                   decoration: BoxDecoration(
                       color: Colors.red.withOpacity(.8),
                       borderRadius: BorderRadius.circular(22)),
-                  height: 40,
                   child: const Center(
-                    child: Text(
-                      "Cancel",
-                      style: TextStyle(
-                          color: Colors.white,
-                          height: 1,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: 20.0, right: 20, top: 15, bottom: 15),
+                      child: AutoSizeText(
+                        "Cancel",
+                        maxLines: 1,
+                        style: TextStyle(
+                            color: Colors.white,
+                            height: 1,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),

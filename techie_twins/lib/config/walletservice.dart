@@ -26,10 +26,14 @@ class WalletService {
     return prefs.getString('user_private_key') ?? "";
   }
 
+  Future<bool> removePrivateKey() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.clear();
+  }
+
   setPrivateKey(String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('user_private_key', value);
   }
 }
-// 0x96eca8c00dab04d66ff5636f9058f0f5bc6644f0001eab5515ae3f62dfa056c2

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/mobile/pages/onboarding.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:techie_twins/web/doctor/pages/patients.dart';
+import 'package:techie_twins/web/doctor/pages/home/home.dart';
 import 'package:techie_twins/web/onboarding.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -22,11 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: OnBoardingWeb(),
-        // YourPatients(
-        //   docAddress: EthereumAddress.fromHex(
-        //       '0xe5799c8D70FC05aFA6D227473592999b3D2a654D'),
-        // ),
+        home: const Web(),
       );
     } else {
       return MaterialApp(
@@ -38,5 +35,48 @@ class MyApp extends StatelessWidget {
         home: const OnBoarding(),
       );
     }
+  }
+}
+
+class Web extends StatefulWidget {
+  const Web({super.key});
+
+  @override
+  State<Web> createState() => _WebState();
+}
+
+class _WebState extends State<Web> {
+  bool isLoggedin = false;
+
+  @override
+  void initState() {
+    checkLogged();
+    super.initState();
+  }
+
+  String privatekey = "";
+  WalletService walletService = WalletService();
+  checkLogged() async {
+    privatekey = await walletService.getPrivateKey();
+    if (privatekey != "") {
+      setState(() {
+        isLoggedin = true;
+      });
+    }else{
+      setState(() {
+        isLoggedin = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: isLoggedin
+          ? Home(
+              docAddress: EthPrivateKey.fromHex(privatekey).address,
+            )
+          : const OnBoardingWeb(),
+    );
   }
 }

@@ -71,7 +71,7 @@ class DoctorContractLinking extends ChangeNotifier {
     }
   }
 
-  regDoctor(
+  Future regDoctor(
       String name,
       String desig,
       String patientCount,
@@ -119,7 +119,9 @@ class DoctorContractLinking extends ChangeNotifier {
   Future<List> getDoctorAdd() async {
     List doctors = await _client
         .call(contract: contract!, function: doctorAddresses!, params: []);
-    print(doctors);
+    if (kDebugMode) {
+      print(doctors);
+    }
     return doctors;
   }
 

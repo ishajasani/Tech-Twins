@@ -4,7 +4,7 @@ import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/mobile/pages/consultant/consultant_profile.dart';
 import 'package:techie_twins/mobile/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
-import 'package:web3dart/web3dart.dart';
+
 
 class PickAConsultant extends StatefulWidget {
   const PickAConsultant({super.key});

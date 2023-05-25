@@ -87,7 +87,7 @@ class _OnBoardingWebState extends State<OnBoardingWeb> {
                         height: 70,
                       ),
                       Image(
-                        width: MediaQuery.of(context).size.width / 5,
+                        width: MediaQuery.of(context).size.width / 5.5,
                         image: const AssetImage('assets/heart.png'),
                       )
                     ],
