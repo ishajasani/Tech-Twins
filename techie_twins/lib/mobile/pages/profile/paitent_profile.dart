@@ -5,6 +5,7 @@ import 'package:techie_twins/config/contract_linking/patient_contract_linking.da
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/main.dart';
+import 'package:techie_twins/mobile/pages/appointments/patient_appointments.dart';
 import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
 import 'package:techie_twins/mobile/pages/profile/wallet_profile.dart';
 import 'package:web3dart/web3dart.dart';
@@ -258,6 +259,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                               child: Text(
                                 "Your health records",
                                 style: TextStyle(
+                                  height: 1,
                                     fontSize:
                                         MediaQuery.of(context).size.width / 15,
                                     color: Colors.white,
@@ -266,23 +268,27 @@ class _PaitentProfileState extends State<PaitentProfile> {
                             ),
                           ),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 2,
-                          height: MediaQuery.of(context).size.height / 6,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18),
-                              color: Colors.blueAccent),
-                          child: Center(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20.0, right: 10),
-                              child: Text(
-                                "Your appointments",
-                                style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width / 17,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                        InkWell(
+                          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> const PatientAppointments())),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height / 6,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+                                color: Colors.blueAccent),
+                            child: Center(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20.0, right: 10),
+                                child: Text(
+                                  "Your appointments",
+                                  style: TextStyle(
+                                    height: 1,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width / 17,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
