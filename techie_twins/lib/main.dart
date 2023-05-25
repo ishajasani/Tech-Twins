@@ -5,6 +5,7 @@ import 'package:techie_twins/mobile/pages/onboarding.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:techie_twins/web/doctor/pages/home/home.dart';
 import 'package:techie_twins/web/onboarding.dart';
+import 'package:techie_twins/mobile/pages/home/home.dart';
 import 'package:web3dart/web3dart.dart';
 
 void main() {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const OnBoarding(),
+        home: const Mobile(),
       );
     }
   }
@@ -62,7 +63,7 @@ class _WebState extends State<Web> {
       setState(() {
         isLoggedin = true;
       });
-    }else{
+    } else {
       setState(() {
         isLoggedin = false;
       });
@@ -77,6 +78,45 @@ class _WebState extends State<Web> {
               docAddress: EthPrivateKey.fromHex(privatekey).address,
             )
           : const OnBoardingWeb(),
+    );
+  }
+}
+
+class Mobile extends StatefulWidget {
+  const Mobile({super.key});
+
+  @override
+  State<Mobile> createState() => _MobileState();
+}
+
+class _MobileState extends State<Mobile> {
+  bool isLoggedin = false;
+
+  @override
+  void initState() {
+    checkLogged();
+    super.initState();
+  }
+
+  String privatekey = "";
+  WalletService walletService = WalletService();
+  checkLogged() async {
+    privatekey = await walletService.getPrivateKey();
+    if (privatekey != "") {
+      setState(() {
+        isLoggedin = true;
+      });
+    } else {
+      setState(() {
+        isLoggedin = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: isLoggedin ? const HomeMobile() : const OnBoarding(),
     );
   }
 }

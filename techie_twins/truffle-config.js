@@ -23,5 +23,5 @@ module.exports = {
 // eth.sendTransaction({
 //   from: eth.coinbase,
 //   to: "0x86fDC5685b533923e5E7Cd4F7154D692A5643677",
-//   value: web3.toWei(5000, "ether"),
+//   value: web3.toWei(500000, "ether"),
 // });

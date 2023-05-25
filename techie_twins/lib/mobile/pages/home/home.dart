@@ -9,15 +9,14 @@ import 'package:techie_twins/mobile/pages/pick_a_consultant/pick_a_consultant.da
 import 'package:techie_twins/mobile/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeMobile extends StatefulWidget {
+  const HomeMobile({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeMobile> createState() => _HomeMobileState();
 }
 
-class _HomeState extends State<Home> {
-
+class _HomeMobileState extends State<HomeMobile> {
   bool isLoading = false;
   int randomNumber = 0;
   @override

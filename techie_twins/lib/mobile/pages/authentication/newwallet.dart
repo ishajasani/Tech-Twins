@@ -145,8 +145,10 @@ class NewWalletState extends State<NewWallet> {
               height: 10,
             ),
             TextButton(
-                onPressed: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Home())),
+                onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeMobile())),
                 child: const Text(
                   "Skip for now!!",
                   style: TextStyle(

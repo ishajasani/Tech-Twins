@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:techie_twins/config/walletprovider.dart';
@@ -24,7 +23,7 @@ class _AuthenticateWalletState extends State<AuthenticateWallet> {
     if (isValid) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Home()));
+          context, MaterialPageRoute(builder: (context) => const HomeMobile()));
     } else {
       Fluttertoast.showToast(msg: "Enter a valid private key");
     }

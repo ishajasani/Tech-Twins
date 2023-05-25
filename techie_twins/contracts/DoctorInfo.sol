@@ -87,17 +87,23 @@ contract DoctorInfo {
         docAdd_ = docAdd;
     }
 
-    function bookAppointment(uint256 _appointmentTime , address docAddress) external {
-        doctors[docAddress].appointments.push(Appointment(msg.sender , _appointmentTime , false));
+    function bookAppointment(
+        uint256 _appointmentTime,
+        address docAddress
+    ) external {
+        doctors[docAddress].appointments.push(
+            Appointment(msg.sender, _appointmentTime, false)
+        );
         appointmentCount++;
     }
 
-    function appointmentConfirmed(uint256 index) public{
+    function appointmentConfirmed(uint256 index) public {
         doctors[msg.sender].appointments[index].isConfirmed = true;
     }
 
-    function getAppointments(address docaddress_) public view returns (Appointment[] memory){
+    function getAppointments(
+        address docaddress_
+    ) public view returns (Appointment[] memory) {
         return doctors[docaddress_].appointments;
     }
-
 }

@@ -1,8 +1,10 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/main.dart';
 import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
 import 'package:techie_twins/mobile/pages/profile/wallet_profile.dart';
 import 'package:web3dart/web3dart.dart';
@@ -84,7 +86,15 @@ class _PaitentProfileState extends State<PaitentProfile> {
           elevation: 0,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  walletService.removePrivateKey().then((value) {
+                    Fluttertoast.showToast(msg: "Logged out successfully");
+                    return Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Mobile()));
+                  });
+                },
                 icon: const Icon(
                   Icons.logout,
                   color: Colors.black,
