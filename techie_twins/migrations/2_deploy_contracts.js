@@ -1,5 +1,5 @@
-var pateintReg = artifacts.require("PatientRegistration");
+var patientinfo = artifacts.require("PatientInfo");
 
 module.exports = function (deployer) {
-  deployer.deploy(pateintReg);
+  deployer.deploy(patientinfo);
 };

@@ -1,7 +1,14 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
+
 pragma solidity >=0.7.0 <0.9.0;
 
 contract PatientRegistration {
+    struct Appointment {
+        address doctorAddress;
+        uint256 datetime;
+        bool isConfirmed;
+    }
+
     struct Patient {
         string name;
         string blood;
@@ -13,10 +20,11 @@ contract PatientRegistration {
         string weight;
         string profileImageURL;
         string[] recordCids;
+        Appointment[] appointments;
     }
 
     mapping(address => Patient) public patients;
-
+    uint appointmentCount = 0;
     event PatientRegistered(address indexed patientAddress, string name);
 
     function registerPatient(
@@ -80,4 +88,13 @@ contract PatientRegistration {
     function getPatientRecordCids() public view returns (string[] memory cid_) {
         cid_ = patients[msg.sender].recordCids;
     }
+
+    function addAppointment (uint256 timestamp, address doctorAddress, address patientAddress,bool isConfirmed) public {
+        patients[patientAddress].appointments.push(Appointment(doctorAddress,timestamp,isConfirmed));
+    }
+
+    function getMyAppointments() public view returns (Appointment[] memory){
+        return patients[msg.sender].appointments;
+    }
+
 }

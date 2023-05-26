@@ -2,8 +2,9 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract LaboratoryInfo{
-    struct Laboratory{
+contract LaboratoryInfo {
+    uint256 reportCounter = 0;
+    struct Laboratory {
         string name;
         string recordsDelivered;
         string experience;
@@ -11,11 +12,17 @@ contract LaboratoryInfo{
         string email;
         string about;
         string profileImageURL;
+        Reports[] reports;
+    }
+
+    struct Reports {
+        address patientAddress;
+        address doctorAddress;
+        string reportType;
+        string[] cids;
     }
 
     mapping(address => Laboratory) laboratories;
-
-    event LaboratoryRegistration(address indexed laboratoryAddress, string name);
 
     function registerLaboratory(
         string memory name,
@@ -33,18 +40,19 @@ contract LaboratoryInfo{
         laboratories[msg.sender].email = email;
         laboratories[msg.sender].about = about;
         laboratories[msg.sender].profileImageURL = profileImageURL;
-        emit LaboratoryRegistration(msg.sender, name);
     }
 
-    function getLaboratoryInfo(address laboratoryAddress)public view
+    function getLaboratoryInfo(address laboratoryAddress)
+        public
+        view
         returns (
-        string memory name,
-        string memory recordsDelivered,
-        string memory experience,
-        string memory rating,
-        string memory email,
-        string memory about,
-        string memory profileImageURL
+            string memory name,
+            string memory recordsDelivered,
+            string memory experience,
+            string memory rating,
+            string memory email,
+            string memory about,
+            string memory profileImageURL
         )
     {
         Laboratory memory laboratory = laboratories[laboratoryAddress];
@@ -57,5 +65,47 @@ contract LaboratoryInfo{
             laboratory.about,
             laboratory.profileImageURL
         );
+    }
+
+    function requestReport(
+        address doctorAddress,
+        string memory reportType,
+        address laboratoryAddress
+    ) public {
+        laboratories[laboratoryAddress].reports.push(
+            Reports(msg.sender, doctorAddress, reportType, new string[](0))
+        );
+
+        reportCounter++;
+    }
+
+    function generateReport(address patientAddress_, string[] memory cids_)
+        public
+    {
+        for (uint256 i = 0; i < reportCounter; i++) {
+            if (
+                laboratories[msg.sender].reports[i].patientAddress ==
+                patientAddress_
+            ) {
+                laboratories[msg.sender].reports[i].cids = cids_;
+            }
+        }
+    }
+
+    function getReport(address patientAddress_)
+        public
+        view
+        returns (string[] memory)
+    {
+        uint256 i;
+        for (i = 0; i < reportCounter; i++) {
+            if (
+                laboratories[msg.sender].reports[i].patientAddress ==
+                patientAddress_
+            ) {
+                break;
+            }
+        }
+        return laboratories[msg.sender].reports[i].cids;
     }
 }
