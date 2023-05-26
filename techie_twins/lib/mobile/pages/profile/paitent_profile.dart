@@ -22,9 +22,9 @@ class _PaitentProfileState extends State<PaitentProfile> {
   WalletService walletService = WalletService();
   Credentials? credentials;
   Future<List>? patientModel_;
-  String name = "Mohit";
-  String age = "21";
-  String gender = "male";
+  String name = "";
+  String age = "";
+  String gender = "";
   String email = "";
   String phone = "";
   String height = "";
@@ -259,7 +259,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                               child: Text(
                                 "Your health records",
                                 style: TextStyle(
-                                  height: 1,
+                                    height: 1,
                                     fontSize:
                                         MediaQuery.of(context).size.width / 15,
                                     color: Colors.white,
@@ -269,7 +269,11 @@ class _PaitentProfileState extends State<PaitentProfile> {
                           ),
                         ),
                         InkWell(
-                          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> const PatientAppointments())),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PatientAppointments())),
                           child: Container(
                             width: MediaQuery.of(context).size.width / 2,
                             height: MediaQuery.of(context).size.height / 6,
@@ -278,14 +282,15 @@ class _PaitentProfileState extends State<PaitentProfile> {
                                 color: Colors.blueAccent),
                             child: Center(
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20.0, right: 10),
+                                padding: const EdgeInsets.only(
+                                    left: 20.0, right: 10),
                                 child: Text(
                                   "Your appointments",
                                   style: TextStyle(
-                                    height: 1,
+                                      height: 1,
                                       fontSize:
-                                          MediaQuery.of(context).size.width / 17,
+                                          MediaQuery.of(context).size.width /
+                                              17,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),

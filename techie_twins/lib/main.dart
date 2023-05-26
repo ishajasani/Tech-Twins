@@ -4,8 +4,9 @@ import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/mobile/pages/onboarding.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:techie_twins/web/doctor/pages/home/home.dart';
-import 'package:techie_twins/web/onboarding.dart';
+import 'package:techie_twins/web/doctor/onboarding_doctor.dart';
 import 'package:techie_twins/mobile/pages/home/home.dart';
+import 'package:techie_twins/web/laboratory/onboarding_laboratory.dart';
 import 'package:web3dart/web3dart.dart';
 
 void main() {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const Web(),
+        home: const WebLab(),
       );
     } else {
       return MaterialApp(
@@ -39,14 +40,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Web extends StatefulWidget {
-  const Web({super.key});
+class WebDoctor extends StatefulWidget {
+  const WebDoctor({super.key});
 
   @override
-  State<Web> createState() => _WebState();
+  State<WebDoctor> createState() => _WebDoctorState();
 }
 
-class _WebState extends State<Web> {
+class _WebDoctorState extends State<WebDoctor> {
   bool isLoggedin = false;
 
   @override
@@ -78,6 +79,49 @@ class _WebState extends State<Web> {
               docAddress: EthPrivateKey.fromHex(privatekey).address,
             )
           : const OnBoardingWeb(),
+    );
+  }
+}
+
+class WebLab extends StatefulWidget {
+  const WebLab({super.key});
+
+  @override
+  State<WebLab> createState() => _WebLabState();
+}
+
+class _WebLabState extends State<WebLab> {
+  bool isLoggedin = false;
+
+  @override
+  void initState() {
+    checkLogged();
+    super.initState();
+  }
+
+  String privatekey = "";
+  WalletService walletService = WalletService();
+  checkLogged() async {
+    privatekey = await walletService.getPrivateKey();
+    if (privatekey != "") {
+      setState(() {
+        isLoggedin = true;
+      });
+    } else {
+      setState(() {
+        isLoggedin = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: isLoggedin
+          ? Home(
+              docAddress: EthPrivateKey.fromHex(privatekey).address,
+            )
+          : const OnBoardingLab(),
     );
   }
 }

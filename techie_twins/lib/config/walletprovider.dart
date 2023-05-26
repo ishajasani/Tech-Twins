@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:techie_twins/config/walletservice.dart';
@@ -11,8 +10,7 @@ enum WalletState { empty, loading, loaded, success, error, logout }
 
 class WalletProvider {
   final WalletService _walletService = WalletService();
-  final Web3Client _web3client =
-      Web3Client(rpcUrl, Client());
+  final Web3Client _web3client = Web3Client(rpcUrl, Client());
   GasPriceService? _gasPriceService;
   // ContractService? _contractService;
 
@@ -53,11 +51,33 @@ class WalletProvider {
     getBalance();
   }
 
+  initializeWalletLab() async {
+    _credentials = await _walletService.initializeWalletAgainLab();
+    ethereumAddress = _credentials.address;
+    getBalance();
+  }
+
   initializeFromKey(String privateKey) {
     try {
       _credentials = _walletService.initializeWallet(privateKey);
       ethereumAddress = _credentials.address;
       _walletService.setPrivateKey(privateKey);
+      getBalance();
+
+      return true;
+    } on FormatException catch (e) {
+      debugPrint('Error: ${e.message}');
+    } catch (e) {
+      debugPrint('Error: $e');
+    }
+    return false;
+  }
+
+  initializeFromKeyLab(String privateKey) {
+    try {
+      _credentials = _walletService.initializeWallet(privateKey);
+      ethereumAddress = _credentials.address;
+      _walletService.setPrivateKeyLab(privateKey);
       getBalance();
 
       return true;

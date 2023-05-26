@@ -54,9 +54,9 @@ class _EditDetailsLaboratoryState extends State<EditDetailsLaboratory> {
     }
   }
 
+  LaboratoryContractLinking contractLinking = LaboratoryContractLinking();
   @override
   Widget build(BuildContext context) {
-    var contractLinking = Provider.of<LaboratoryContractLinking>(context);
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(
