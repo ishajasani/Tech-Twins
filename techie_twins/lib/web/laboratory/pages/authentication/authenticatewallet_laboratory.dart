@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/web/laboratory/pages/edit_details_laboratory.dart';
+import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
+import 'package:web3dart/web3dart.dart';
 
 class AuthenticateWalletLaboratory extends StatefulWidget {
   const AuthenticateWalletLaboratory({super.key});
@@ -15,15 +18,26 @@ class AuthenticateWalletLaboratory extends StatefulWidget {
 
 class _AuthenticateWalletLaboratoryState
     extends State<AuthenticateWalletLaboratory> {
+  LaboratoryContractLinking contractLinking = LaboratoryContractLinking();
   TextEditingController keyController = TextEditingController();
+  WalletProvider walletProvider = WalletProvider();
   handleLogin() async {
-    bool isValid = await WalletProvider().initializeFromKey(keyController.text);
+    bool isValid = await walletProvider.initializeFromKey(keyController.text);
     if (isValid) {
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const EditDetailsLaboratory()));
+      contractLinking
+          .getLaboratoryData(EthPrivateKey.fromHex(keyController.text).address)
+          .then((value) {
+        print(value);
+        if (value[0] == "") {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const EditDetailsLaboratory()));
+        } else {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeLaboratory()));
+        }
+      });
     } else {
       if (kDebugMode) {
         print("Invalid Key");

@@ -21,9 +21,18 @@ class WalletService {
     return EthPrivateKey.fromHex(await getPrivateKey());
   }
 
+  Future<Credentials> initializeWalletAgainLab() async {
+    return EthPrivateKey.fromHex(await getPrivateKeyLab());
+  }
+
   Future<String> getPrivateKey() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('user_private_key') ?? "";
+  }
+
+  Future<String> getPrivateKeyLab() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('lab_private_key') ?? "";
   }
 
   Future<bool> removePrivateKey() async {
@@ -35,5 +44,11 @@ class WalletService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('user_private_key', value);
+  }
+
+  setPrivateKeyLab(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('lab_private_key', value);
   }
 }

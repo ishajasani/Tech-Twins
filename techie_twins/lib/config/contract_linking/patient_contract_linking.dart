@@ -24,6 +24,8 @@ class PatientContractLinking extends ChangeNotifier {
   ContractFunction? getPatientData;
   ContractFunction? setPatientRecordCids;
   ContractFunction? getPatientRecordCids;
+  ContractFunction? addAppointment;
+  ContractFunction? getMyAppointments;
   int chainId = 1337;
 
   String? deployedName;
@@ -45,7 +47,7 @@ class PatientContractLinking extends ChangeNotifier {
 
   Future<void> getAbi() async {
     String abiStringfile =
-        await rootBundle.loadString("src/abis/PatientRegistration.json");
+        await rootBundle.loadString("src/abis/PatientInfo.json");
     final jsonAbi = jsonDecode(abiStringfile);
     abiCode = jsonEncode(jsonAbi['abi']);
 
@@ -65,6 +67,8 @@ class PatientContractLinking extends ChangeNotifier {
     getPatientData = contract!.function('getPatient');
     setPatientRecordCids = contract!.function('setPatientRecordCids');
     getPatientRecordCids = contract!.function('getPatientRecordCids');
+    addAppointment = contract!.function('addAppointment');
+    getMyAppointments = contract!.function('getMyAppointments');
   }
 
   regUser(
@@ -140,5 +144,31 @@ class PatientContractLinking extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     return patients;
+  }
+
+  Future addMyAppointment(
+      BigInt appointmentTimestamp,
+      EthereumAddress docAddress,
+      EthereumAddress pateintAddress,
+      bool isConfirmed) async {
+    await _client.sendTransaction(
+        credentials!,
+        Transaction.callContract(
+            contract: contract!,
+            function: addAppointment!,
+            parameters: [
+              appointmentTimestamp,
+              docAddress,
+              pateintAddress,
+              isConfirmed
+            ]),
+        chainId: chainId);
+    print("added appointment");
+  }
+
+  Future getPatientAppointments() async {
+    List myAppointments = await _client
+        .call(contract: contract!, function: getMyAppointments!, params: []);
+    print(myAppointments);
   }
 }

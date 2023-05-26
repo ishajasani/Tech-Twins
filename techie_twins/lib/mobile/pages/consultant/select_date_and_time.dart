@@ -1,9 +1,12 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:techie_twins/config/walletprovider.dart';
+import 'package:techie_twins/config/walletservice.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../config/contract_linking/doctor_contract_linking.dart';
+import '../../../config/contract_linking/patient_contract_linking.dart';
 
 class DateTimePickerPage extends StatefulWidget {
   final EthereumAddress docAddress;
@@ -20,7 +23,24 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
     return docDateTime.millisecondsSinceEpoch;
   }
 
+  @override
+  void initState() {
+    getPatientAddress();
+    super.initState();
+  }
+
+  PatientContractLinking patientContractLinking = PatientContractLinking();
   DoctorContractLinking contractLinking = DoctorContractLinking();
+  EthereumAddress? patientAddress;
+  WalletService walletService = WalletService();
+  getPatientAddress() async {
+    String privateKey = await walletService.getPrivateKey();
+    setState(() {
+      patientAddress = EthPrivateKey.fromHex(privateKey).address;
+    });
+    print(patientAddress);
+  }
+
   void setAppointment() {
     int dateTimeInMilliSeconds = 0;
     setState(() {
@@ -28,6 +48,9 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
     });
     contractLinking.bookAppointmentFunction(
         BigInt.from(dateTimeInMilliSeconds), widget.docAddress);
+
+    patientContractLinking.addMyAppointment(BigInt.from(dateTimeInMilliSeconds),
+        widget.docAddress, patientAddress!, false);
     Navigator.pop(context);
     Fluttertoast.showToast(msg: "Appointment Booked");
   }

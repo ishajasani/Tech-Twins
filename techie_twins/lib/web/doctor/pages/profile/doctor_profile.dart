@@ -104,7 +104,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
               walletService.removePrivateKey().then((value) {
                 Fluttertoast.showToast(msg: "Logged out successfully");
                 return Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Web()));
+                    MaterialPageRoute(builder: (context) => const WebDoctor()));
               });
             },
             child: const Text(

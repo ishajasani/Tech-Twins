@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
 
 class PatientAppointments extends StatefulWidget {
   const PatientAppointments({super.key});
@@ -8,6 +9,21 @@ class PatientAppointments extends StatefulWidget {
 }
 
 class _PatientAppointmentsState extends State<PatientAppointments> {
+  @override
+  void initState() {
+    getAppointment();
+    super.initState();
+  }
+
+  PatientContractLinking patientContractLinking = PatientContractLinking();
+  getAppointment() {
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      patientContractLinking.getPatientAppointments().then((value) {
+        print(value);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,7 +2,7 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract PatientRegistration {
+contract PatientInfo{
     struct Appointment {
         address doctorAddress;
         uint256 datetime;
@@ -25,7 +25,6 @@ contract PatientRegistration {
 
     mapping(address => Patient) public patients;
     uint appointmentCount = 0;
-    event PatientRegistered(address indexed patientAddress, string name);
 
     function registerPatient(
         string memory name,
@@ -47,7 +46,6 @@ contract PatientRegistration {
         patients[msg.sender].weight = weight;
         patients[msg.sender].phone = phone;
         patients[msg.sender].profileImageURL = profileImageURL;
-        emit PatientRegistered(msg.sender, name);
     }
 
     function getPatient(
