@@ -91,8 +91,8 @@ contract PatientInfo{
         patients[patientAddress].appointments.push(Appointment(doctorAddress,timestamp,isConfirmed));
     }
 
-    function getMyAppointments() public view returns (Appointment[] memory){
-        return patients[msg.sender].appointments;
+    function getMyAppointments(address patientAddress) public view returns (Appointment[] memory){
+        return patients[patientAddress].appointments;
     }
 
 }

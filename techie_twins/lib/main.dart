@@ -60,6 +60,7 @@ class _WebDoctorState extends State<WebDoctor> {
   WalletService walletService = WalletService();
   checkLogged() async {
     privatekey = await walletService.getPrivateKey();
+    // await walletService.removePrivateKey();
     if (privatekey != "") {
       setState(() {
         isLoggedin = true;

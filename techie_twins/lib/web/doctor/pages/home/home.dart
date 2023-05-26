@@ -30,11 +30,12 @@ class _HomeState extends State<Home> {
   List patientData = List.empty(growable: true);
   PatientContractLinking contractLinking = PatientContractLinking();
   void getDocData() {
-    setState(() {
-      isLoading = true;
-    });
+    // setState(() {
+    //   isLoading = true;
+    // });
     Future.delayed(const Duration(milliseconds: 1000), () {
       doctorContractLinking.getAppointment(widget.docAddress).then((value) {
+        print(value);
         value.forEach((val) {
           val.forEach((val1) {
             setState(() {

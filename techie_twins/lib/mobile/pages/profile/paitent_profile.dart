@@ -269,7 +269,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                           ),
                         ),
                         InkWell(
-                          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> const PatientAppointments())),
+                          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> PatientAppointments(patientAddress: credentials!.address,))),
                           child: Container(
                             width: MediaQuery.of(context).size.width / 2,
                             height: MediaQuery.of(context).size.height / 6,

@@ -37,6 +37,9 @@ class _AuthenticateWalletDoctorState extends State<AuthenticateWalletDoctor> {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const EnterDetails()));
         } else {
+          setState(() {
+            isLoading = false;
+          });
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(

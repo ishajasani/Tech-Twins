@@ -149,7 +149,7 @@ class PatientContractLinking extends ChangeNotifier {
   Future addMyAppointment(
       BigInt appointmentTimestamp,
       EthereumAddress docAddress,
-      EthereumAddress pateintAddress,
+      EthereumAddress patientAddress,
       bool isConfirmed) async {
     await _client.sendTransaction(
         credentials!,
@@ -159,16 +159,17 @@ class PatientContractLinking extends ChangeNotifier {
             parameters: [
               appointmentTimestamp,
               docAddress,
-              pateintAddress,
+              patientAddress,
               isConfirmed
             ]),
         chainId: chainId);
     print("added appointment");
   }
 
-  Future getPatientAppointments() async {
-    List myAppointments = await _client
-        .call(contract: contract!, function: getMyAppointments!, params: []);
-    print(myAppointments);
+  Future getPatientAppointments(EthereumAddress patientAddress) async {
+    var myAppointments = await _client
+        .call(contract: contract!, function: getMyAppointments!, params: [patientAddress]);
+    print("myAppointments gott");
+    return myAppointments;
   }
 }

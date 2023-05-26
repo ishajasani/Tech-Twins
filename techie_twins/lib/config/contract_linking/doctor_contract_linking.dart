@@ -125,7 +125,7 @@ class DoctorContractLinking extends ChangeNotifier {
     return doctors;
   }
 
-  void bookAppointmentFunction(
+  Future bookAppointmentFunction(
       BigInt appointmentTimestamp, EthereumAddress docAddress) async {
     isLoading = true;
 

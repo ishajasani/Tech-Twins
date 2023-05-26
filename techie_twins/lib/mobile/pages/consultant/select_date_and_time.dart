@@ -46,11 +46,17 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
     setState(() {
       dateTimeInMilliSeconds = getCustomFormattedDateTime(dateTime);
     });
-    contractLinking.bookAppointmentFunction(
-        BigInt.from(dateTimeInMilliSeconds), widget.docAddress);
+    contractLinking
+        .bookAppointmentFunction(
+            BigInt.from(dateTimeInMilliSeconds), widget.docAddress)
+        .then((value) {
+      patientContractLinking.addMyAppointment(
+          BigInt.from(dateTimeInMilliSeconds),
+          widget.docAddress,
+          patientAddress!,
+          false);
+    }).then((value) => print(value));
 
-    patientContractLinking.addMyAppointment(BigInt.from(dateTimeInMilliSeconds),
-        widget.docAddress, patientAddress!, false);
     Navigator.pop(context);
     Fluttertoast.showToast(msg: "Appointment Booked");
   }
