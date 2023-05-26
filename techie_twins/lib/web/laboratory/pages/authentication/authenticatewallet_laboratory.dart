@@ -20,9 +20,9 @@ class _AuthenticateWalletLaboratoryState
     extends State<AuthenticateWalletLaboratory> {
   LaboratoryContractLinking contractLinking = LaboratoryContractLinking();
   TextEditingController keyController = TextEditingController();
+  WalletProvider walletProvider = WalletProvider();
   handleLogin() async {
-    bool isValid =
-        await WalletProvider().initializeFromKeyLab(keyController.text);
+    bool isValid = await walletProvider.initializeFromKey(keyController.text);
     if (isValid) {
       contractLinking
           .getLaboratoryData(EthPrivateKey.fromHex(keyController.text).address)

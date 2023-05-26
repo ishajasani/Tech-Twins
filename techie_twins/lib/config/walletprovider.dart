@@ -47,12 +47,7 @@ class WalletProvider {
 
   initializeWallet() async {
     _credentials = await _walletService.initializeWalletAgain();
-    ethereumAddress = _credentials.address;
-    getBalance();
-  }
 
-  initializeWalletLab() async {
-    _credentials = await _walletService.initializeWalletAgainLab();
     ethereumAddress = _credentials.address;
     getBalance();
   }
