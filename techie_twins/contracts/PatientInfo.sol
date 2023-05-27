@@ -94,5 +94,7 @@ contract PatientInfo{
     function getMyAppointments(address patientAddress) public view returns (Appointment[] memory){
         return patients[patientAddress].appointments;
     }
+    
 
+    //Boolean value to show whether doctor has access to reports or not.
 }
