@@ -109,3 +109,4 @@ contract LaboratoryInfo {
         return laboratories[msg.sender].reports[i].cids;
     }
 }
+//TODO: Create a function for fetching all laboratories

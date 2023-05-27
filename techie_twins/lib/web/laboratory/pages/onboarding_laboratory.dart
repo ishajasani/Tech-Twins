@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
-import 'package:techie_twins/web/doctor/pages/authentication/walletcreate_doctor.dart';
 import 'package:techie_twins/web/laboratory/pages/authentication/walletcreate_laboratory.dart';
 
 class OnBoardingLab extends StatefulWidget {

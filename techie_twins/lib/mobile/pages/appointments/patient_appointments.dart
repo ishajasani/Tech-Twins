@@ -1,6 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+
 import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
+import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/mobile/pages/appointments/approved_appointment.dart';
 import 'package:web3dart/web3dart.dart';
 
 import '../../../config/contract_linking/doctor_contract_linking.dart';
@@ -30,7 +35,8 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
   String buildTimeAndDate(BigInt timestamp) {
     int convert = int.parse(timestamp.toString());
     final DateTime date1 = DateTime.fromMillisecondsSinceEpoch(convert);
-    return date1.toString().split(' ')[0];
+
+    return DateFormat('yyyy-MM-dd – kk:mm').format(date1);
   }
 
   getAppointment() {
@@ -46,10 +52,12 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
           element.forEach((val) {
             setState(() {
               appointments.add(val);
-              print(val);
+
               doctorContractLinking.getDoctorData(val[0]).then((value) {
                 setState(() {
-                  print(value);
+                  if (kDebugMode) {
+                    print(value);
+                  }
                   doctors.add(value);
                   setState(() {
                     isLoading = false;
@@ -96,14 +104,46 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
                           itemCount: appointments.length,
                           itemBuilder: (context, index) {
                             return ListTile(
+                              onTap: () {
+                                if (appointments[index][2]) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              ApprovedAppointment(
+                                                doctorAddress:
+                                                    appointments[index][0],
+                                              ))));
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          "Wait for the appointment approval.");
+                                }
+                              },
+                              leading: CircleAvatar(
+                                radius: 30,
+                                backgroundImage:
+                                    NetworkImage(ipfsURL + doctors[index][8]),
+                              ),
                               title: Text(doctors[index][0],
                                   style: const TextStyle(
+                                      height: 1,
                                       fontSize: 20,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
                               subtitle: Text(doctors[index][1]),
-                              trailing: Text(
-                                  buildTimeAndDate(appointments[index][1])),
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(appointments[index][2].toString() ==
+                                          "true"
+                                      ? "Approved"
+                                      : "Pending approval"),
+                                  Text(
+                                      buildTimeAndDate(appointments[index][1])),
+                                ],
+                              ),
                             );
                           })
                     ],

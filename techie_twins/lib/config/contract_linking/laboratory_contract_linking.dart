@@ -63,7 +63,7 @@ class LaboratoryContractLinking extends ChangeNotifier {
     }
   }
 
-  regLaboratory(String name, String recordsDelivered, String experience,
+  Future regLaboratory(String name, String recordsDelivered, String experience,
       String rating, String email, String about, String profileImageURL) async {
     isLoading = true;
 

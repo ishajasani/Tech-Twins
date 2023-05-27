@@ -71,7 +71,7 @@ class PatientContractLinking extends ChangeNotifier {
     getMyAppointments = contract!.function('getMyAppointments');
   }
 
-  regUser(
+ Future regUser(
       String username,
       String blood,
       String age,
@@ -163,13 +163,17 @@ class PatientContractLinking extends ChangeNotifier {
               isConfirmed
             ]),
         chainId: chainId);
-    print("added appointment");
+    if (kDebugMode) {
+      print("added appointment");
+    }
   }
 
   Future getPatientAppointments(EthereumAddress patientAddress) async {
     var myAppointments = await _client
         .call(contract: contract!, function: getMyAppointments!, params: [patientAddress]);
-    print("myAppointments gott");
+    if (kDebugMode) {
+      print("myAppointments gott");
+    }
     return myAppointments;
   }
 }

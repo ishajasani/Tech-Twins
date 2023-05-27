@@ -52,6 +52,13 @@ class WalletProvider {
     getBalance();
   }
 
+  Future initializeWalletLab() async {
+    _credentials = await _walletService.initializeWalletAgainLab();
+
+    ethereumAddress = _credentials.address;
+    getBalance();
+  }
+
   initializeFromKey(String privateKey) {
     try {
       _credentials = _walletService.initializeWallet(privateKey);

@@ -1,248 +1,191 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
-import 'package:techie_twins/config/walletprovider.dart';
-import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/web/doctor/pages/profile/doctor_profile.dart';
+import 'package:techie_twins/web/laboratory/pages/profile/lab_profile.dart';
+
 import 'package:techie_twins/widgets/custom_tiles.dart';
 import 'package:web3dart/web3dart.dart';
 
+import '../../../../config/contract_linking/patient_contract_linking.dart';
+
 class HomeLaboratory extends StatefulWidget {
-  const HomeLaboratory({super.key});
+  final EthereumAddress docAddress;
+  const HomeLaboratory({super.key, required this.docAddress});
 
   @override
   State<HomeLaboratory> createState() => _HomeLaboratoryState();
 }
 
 class _HomeLaboratoryState extends State<HomeLaboratory> {
+  LaboratoryContractLinking labContractLinking = LaboratoryContractLinking();
+  List appointmentData = List.empty(growable: true);
   @override
   void initState() {
-    getUserData();
-
     super.initState();
+    // getData();
   }
 
-  double accountBalance = 0;
-  WalletProvider walletProvider = WalletProvider();
+  bool isLoading = false;
 
-  getUserData() async {
-    await walletProvider.initializeWallet();
-    EtherAmount etherAmount = await Web3Client(rpcUrl, Client()).getBalance(
-        EthereumAddress.fromHex(walletProvider.ethereumAddress!.hex));
-    accountBalance = etherAmount.getInEther.toDouble();
-
-    if (kDebugMode) {
-      print("Balance: $accountBalance");
-      print(walletProvider.ethereumAddress);
-    }
-    getDetails();
-    setState(() {});
-  }
-
-  LaboratoryContractLinking contractLinking = LaboratoryContractLinking();
-  Credentials? credentials;
-  Future<List>? patientModel_;
-  String name = "Mohit";
-  String exp = "21";
-  String rating = "male";
-  String email = "";
-  String about = "";
-  String profileUrl = "";
-  String recordsGenerated = "";
-  getDetails() async {
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      patientModel_ =
-          contractLinking.getLaboratoryData(walletProvider.ethereumAddress!);
-      populateData();
-    });
+  List patientData = List.empty(growable: true);
+  PatientContractLinking contractLinking = PatientContractLinking();
+  void getData() {
     setState(() {
-      // isFetching = false;
+      isLoading = true;
+    });
+    // Future.delayed(const Duration(milliseconds: 1000), () {
+    //   labContractLinking.getLaboratoryData(widget.docAddress).then((value) {
+    //     if (kDebugMode) {
+    //       print(value);
+    //     }
+    //     value.forEach((val) {
+    //       val.forEach((val1) {
+    //         setState(() {
+    //           appointmentData.add(val1);
+    //         });
+    //         contractLinking.getUserData(val1[0]).then((value) {
+    //           setState(() {
+    //             patientData.add(value);
+    //           });
+    //           Future.delayed(const Duration(milliseconds: 1000), () {
+    //             setState(() {
+    //               isLoading = false;
+    //             });
+    //           });
+    //         });
+    //       });
+    //     });
+    //   });
+    // });
+    setState(() {
+      isLoading = false;
     });
   }
 
-  populateData() async {
-    await patientModel_!.then((value) {
-      name = value[0];
-      recordsGenerated = value[1];
-      exp = value[2];
-      rating = value[3];
-      email = value[4];
-      about = value[5];
-      profileUrl = value[6];
-    });
-    buildUrl = ipfsURL + profileUrl;
-    if (kDebugMode) {
-      print('------------------');
-    }
-    if (kDebugMode) {
-      print(buildUrl);
-    }
-    setState(() {});
-  }
-
-  String buildUrl = "";
+  String ipfsImgeUrl = 'https://ipfs.io/ipfs/';
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print("Length of patient data: ${patientData.length}");
+      print("Length of appointment data: ${appointmentData.length}");
+    }
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 5,
-                  child: Text(
-                    "lab profile",
-                    style: TextStyle(
-                        height: 1,
-                        fontWeight: FontWeight.bold,
-                        fontSize: MediaQuery.of(context).size.width / 20),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
+        extendBody: true,
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 4.5,
-                      height: MediaQuery.of(context).size.height / 2.5,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: profileUrl == ""
-                                  ? const NetworkImage(
-                                      "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80")
-                                  : NetworkImage(buildUrl))),
-                    ),
                     const SizedBox(
-                      width: 20,
+                      height: 30,
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 2.5,
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                    Row(
+                      children: [
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                LabReportGeneratedInfoTile(
-                                  reports: recordsGenerated,
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                ExpInfoTile(years: exp),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                RatingInfoTile(stars: rating)
-                              ],
-                            ),
-                            const Text(
-                              "About",
+                            Text(
+                              'Your',
                               style: TextStyle(
-                                  fontSize: 40, fontWeight: FontWeight.bold),
+                                  height: 1,
+                                  color: Colors.black,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width / 25,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                                width: 400,
-                                child: Text(
-                                  about,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                )),
+                            Text(
+                              'patients',
+                              style: TextStyle(
+                                  height: 1,
+                                  color: Colors.black,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width / 25,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
-                      ),
-                    )
+                        const Spacer(),
+                        TextButton(
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const LabProfile())),
+                            child: Text(
+                              "your profile",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width / 50),
+                            ))
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 1.41,
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: GridView.builder(
+                            itemCount: 10,
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 400,
+                                    childAspectRatio: 2 / 2,
+                                    crossAxisSpacing: 20,
+                                    mainAxisSpacing: 20),
+                            itemBuilder: ((context, index) {
+                              return PatientTile(
+                                age: '21',
+                                consultTap: () {},
+                                gender: 'Male',
+                                imageURL:
+                                    'https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80',
+                                intoTap: () {},
+                                name: 'David Smith',
+                              );
+                            }),
+                          ),
+                        ),
+                        const Spacer(),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 1.41,
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: GridView.builder(
+                            itemCount: 10,
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 400,
+                                    childAspectRatio: 2 / 2,
+                                    crossAxisSpacing: 20,
+                                    mainAxisSpacing: 20),
+                            itemBuilder: ((context, index) {
+                              // ignore: unnecessary_null_comparison
+                              return index != null
+                                  ? PatientTile(
+                                      age: '21',
+                                      consultTap: () {},
+                                      gender: 'Male',
+                                      imageURL:
+                                          'https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80',
+                                      intoTap: () {},
+                                      name: 'David Smith',
+                                    )
+                                  : const Center(child: Text("Is loading.."));
+                            }),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                Text(
-                  "Your balance",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 30),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "$accountBalance ETH",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      height: 1,
-                      fontSize: MediaQuery.of(context).size.width / 20),
-                ),
-              ],
-            ),
-            const Spacer(),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 70, right: 70),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "tech by",
-                        style: TextStyle(
-                            height: 1,
-                            fontSize: MediaQuery.of(context).size.width / 50,
-                            color: Colors.black54),
-                      ),
-                      Text(
-                        "Techie",
-                        style: TextStyle(
-                            height: 1,
-                            fontSize: MediaQuery.of(context).size.width / 40,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        "Twins",
-                        style: TextStyle(
-                            height: 1,
-                            fontSize: MediaQuery.of(context).size.width / 40,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      const SizedBox(
-                        height: 70,
-                      ),
-                      const Image(
-                        image: AssetImage('assets/doctors1.png'),
-                      )
-                    ],
-                  ),
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "proceed",
-                    style: TextStyle(
-                        height: 1,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: MediaQuery.of(context).size.width / 20),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+              ));
   }
 }

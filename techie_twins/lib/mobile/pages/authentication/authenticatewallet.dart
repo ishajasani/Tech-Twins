@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
 import 'package:techie_twins/config/walletprovider.dart';
+import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/mobile/pages/home/home.dart';
+import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
+import 'package:web3dart/web3dart.dart';
 
 class AuthenticateWallet extends StatefulWidget {
   const AuthenticateWallet({super.key});
@@ -14,18 +18,32 @@ class AuthenticateWallet extends StatefulWidget {
 
 class _AuthenticateWalletState extends State<AuthenticateWallet> {
   TextEditingController keyController = TextEditingController();
+  WalletService walletService = WalletService();
+  PatientContractLinking contractLinking = PatientContractLinking();
   bool isLoading = false;
   handleLogin() async {
-    bool isValid = await WalletProvider().initializeFromKey(keyController.text);
     setState(() {
       isLoading = true;
     });
+    bool isValid = await WalletProvider().initializeFromKey(keyController.text);
+    
     if (isValid) {
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomeMobile()));
+      EthereumAddress address =
+          EthPrivateKey.fromHex(keyController.text).address;
+      contractLinking.getUserData(address).then((value) {
+        if (value[0] != "") {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeMobile()));
+        } else {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const EditDetails()));
+        }
+      });
     } else {
       Fluttertoast.showToast(msg: "Enter a valid private key");
+      setState(() {
+        isLoading = false;
+      });
     }
     setState(() {
       isLoading = false;

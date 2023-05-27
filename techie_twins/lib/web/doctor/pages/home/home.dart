@@ -30,12 +30,14 @@ class _HomeState extends State<Home> {
   List patientData = List.empty(growable: true);
   PatientContractLinking contractLinking = PatientContractLinking();
   void getDocData() {
-    // setState(() {
-    //   isLoading = true;
-    // });
+    setState(() {
+      isLoading = true;
+    });
     Future.delayed(const Duration(milliseconds: 1000), () {
       doctorContractLinking.getAppointment(widget.docAddress).then((value) {
-        print(value);
+        if (kDebugMode) {
+          print(value);
+        }
         value.forEach((val) {
           val.forEach((val1) {
             setState(() {
@@ -55,6 +57,13 @@ class _HomeState extends State<Home> {
         });
       });
     });
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  void confirmAppointment(int index) async {
+    await doctorContractLinking.confirmAppointmentFunction(BigInt.from(index));
   }
 
   String ipfsImgeUrl = 'https://ipfs.io/ipfs/';
@@ -165,11 +174,13 @@ class _HomeState extends State<Home> {
                               return index != null
                                   ? PatientConfirmationTile(
                                       age: patientData[index][2],
-                                      consultTap: () {},
+                                      cancelTap: () {},
                                       gender: patientData[index][5],
                                       imageURL:
                                           ipfsImgeUrl + patientData[index][8],
-                                      intoTap: () {},
+                                      confirmTap: () {
+                                        confirmAppointment(index);
+                                      },
                                       name: patientData[index][0],
                                     )
                                   : const Center(child: Text("Is loading.."));

@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/constants.dart';
-import 'package:techie_twins/mobile/pages/home/home.dart';
+import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -148,7 +148,7 @@ class NewWalletState extends State<NewWallet> {
                 onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const HomeMobile())),
+                        builder: (context) => const EditDetails())),
                 child: const Text(
                   "Skip for now!!",
                   style: TextStyle(

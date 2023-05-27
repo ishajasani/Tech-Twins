@@ -142,17 +142,16 @@ class DoctorContractLinking extends ChangeNotifier {
     // getAppointments(BigInt.from(1));
   }
 
-  // Future<void> confirmAppointmentFunction(UintType appointmentId) async {
-  //   await _client.sendTransaction(credentials!, Transaction.callContract(contract: contract!, function: function, parameters: parameters))
-  //   call(
-  //       contract: contract!,
-  //       function: confirmAppointments!,
-  //       params: [appointmentId]);
-  //   if (kDebugMode) {
-  //     print("Appointment Confirmed");
-  //   }
-  //   notifyListeners();
-  // }
+  Future confirmAppointmentFunction(BigInt appointmentId) async {
+    await _client.sendTransaction(credentials!, Transaction.callContract(
+        contract: contract!,
+        function: confirmAppointments!,
+        parameters: [appointmentId]));
+    if (kDebugMode) {
+      print("Appointment Confirmed");
+    }
+    notifyListeners();
+  }
 
   Future getAppointment(EthereumAddress docAddress) async {
     var appointments = await _client.call(

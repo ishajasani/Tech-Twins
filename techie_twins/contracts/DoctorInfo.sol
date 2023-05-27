@@ -100,6 +100,8 @@ contract DoctorInfo {
     function appointmentConfirmed(uint256 index) public {
         doctors[msg.sender].appointments[index].isConfirmed = true;
     }
+    //TODO: Change msg.sender to doctor address
+    //TODO: functionality for deleting patient appointment from the list of struct
 
     function getAppointments(
         address docaddress_

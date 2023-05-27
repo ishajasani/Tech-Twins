@@ -6,7 +6,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:techie_twins/web/doctor/pages/home/home.dart';
 import 'package:techie_twins/mobile/pages/home/home.dart';
 import 'package:techie_twins/web/doctor/pages/onboarding_doctor.dart';
-import 'package:techie_twins/web/laboratory/pages/home/onboarding_laboratory.dart';
+import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
+import 'package:techie_twins/web/laboratory/pages/onboarding_laboratory.dart';
 import 'package:web3dart/web3dart.dart';
 
 void main() {
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const WebDoctor(),
+        home: const WebLab(),
       );
     } else {
       return MaterialApp(
@@ -60,7 +61,6 @@ class _WebDoctorState extends State<WebDoctor> {
   WalletService walletService = WalletService();
   checkLogged() async {
     privatekey = await walletService.getPrivateKey();
-    // await walletService.removePrivateKey();
     if (privatekey != "") {
       setState(() {
         isLoggedin = true;
@@ -103,7 +103,9 @@ class _WebLabState extends State<WebLab> {
   String privatekey = "";
   WalletService walletService = WalletService();
   checkLogged() async {
-    privatekey = await walletService.getPrivateKey();
+    // await walletService.removePrivateKey();
+
+    privatekey = await walletService.getPrivateKeyLab();
     if (privatekey != "") {
       setState(() {
         isLoggedin = true;
@@ -118,11 +120,7 @@ class _WebLabState extends State<WebLab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoggedin
-          ? Home(
-              docAddress: EthPrivateKey.fromHex(privatekey).address,
-            )
-          : const OnBoardingLab(),
+      body: isLoggedin ?  HomeLaboratory(docAddress: EthPrivateKey.fromHex(privatekey).address,) : const OnBoardingLab(),
     );
   }
 }

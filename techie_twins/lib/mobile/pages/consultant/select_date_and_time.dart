@@ -1,7 +1,7 @@
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -38,7 +38,9 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
     setState(() {
       patientAddress = EthPrivateKey.fromHex(privateKey).address;
     });
-    print(patientAddress);
+    if (kDebugMode) {
+      print(patientAddress);
+    }
   }
 
   void setAppointment() {
@@ -55,6 +57,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
           widget.docAddress,
           patientAddress!,
           false);
+    // ignore: avoid_print
     }).then((value) => print(value));
 
     Navigator.pop(context);

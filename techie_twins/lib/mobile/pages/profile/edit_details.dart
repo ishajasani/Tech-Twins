@@ -153,19 +153,20 @@ class _EditDetailsState extends State<EditDetails> {
               if (kDebugMode) {
                 print(cid);
               }
-              contractLinking.regUser(
-                  nameController.text,
-                  bloodController.text,
-                  ageController.text,
-                  heightController.text,
-                  weightController.text,
-                  genderController.text,
-                  emailController.text,
-                  phoneController.text,
-                  cid);
+              contractLinking
+                  .regUser(
+                      nameController.text,
+                      bloodController.text,
+                      ageController.text,
+                      heightController.text,
+                      weightController.text,
+                      genderController.text,
+                      emailController.text,
+                      phoneController.text,
+                      cid)
+                  .then((value) => Navigator.pop(context));
             }
             // ignore: use_build_context_synchronously
-            Navigator.pop(context);
           },
           label: const Text(
             "Save",

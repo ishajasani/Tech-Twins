@@ -1,21 +1,21 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
-import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
+import 'package:web3dart/web3dart.dart';
 
-class EditDetailsLaboratory extends StatefulWidget {
-  const EditDetailsLaboratory({super.key});
+class AddDetailsLaboratory extends StatefulWidget {
+  final EthereumAddress labAddress;
+  const AddDetailsLaboratory({super.key, required this.labAddress});
 
   @override
-  State<EditDetailsLaboratory> createState() => _EditDetailsLaboratoryState();
+  State<AddDetailsLaboratory> createState() => _AddDetailsLaboratoryState();
 }
 
-class _EditDetailsLaboratoryState extends State<EditDetailsLaboratory> {
+class _AddDetailsLaboratoryState extends State<AddDetailsLaboratory> {
   TextEditingController nameController = TextEditingController();
   TextEditingController reportsCountController = TextEditingController();
   TextEditingController expController = TextEditingController();
@@ -54,9 +54,9 @@ class _EditDetailsLaboratoryState extends State<EditDetailsLaboratory> {
     }
   }
 
+  LaboratoryContractLinking contractLinking = LaboratoryContractLinking();
   @override
   Widget build(BuildContext context) {
-    var contractLinking = Provider.of<LaboratoryContractLinking>(context);
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(
@@ -149,18 +149,18 @@ class _EditDetailsLaboratoryState extends State<EditDetailsLaboratory> {
             if (kDebugMode) {
               print(cid);
             }
-            contractLinking.regLaboratory(
-                nameController.text,
-                reportsCountController.text,
-                expController.text,
-                ratingController.text,
-                emailController.text,
-                aboutController.text,
-                cid);
+            contractLinking
+                .regLaboratory(
+                    nameController.text,
+                    reportsCountController.text,
+                    expController.text,
+                    ratingController.text,
+                    emailController.text,
+                    aboutController.text,
+                    cid)
+                .then((value) => Navigator.pop(context));
           }
           // ignore: use_build_context_synchronously
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomeLaboratory()));
         },
         child: Text(
           "proceed",

@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
 import 'package:techie_twins/config/walletprovider.dart';
-import 'package:techie_twins/web/laboratory/pages/edit_details_laboratory.dart';
+import 'package:techie_twins/config/walletservice.dart';
+import 'package:techie_twins/web/laboratory/pages/add_details.dart';
 import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
@@ -21,27 +23,36 @@ class _AuthenticateWalletLaboratoryState
   LaboratoryContractLinking contractLinking = LaboratoryContractLinking();
   TextEditingController keyController = TextEditingController();
   WalletProvider walletProvider = WalletProvider();
-  handleLogin() async {
-    bool isValid = await walletProvider.initializeFromKey(keyController.text);
+  WalletService walletService = WalletService();
+  void handleLogin() async {
+    bool isValid = walletProvider.initializeFromKeyLab(keyController.text);
+
     if (isValid) {
       contractLinking
           .getLaboratoryData(EthPrivateKey.fromHex(keyController.text).address)
           .then((value) {
-        print(value);
+        if (kDebugMode) {
+          print(value);
+        }
         if (value[0] == "") {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => const EditDetailsLaboratory()));
+                  builder: (context) =>  AddDetailsLaboratory(labAddress:
+                            EthPrivateKey.fromHex(keyController.text).address,)));
         } else {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomeLaboratory()));
+          walletService.getPrivateKeyLab().then((value) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomeLaboratory(
+                          docAddress: EthPrivateKey.fromHex(value).address,
+                        )));
+          });
         }
       });
     } else {
-      if (kDebugMode) {
-        print("Invalid Key");
-      }
+      Fluttertoast.showToast(msg: "Enter valid private key.");
     }
   }
 

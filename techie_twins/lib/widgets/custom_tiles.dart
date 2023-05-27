@@ -433,15 +433,15 @@ class PatientTile extends StatelessWidget {
 
 class PatientConfirmationTile extends StatelessWidget {
   final String name, gender, age, imageURL;
-  final VoidCallback intoTap, consultTap;
+  final VoidCallback confirmTap, cancelTap;
   const PatientConfirmationTile({
     super.key,
     required this.name,
     required this.gender,
     required this.age,
     required this.imageURL,
-    required this.intoTap,
-    required this.consultTap,
+    required this.confirmTap,
+    required this.cancelTap,
   });
 
   @override
@@ -481,7 +481,7 @@ class PatientConfirmationTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InkWell(
-                onTap: intoTap,
+                onTap: confirmTap,
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
@@ -505,7 +505,7 @@ class PatientConfirmationTile extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: consultTap,
+                onTap: cancelTap,
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
