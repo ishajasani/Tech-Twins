@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const WebLab(),
+        home: const WebDoctor(),
       );
     } else {
       return MaterialApp(

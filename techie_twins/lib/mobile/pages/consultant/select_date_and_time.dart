@@ -51,14 +51,14 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
       dateTimeInMilliSeconds = getCustomFormattedDateTime(dateTime);
     });
     contractLinking
-        .bookAppointmentFunction(
-            BigInt.from(dateTimeInMilliSeconds), widget.docAddress,patientAddress!, controller.text )
+        .bookAppointmentFunction(BigInt.from(dateTimeInMilliSeconds),
+            widget.docAddress, patientAddress!, controller.text)
         .then((value) {
       patientContractLinking.addMyAppointment(
           BigInt.from(dateTimeInMilliSeconds),
           widget.docAddress,
           patientAddress!,
-          false);
+          controller.text);
       // ignore: avoid_print
     }).then((value) => print(value));
 
@@ -101,7 +101,6 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
             icon: const Icon(Icons.event),
             dateLabelText: 'Date Time',
             timeLabelText: "Hour",
-           
             onChanged: (val) {
               setState(() {
                 dateTime = val;

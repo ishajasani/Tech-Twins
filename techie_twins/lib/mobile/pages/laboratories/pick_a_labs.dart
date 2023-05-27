@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
 import 'package:techie_twins/config/walletprovider.dart';
+import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/constants.dart';
+import 'package:techie_twins/mobile/pages/laboratories/lab_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -26,21 +28,24 @@ class _PickALabState extends State<PickALab> {
       LaboratoryContractLinking();
   List labs = List.empty(growable: true);
   List labProfile = List.empty(growable: true);
+  EthereumAddress? ethereumAddress;
   void getData() {
-    setState(() {
-      isLoading = true;
+    WalletService().getPrivateKey().then((val) {
+      setState(() {
+        isLoading = true;
+        ethereumAddress = EthPrivateKey.fromHex(val).address;
+      });
     });
+
     Future.delayed(const Duration(milliseconds: 1000), () {
       laboratoryContractLinking.getLaboratoryAdd().then((value) {
         for (var element in value) {
-          setState(() {
-            element.forEach((val) {
-              labs.add(val);
-              laboratoryContractLinking.getLaboratoryData(val).then((value) {
-                setState(() {
-                  labProfile.add(value);
-                  isLoading = false;
-                });
+          element.forEach((val) {
+            labs.add(val);
+            laboratoryContractLinking.getLaboratoryData(val).then((value) {
+              setState(() {
+                labProfile.add(value);
+                isLoading = false;
               });
             });
           });
@@ -54,6 +59,7 @@ class _PickALabState extends State<PickALab> {
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       body: isLoading
           ? const Center(
@@ -83,13 +89,25 @@ class _PickALabState extends State<PickALab> {
                         itemCount: labs.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return  LabTile(
-                                  designation: labProfile[index][4],
-                                  exp: labProfile[index][2],
-                                  name: labProfile[index][0],
-                                  stars: labProfile[index][3],
-                                  imageUrl: ipfsURL + labProfile[index][6],
-                                  onTap: () {});
+                          if (labs.isEmpty) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else {
+                            return LabTile(
+                                designation: labProfile[index][4],
+                                exp: labProfile[index][2],
+                                name: labProfile[index][0],
+                                stars: labProfile[index][3],
+                                imageUrl: ipfsURL + labProfile[index][6],
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LabProfile(
+                                                labAddress: labs[index],
+                                              )));
+                                });
+                          }
                         }),
                   ],
                 ),

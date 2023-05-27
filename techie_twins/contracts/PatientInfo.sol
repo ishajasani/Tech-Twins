@@ -102,12 +102,12 @@ contract PatientInfo {
         uint256 timestamp,
         address doctorAddress,
         address patientAddress,
-        string memory 
+        string memory link
 
 
     ) public {
         patients[patientAddress].appointments.push(
-            Appointment(doctorAddress, timestamp, false)
+            Appointment(doctorAddress, timestamp, false, link)
         );
         patients[patientAddress].access.push(
             DoctorAccess(doctorAddress, patientAddress, false)

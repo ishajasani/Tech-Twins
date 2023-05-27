@@ -151,13 +151,14 @@ class DoctorContractLinking extends ChangeNotifier {
     // getAppointments(BigInt.from(1));
   }
 
-  Future confirmAppointmentFunction(BigInt appointmentId) async {
+  Future confirmAppointmentFunction(
+      BigInt appointmentId, EthereumAddress docAddress) async {
     await _client.sendTransaction(
         credentials!,
         Transaction.callContract(
             contract: contract!,
             function: confirmAppointments!,
-            parameters: [appointmentId]));
+            parameters: [appointmentId, docAddress]));
     if (kDebugMode) {
       print("Appointment Confirmed");
     }

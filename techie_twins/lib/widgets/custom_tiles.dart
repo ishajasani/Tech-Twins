@@ -442,6 +442,7 @@ class LabReportGeneratedInfoTile extends StatelessWidget {
   }
 }
 
+
 class PatientTile extends StatelessWidget {
   final String name, gender, age, imageURL;
   final VoidCallback intoTap, consultTap;

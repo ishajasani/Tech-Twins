@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/web/doctor/pages/profile/doctor_profile.dart';
 
@@ -63,7 +64,9 @@ class _HomeState extends State<Home> {
   }
 
   void confirmAppointment(int index) async {
-    await doctorContractLinking.confirmAppointmentFunction(BigInt.from(index));
+    doctorContractLinking
+        .confirmAppointmentFunction(BigInt.from(index), widget.docAddress)
+        .then((value) => Fluttertoast.showToast(msg: "Appointment confirmed"));
   }
 
   String ipfsImgeUrl = 'https://ipfs.io/ipfs/';

@@ -154,7 +154,7 @@ class PatientContractLinking extends ChangeNotifier {
       BigInt appointmentTimestamp,
       EthereumAddress docAddress,
       EthereumAddress patientAddress,
-      bool isConfirmed) async {
+      String link) async {
     await _client.sendTransaction(
         credentials!,
         Transaction.callContract(
@@ -164,7 +164,7 @@ class PatientContractLinking extends ChangeNotifier {
               appointmentTimestamp,
               docAddress,
               patientAddress,
-              isConfirmed
+              link
             ]),
         chainId: chainId);
     if (kDebugMode) {
