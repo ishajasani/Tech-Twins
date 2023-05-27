@@ -26,6 +26,8 @@ class PatientContractLinking extends ChangeNotifier {
   ContractFunction? getPatientRecordCids;
   ContractFunction? addAppointment;
   ContractFunction? getMyAppointments;
+  ContractFunction? toggleAccess;
+  ContractFunction? shareCids;
   int chainId = 1337;
 
   String? deployedName;
@@ -69,9 +71,10 @@ class PatientContractLinking extends ChangeNotifier {
     getPatientRecordCids = contract!.function('getPatientRecordCids');
     addAppointment = contract!.function('addAppointment');
     getMyAppointments = contract!.function('getMyAppointments');
+    // toggleAccess
   }
 
- Future regUser(
+  Future regUser(
       String username,
       String blood,
       String age,
@@ -169,8 +172,10 @@ class PatientContractLinking extends ChangeNotifier {
   }
 
   Future getPatientAppointments(EthereumAddress patientAddress) async {
-    var myAppointments = await _client
-        .call(contract: contract!, function: getMyAppointments!, params: [patientAddress]);
+    var myAppointments = await _client.call(
+        contract: contract!,
+        function: getMyAppointments!,
+        params: [patientAddress]);
     if (kDebugMode) {
       print("myAppointments gott");
     }

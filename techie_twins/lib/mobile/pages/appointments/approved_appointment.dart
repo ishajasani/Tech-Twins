@@ -12,7 +12,7 @@ class ApprovedAppointment extends StatefulWidget {
 class _ApprovedAppointmentState extends State<ApprovedAppointment> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Placeholder(),
       ),

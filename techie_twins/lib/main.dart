@@ -10,7 +10,7 @@ import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
 import 'package:techie_twins/web/laboratory/pages/onboarding_laboratory.dart';
 import 'package:web3dart/web3dart.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -120,7 +120,11 @@ class _WebLabState extends State<WebLab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoggedin ?  HomeLaboratory(docAddress: EthPrivateKey.fromHex(privatekey).address,) : const OnBoardingLab(),
+      body: isLoggedin
+          ? HomeLaboratory(
+              docAddress: EthPrivateKey.fromHex(privatekey).address,
+            )
+          : const OnBoardingLab(),
     );
   }
 }

@@ -7,6 +7,7 @@ contract DoctorInfo {
         address patient;
         uint256 appointmentTime;
         bool isConfirmed;
+        string meetingLink;
     }
 
     struct Doctor {
@@ -89,23 +90,31 @@ contract DoctorInfo {
 
     function bookAppointment(
         uint256 _appointmentTime,
-        address docAddress
+        address docAddress,
+        address patientAddress,
+        string memory meetingLink
     ) external {
         doctors[docAddress].appointments.push(
-            Appointment(msg.sender, _appointmentTime, false)
+            Appointment(patientAddress, _appointmentTime, false , meetingLink)
         );
         appointmentCount++;
     }
 
-    function appointmentConfirmed(uint256 index) public {
-        doctors[msg.sender].appointments[index].isConfirmed = true;
+    function appointmentConfirmed(uint256 index , address doctorAddress) public {
+        doctors[doctorAddress].appointments[index].isConfirmed = true;
     }
-    //TODO: Change msg.sender to doctor address
-    //TODO: functionality for deleting patient appointment from the list of struct
+
+    function declineAppointment(uint256 index , address doctorAddress) public {
+        delete doctors[doctorAddress].appointments[index];
+    } 
 
     function getAppointments(
         address docaddress_
     ) public view returns (Appointment[] memory) {
         return doctors[docaddress_].appointments;
+    }
+
+    function getMeetingLink(uint256 index,address doctorAddress) public view returns(string memory){
+        return doctors[doctorAddress].appointments[index].meetingLink;
     }
 }

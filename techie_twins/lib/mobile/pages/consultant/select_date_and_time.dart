@@ -7,6 +7,7 @@ import 'package:web3dart/web3dart.dart';
 
 import '../../../config/contract_linking/doctor_contract_linking.dart';
 import '../../../config/contract_linking/patient_contract_linking.dart';
+import '../../../widgets/custom_textfields.dart';
 
 class DateTimePickerPage extends StatefulWidget {
   final EthereumAddress docAddress;
@@ -43,6 +44,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
     }
   }
 
+  TextEditingController controller = TextEditingController();
   void setAppointment() {
     int dateTimeInMilliSeconds = 0;
     setState(() {
@@ -57,7 +59,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
           widget.docAddress,
           patientAddress!,
           false);
-    // ignore: avoid_print
+      // ignore: avoid_print
     }).then((value) => print(value));
 
     Navigator.pop(context);
@@ -116,6 +118,13 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
               });
             },
           ),
+          const SizedBox(
+            height: 20,
+          ),
+          GenderField(
+              controller: controller,
+              hintText: "https://meet.google.com/wer-wer-wer",
+              labelText: "Metting Link"),
           const Spacer(),
           Align(
             alignment: Alignment.centerRight,
@@ -131,7 +140,13 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
             ),
           ),
           GestureDetector(
-            onTap: setAppointment,
+            onTap: () {
+              if (controller.text.isEmpty) {
+                Fluttertoast.showToast(msg: "Enter the meeting link");
+              } else {
+                setAppointment();
+              }
+            },
             child: Container(
               decoration: BoxDecoration(
                   color: const Color(0xff1D3092).withOpacity(.49),

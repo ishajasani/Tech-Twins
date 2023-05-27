@@ -14,3 +14,6 @@ const ipfsURL = 'https://ipfs.io/ipfs/';
 const rpcUrl = "HTTP://34.131.90.213"; //--gcp
 const imageUrl =
     "https://wallpapers.ispazio.net/wp-content/uploads/2022/07/Wallpaper2022Gray-Dark.jpg";
+const appId = "619b615790b841f885d839b2d496c799";
+const token = "007eJxTYJC9P32+Q4cMw7f0zzNa7A2zvltxCEt2xFTeuRbPEKElraXAYGZomWRmaGpuaZBkYWKYZmFhmmJhbJlklGJiaZZsbmnpvLQwpSGQkaHC4gMDIxCyADGIzwQmmcEkC5jkZCjLTEnNT07MyWFgAAD+1CBx";
+const channel = "videocall";

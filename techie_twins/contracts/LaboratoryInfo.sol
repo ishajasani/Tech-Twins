@@ -21,6 +21,7 @@ contract LaboratoryInfo {
         string reportType;
         string[] cids;
     }
+    address[] labAddress;
 
     mapping(address => Laboratory) laboratories;
 
@@ -40,6 +41,7 @@ contract LaboratoryInfo {
         laboratories[msg.sender].email = email;
         laboratories[msg.sender].about = about;
         laboratories[msg.sender].profileImageURL = profileImageURL;
+        labAddress.push(msg.sender);
     }
 
     function getLaboratoryInfo(address laboratoryAddress)
@@ -70,29 +72,30 @@ contract LaboratoryInfo {
     function requestReport(
         address doctorAddress,
         string memory reportType,
-        address laboratoryAddress
+        address laboratoryAddress,
+        address patientAddress
     ) public {
         laboratories[laboratoryAddress].reports.push(
-            Reports(msg.sender, doctorAddress, reportType, new string[](0))
+            Reports(patientAddress, doctorAddress, reportType, new string[](0))
         );
 
         reportCounter++;
     }
 
-    function generateReport(address patientAddress_, string[] memory cids_)
+    function generateReport(address patientAddress_,address laboratoryAddress, string[] memory cids_)
         public
     {
         for (uint256 i = 0; i < reportCounter; i++) {
             if (
-                laboratories[msg.sender].reports[i].patientAddress ==
+                laboratories[laboratoryAddress].reports[i].patientAddress ==
                 patientAddress_
             ) {
-                laboratories[msg.sender].reports[i].cids = cids_;
+                laboratories[laboratoryAddress].reports[i].cids = cids_;
             }
         }
     }
 
-    function getReport(address patientAddress_)
+    function getReport(address patientAddress_ , address laboratoryAddress)
         public
         view
         returns (string[] memory)
@@ -100,7 +103,7 @@ contract LaboratoryInfo {
         uint256 i;
         for (i = 0; i < reportCounter; i++) {
             if (
-                laboratories[msg.sender].reports[i].patientAddress ==
+                laboratories[laboratoryAddress].reports[i].patientAddress ==
                 patientAddress_
             ) {
                 break;
@@ -108,5 +111,8 @@ contract LaboratoryInfo {
         }
         return laboratories[msg.sender].reports[i].cids;
     }
+
+    function getAllLaboratory() public view  returns (address[] memory labAddress_ ){
+        labAddress_ = labAddress;
+    }
 }
-//TODO: Create a function for fetching all laboratories

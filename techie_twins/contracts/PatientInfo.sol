@@ -2,7 +2,7 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract PatientInfo{
+contract PatientInfo {
     struct Appointment {
         address doctorAddress;
         uint256 datetime;
@@ -21,10 +21,16 @@ contract PatientInfo{
         string profileImageURL;
         string[] recordCids;
         Appointment[] appointments;
+        DoctorAccess[] access;
+    }
+
+    struct DoctorAccess {
+        address doctorAddress;
+        address patientAddress;
+        bool hasAccess;
     }
 
     mapping(address => Patient) public patients;
-    uint appointmentCount = 0;
 
     function registerPatient(
         string memory name,
@@ -48,9 +54,7 @@ contract PatientInfo{
         patients[msg.sender].profileImageURL = profileImageURL;
     }
 
-    function getPatient(
-        address patientAddress
-    )
+    function getPatient(address patientAddress)
         public
         view
         returns (
@@ -79,22 +83,77 @@ contract PatientInfo{
         );
     }
 
-    function setPatientRecordCids(string memory cid) public {
-        patients[msg.sender].recordCids.push(cid);
+    function setPatientRecordCids(string memory cid, address patientAddress)
+        public
+    {
+        patients[patientAddress].recordCids.push(cid);
     }
 
-    function getPatientRecordCids() public view returns (string[] memory cid_) {
-        cid_ = patients[msg.sender].recordCids;
+    function getPatientRecordCids(address patientAddress)
+        public
+        view
+        returns (string[] memory cid_)
+    {
+        cid_ = patients[patientAddress].recordCids;
     }
 
-    function addAppointment (uint256 timestamp, address doctorAddress, address patientAddress,bool isConfirmed) public {
-        patients[patientAddress].appointments.push(Appointment(doctorAddress,timestamp,isConfirmed));
+    function addAppointment(
+        uint256 timestamp,
+        address doctorAddress,
+        address patientAddress
+    ) public {
+        patients[patientAddress].appointments.push(
+            Appointment(doctorAddress, timestamp, false)
+        );
+        patients[patientAddress].access.push(
+            DoctorAccess(doctorAddress, patientAddress, false)
+        );
     }
 
-    function getMyAppointments(address patientAddress) public view returns (Appointment[] memory){
+    function getMyAppointments(address patientAddress)
+        public
+        view
+        returns (Appointment[] memory)
+    {
         return patients[patientAddress].appointments;
     }
-    
 
-    //Boolean value to show whether doctor has access to reports or not.
+    function toggleAccess(address doctorAddress_, address patientAddress)
+        public
+    {
+        for (uint256 i = 0; i < patients[patientAddress].access.length; i++) {
+            if (
+                patients[patientAddress].access[i].doctorAddress ==
+                doctorAddress_
+            ) {
+                if(patients[patientAddress].access[i].hasAccess == false){
+                    patients[patientAddress].access[i].hasAccess = true;
+                }
+                else 
+                {
+                    patients[patientAddress].access[i].hasAccess = false;
+                }
+            }
+        }
+    }
+
+    function shareCids(address patientAddress, address doctorAddress_)
+        public
+        view
+        returns (string [] memory)
+    {
+        string[] memory recordCids;
+        for (uint256 i = 0; i < patients[patientAddress].access.length; i++) {
+            if (
+                patients[patientAddress].access[i].doctorAddress ==
+                doctorAddress_
+            ) {
+                if( patients[patientAddress].access[i].hasAccess){
+                    recordCids =  patients[patientAddress].recordCids;
+                    break;
+                }
+            }
+        }
+        return recordCids;
+    }
 }
