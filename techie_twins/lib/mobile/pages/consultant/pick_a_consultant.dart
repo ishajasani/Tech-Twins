@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking/doctor_contract_linking.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/mobile/pages/consultant/consultant_profile.dart';
-import 'package:techie_twins/mobile/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 
 
@@ -101,27 +100,7 @@ class _PickAConsultantState extends State<PickAConsultant> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          FloatingActionButton.extended(
-              heroTag: "BTN1",
-              icon: const Icon(Icons.home_outlined),
-              onPressed: () => Navigator.pop(context),
-              label: const Text("Home")),
-          FloatingActionButton(
-            elevation: 0,
-            backgroundColor: Colors.black.withOpacity(.2),
-            heroTag: "BTN2",
-            onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const PaitentProfile())),
-            child: const Icon(Icons.person_2_outlined),
-          )
-        ],
-      ),
+      
     );
   }
 }

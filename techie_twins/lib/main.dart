@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:techie_twins/config/walletservice.dart';
-import 'package:techie_twins/mobile/pages/home/Navbar.dart';
+import 'package:techie_twins/mobile/pages/home/navbar.dart';
 import 'package:techie_twins/mobile/pages/onboarding.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:techie_twins/web/doctor/pages/home/home.dart';
@@ -107,6 +107,7 @@ class _WebLabState extends State<WebLab> {
     // await walletService.removePrivateKey();
 
     privatekey = await walletService.getPrivateKeyLab();
+    print(privatekey);
     if (privatekey != "") {
       setState(() {
         isLoggedin = true;

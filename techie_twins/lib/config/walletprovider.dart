@@ -96,4 +96,10 @@ class WalletProvider {
     ethereumAddress = _credentials.address;
     getBalance();
   }
+
+  createWalletLab() {
+    _credentials = _walletService.generateRandomAccountLab();
+    ethereumAddress = _credentials.address;
+    getBalance();
+  }
 }

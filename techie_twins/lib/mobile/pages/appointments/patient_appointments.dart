@@ -69,6 +69,9 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
         });
       });
     });
+     setState(() {
+      isLoading = false;
+    });
   }
 
   @override

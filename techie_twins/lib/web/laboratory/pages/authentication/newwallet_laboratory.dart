@@ -20,7 +20,7 @@ class NewWalletLaboratoryState extends State<NewWalletLaboratory> {
   @override
   void initState() {
     super.initState();
-    walletProvider.createWallet();
+    walletProvider.createWalletLab();
     walletFun();
   }
 
@@ -149,7 +149,7 @@ class NewWalletLaboratoryState extends State<NewWalletLaboratory> {
                 onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  AddDetailsLaboratory(labAddress: walletProvider.ethereumAddress!,))),
+                        builder: (context) =>  const AddDetailsLaboratory())),
                 child: const Text(
                   "Skip for now!!",
                   style: TextStyle(

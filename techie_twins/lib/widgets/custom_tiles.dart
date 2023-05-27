@@ -181,6 +181,103 @@ class ConsultantTile extends StatelessWidget {
   }
 }
 
+
+class LabTile extends StatelessWidget {
+  final String name, designation, exp, stars, imageUrl;
+  final VoidCallback onTap;
+  const LabTile({
+    super.key,
+    required this.name,
+    required this.designation,
+    required this.exp,
+    required this.stars,
+    required this.imageUrl,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 5.5,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22),
+              color: consultantTileColor),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(imageUrl),
+                    onBackgroundImageError: (exception, stackTrace) {},
+                  ),
+                  title: Text(
+                    name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(designation),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    const Icon(Icons.access_time),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text("$exp Years"),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Icon(Icons.star_rate_rounded),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(stars)
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: GestureDetector(
+            onTap: onTap,
+            child: Container(
+              margin: const EdgeInsets.only(top: 15, right: 15),
+              height: MediaQuery.of(context).size.height / 7,
+              width: 40,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                  color: consultantTileButtonColor),
+              child: const RotatedBox(
+                quarterTurns: -1,
+                child: Center(
+                  child: Text(
+                    "Pick",
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
 class PatientTreatedInfoTile extends StatelessWidget {
   final String patients;
   const PatientTreatedInfoTile({

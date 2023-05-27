@@ -12,6 +12,12 @@ class WalletService {
     setPrivateKey(key);
     return cred;
   }
+   Credentials generateRandomAccountLab() {
+    final cred = EthPrivateKey.createRandom(Random.secure());
+    final key = bytesToHex(cred.privateKey, padToEvenLength: true);
+    setPrivateKeyLab(key);
+    return cred;
+  }
 
   Credentials initializeWallet(String key) {
     return EthPrivateKey.fromHex(key);

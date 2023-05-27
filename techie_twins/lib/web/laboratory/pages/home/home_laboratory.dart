@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
+import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/web/doctor/pages/profile/doctor_profile.dart';
 import 'package:techie_twins/web/laboratory/pages/profile/lab_profile.dart';
 
@@ -23,7 +24,7 @@ class _HomeLaboratoryState extends State<HomeLaboratory> {
   @override
   void initState() {
     super.initState();
-    // getData();
+    getData();
   }
 
   bool isLoading = false;
@@ -33,6 +34,9 @@ class _HomeLaboratoryState extends State<HomeLaboratory> {
   void getData() {
     setState(() {
       isLoading = true;
+    });
+    WalletProvider().initializeWalletLab().then((value) {
+      print(value);
     });
     // Future.delayed(const Duration(milliseconds: 1000), () {
     //   labContractLinking.getLaboratoryData(widget.docAddress).then((value) {

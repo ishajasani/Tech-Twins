@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/mobile/pages/consultant/pick_a_consultant.dart';
 import 'package:techie_twins/mobile/pages/home/home.dart';
+import 'package:techie_twins/mobile/pages/laboratories/pick_a_labs.dart';
 import 'package:techie_twins/mobile/pages/profile/paitent_profile.dart';
 
 class NavBar extends StatefulWidget {
@@ -42,18 +43,18 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        children: [
-          const HomeMobile(),
-          Text("Laboratories"),
-          const PickAConsultant(),
-          const PaitentProfile(),
-        ],
         physics: const BouncingScrollPhysics(),
         controller: pageController,
         onPageChanged: onPageChanged,
+        children: const [
+          HomeMobile(),
+          PickALab(),
+          PickAConsultant(),
+          PaitentProfile(),
+        ],
       ),
       bottomNavigationBar: CupertinoTabBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         border: Border.all(style: BorderStyle.none),
         items: [
           BottomNavigationBarItem(

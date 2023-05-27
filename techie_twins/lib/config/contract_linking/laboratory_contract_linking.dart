@@ -41,7 +41,7 @@ class LaboratoryContractLinking extends ChangeNotifier {
   }
 
   getData() async {
-    privateKey = await walletServices.getPrivateKey();
+    privateKey = await walletServices.getPrivateKeyLab();
   }
 
   Future<void> getAbi() async {
@@ -102,7 +102,7 @@ class LaboratoryContractLinking extends ChangeNotifier {
         function: getLaboratoryInfo!,
         params: [walletAdrress]);
     if (kDebugMode) {
-      print(laboratories);
+      print("laboratories");
     }
     notifyListeners();
     return laboratories;
@@ -112,7 +112,7 @@ class LaboratoryContractLinking extends ChangeNotifier {
     List laboratories = await _client
         .call(contract: contract!, function: getAllLaboratory!, params: []);
     if (kDebugMode) {
-      print(laboratories);
+      print("laboratories");
     }
     return laboratories;
   }

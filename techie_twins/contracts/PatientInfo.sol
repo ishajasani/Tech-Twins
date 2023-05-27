@@ -7,6 +7,7 @@ contract PatientInfo {
         address doctorAddress;
         uint256 datetime;
         bool isConfirmed;
+        string  meetingLink;
     }
 
     struct Patient {
@@ -100,7 +101,10 @@ contract PatientInfo {
     function addAppointment(
         uint256 timestamp,
         address doctorAddress,
-        address patientAddress
+        address patientAddress,
+        string memory 
+
+
     ) public {
         patients[patientAddress].appointments.push(
             Appointment(doctorAddress, timestamp, false)

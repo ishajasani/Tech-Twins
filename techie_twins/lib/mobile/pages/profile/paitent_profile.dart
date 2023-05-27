@@ -298,44 +298,7 @@ class _PaitentProfileState extends State<PaitentProfile> {
                   ],
                 ),
               ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton.extended(
-                heroTag: "2",
-                backgroundColor: Colors.blueGrey[300]!.withOpacity(.5),
-                elevation: 0,
-                icon: const Icon(
-                  Icons.edit_note,
-                  color: Colors.black,
-                ),
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const EditDetails())),
-                label: const Text(
-                  "Edit",
-                  style: TextStyle(color: Colors.black, fontSize: 16),
-                )),
-            const SizedBox(
-              width: 20,
-            ),
-            FloatingActionButton.extended(
-                heroTag: "1",
-                backgroundColor: Colors.blueGrey[300]!.withOpacity(.5),
-                elevation: 0,
-                icon: const Icon(
-                  Icons.home_outlined,
-                  color: Colors.black,
-                ),
-                onPressed: () => Navigator.pop(context),
-                label: const Text(
-                  "Home",
-                  style: TextStyle(color: Colors.black, fontSize: 16),
-                )),
-          ],
-        ));
+        );
   }
 }
 

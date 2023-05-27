@@ -3,13 +3,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
 import 'package:techie_twins/config/ipfs_service.dart';
+import 'package:techie_twins/config/walletservice.dart';
+import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
 import 'package:web3dart/web3dart.dart';
 
 class AddDetailsLaboratory extends StatefulWidget {
-  final EthereumAddress labAddress;
-  const AddDetailsLaboratory({super.key, required this.labAddress});
+
+  const AddDetailsLaboratory({super.key, });
 
   @override
   State<AddDetailsLaboratory> createState() => _AddDetailsLaboratoryState();
@@ -136,6 +138,7 @@ class _AddDetailsLaboratoryState extends State<AddDetailsLaboratory> {
       ),
       floatingActionButton: TextButton(
         onPressed: () async {
+           String privatekey = await WalletService().getPrivateKeyLab();
           if (nameController.text.isNotEmpty &&
                   reportsCountController.text.isNotEmpty &&
                   expController.text.isNotEmpty &&
@@ -158,7 +161,11 @@ class _AddDetailsLaboratoryState extends State<AddDetailsLaboratory> {
                     emailController.text,
                     aboutController.text,
                     cid)
-                .then((value) => Navigator.pop(context));
+                .then((value) => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) =>
+                            HomeLaboratory(docAddress: EthPrivateKey.fromHex(privatekey).address)))));
           }
           // ignore: use_build_context_synchronously
         },

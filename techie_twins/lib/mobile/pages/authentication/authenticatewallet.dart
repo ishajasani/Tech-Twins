@@ -4,6 +4,7 @@ import 'package:techie_twins/config/contract_linking/patient_contract_linking.da
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/mobile/pages/home/home.dart';
+import 'package:techie_twins/mobile/pages/home/navbar.dart';
 import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:techie_twins/widgets/custom_textfields.dart';
@@ -33,7 +34,7 @@ class _AuthenticateWalletState extends State<AuthenticateWallet> {
       contractLinking.getUserData(address).then((value) {
         if (value[0] != "") {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomeMobile()));
+              MaterialPageRoute(builder: (context) => const NavBar()));
         } else {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const EditDetails()));

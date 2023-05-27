@@ -23,7 +23,6 @@ class _LabProfileState extends State<LabProfile> {
   @override
   void initState() {
     getUserData();
-
     super.initState();
   }
 
@@ -106,15 +105,17 @@ class _LabProfileState extends State<LabProfile> {
         backgroundColor: Colors.transparent,
         actions: [
           TextButton(
-            onPressed: () {
-              WalletService().removePrivateKey().then((value) {
+              onPressed: () {
+                WalletService().removePrivateKey().then((value) {
                   Fluttertoast.showToast(msg: "Logged out successfully");
-                  return Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WebLab()));
+                  return Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const WebLab()));
                 });
-          }, child: const Text("Logout", style: TextStyle(color: Colors.black),)),
+              },
+              child: const Text(
+                "Logout",
+                style: TextStyle(color: Colors.black),
+              )),
           const SizedBox(
             width: 20,
           )

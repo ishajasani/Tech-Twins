@@ -25,7 +25,7 @@ class _AuthenticateWalletLaboratoryState
   WalletProvider walletProvider = WalletProvider();
   WalletService walletService = WalletService();
   void handleLogin() async {
-    bool isValid = walletProvider.initializeFromKeyLab(keyController.text);
+    bool isValid = WalletProvider().initializeFromKeyLab(keyController.text);
 
     if (isValid) {
       contractLinking
@@ -38,8 +38,7 @@ class _AuthenticateWalletLaboratoryState
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) =>  AddDetailsLaboratory(labAddress:
-                            EthPrivateKey.fromHex(keyController.text).address,)));
+                  builder: (context) =>const  AddDetailsLaboratory()));
         } else {
           walletService.getPrivateKeyLab().then((value) {
             Navigator.pushReplacement(

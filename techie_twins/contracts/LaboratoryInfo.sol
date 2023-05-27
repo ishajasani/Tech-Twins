@@ -44,7 +44,9 @@ contract LaboratoryInfo {
         labAddress.push(msg.sender);
     }
 
-    function getLaboratoryInfo(address laboratoryAddress)
+    function getLaboratoryInfo(
+        address laboratoryAddress
+    )
         public
         view
         returns (
@@ -82,9 +84,11 @@ contract LaboratoryInfo {
         reportCounter++;
     }
 
-    function generateReport(address patientAddress_,address laboratoryAddress, string[] memory cids_)
-        public
-    {
+    function generateReport(
+        address patientAddress_,
+        address laboratoryAddress,
+        string[] memory cids_
+    ) public {
         for (uint256 i = 0; i < reportCounter; i++) {
             if (
                 laboratories[laboratoryAddress].reports[i].patientAddress ==
@@ -95,11 +99,10 @@ contract LaboratoryInfo {
         }
     }
 
-    function getReport(address patientAddress_ , address laboratoryAddress)
-        public
-        view
-        returns (string[] memory)
-    {
+    function getReport(
+        address patientAddress_,
+        address laboratoryAddress
+    ) public view returns (string[] memory) {
         uint256 i;
         for (i = 0; i < reportCounter; i++) {
             if (
@@ -112,7 +115,11 @@ contract LaboratoryInfo {
         return laboratories[laboratoryAddress].reports[i].cids;
     }
 
-    function getAllLaboratory() public view  returns (address[] memory labAddress_ ){
+    function getAllLaboratory()
+        public
+        view
+        returns (address[] memory labAddress_)
+    {
         labAddress_ = labAddress;
     }
 }
