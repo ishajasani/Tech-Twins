@@ -71,7 +71,8 @@ class PatientContractLinking extends ChangeNotifier {
     getPatientRecordCids = contract!.function('getPatientRecordCids');
     addAppointment = contract!.function('addAppointment');
     getMyAppointments = contract!.function('getMyAppointments');
-    // toggleAccess
+    toggleAccess = contract!.function('toggleAccess');
+    shareCids = contract!.function('shareCids');
   }
 
   Future regUser(
@@ -180,5 +181,22 @@ class PatientContractLinking extends ChangeNotifier {
       print("myAppointments gott");
     }
     return myAppointments;
+  }
+
+  void toggleReportAccess(
+      EthereumAddress patientAddress, EthereumAddress doctorAddress) async {
+    await _client.call(
+        contract: contract!,
+        function: toggleAccess!,
+        params: [patientAddress, doctorAddress]);
+  }
+
+  Future sendCids(
+      EthereumAddress patientAddress, EthereumAddress doctorAddress) async {
+    var cids = await _client.call(
+        contract: contract!,
+        function: shareCids!,
+        params: [patientAddress, doctorAddress]);
+    return cids;
   }
 }

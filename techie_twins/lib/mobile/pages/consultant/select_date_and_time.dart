@@ -45,26 +45,26 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
   }
 
   TextEditingController controller = TextEditingController();
-  void setAppointment() {
-    int dateTimeInMilliSeconds = 0;
-    setState(() {
-      dateTimeInMilliSeconds = getCustomFormattedDateTime(dateTime);
-    });
-    contractLinking
-        .bookAppointmentFunction(
-            BigInt.from(dateTimeInMilliSeconds), widget.docAddress)
-        .then((value) {
-      patientContractLinking.addMyAppointment(
-          BigInt.from(dateTimeInMilliSeconds),
-          widget.docAddress,
-          patientAddress!,
-          false);
-      // ignore: avoid_print
-    }).then((value) => print(value));
+  // void setAppointment() {
+  //   int dateTimeInMilliSeconds = 0;
+  //   setState(() {
+  //     dateTimeInMilliSeconds = getCustomFormattedDateTime(dateTime);
+  //   });
+  //   contractLinking
+  //       .bookAppointmentFunction(
+  //           BigInt.from(dateTimeInMilliSeconds), widget.docAddress )
+  //       .then((value) {
+  //     patientContractLinking.addMyAppointment(
+  //         BigInt.from(dateTimeInMilliSeconds),
+  //         widget.docAddress,
+  //         patientAddress!,
+  //         false);
+  //     // ignore: avoid_print
+  //   }).then((value) => print(value));
 
-    Navigator.pop(context);
-    Fluttertoast.showToast(msg: "Appointment Booked");
-  }
+  //   Navigator.pop(context);
+  //   Fluttertoast.showToast(msg: "Appointment Booked");
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +144,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
               if (controller.text.isEmpty) {
                 Fluttertoast.showToast(msg: "Enter the meeting link");
               } else {
-                setAppointment();
+                // setAppointment();
               }
             },
             child: Container(

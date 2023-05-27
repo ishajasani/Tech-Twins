@@ -109,7 +109,7 @@ contract LaboratoryInfo {
                 break;
             }
         }
-        return laboratories[msg.sender].reports[i].cids;
+        return laboratories[laboratoryAddress].reports[i].cids;
     }
 
     function getAllLaboratory() public view  returns (address[] memory labAddress_ ){

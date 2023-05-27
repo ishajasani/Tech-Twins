@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:techie_twins/config/walletservice.dart';
+import 'package:techie_twins/mobile/pages/home/Navbar.dart';
 import 'package:techie_twins/mobile/pages/onboarding.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:techie_twins/web/doctor/pages/home/home.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const Mobile(),
+        home: const NavBar(),
       );
     }
   }

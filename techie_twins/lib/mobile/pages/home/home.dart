@@ -113,56 +113,6 @@ class _HomeMobileState extends State<HomeMobile> {
                 ],
               ),
             ),
-      bottomSheet: Container(
-        margin: const EdgeInsets.only(bottom: 20),
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          width: MediaQuery.of(context).size.width,
-          height: 60,
-          decoration: BoxDecoration(
-              color: bottomNavigationBarColor.withOpacity(.2),
-              borderRadius: BorderRadius.circular(12)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.home_outlined,
-                    color: Colors.black.withOpacity(.2),
-                    size: 30,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.monitor_heart_outlined,
-                    color: Colors.black.withOpacity(.2),
-                    size: 30,
-                  )),
-              IconButton(
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => const PickAConsultant()))),
-                  icon: Icon(
-                    Icons.local_hospital_outlined,
-                    color: Colors.black.withOpacity(.2),
-                    size: 30,
-                  )),
-              IconButton(
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PaitentProfile())),
-                  icon: Icon(
-                    Icons.person_outline_rounded,
-                    color: Colors.black.withOpacity(.2),
-                    size: 30,
-                  )),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

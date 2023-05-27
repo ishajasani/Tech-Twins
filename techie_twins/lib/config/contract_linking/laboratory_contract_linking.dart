@@ -21,6 +21,10 @@ class LaboratoryContractLinking extends ChangeNotifier {
   DeployedContract? contract;
   ContractFunction? registerLaboratory;
   ContractFunction? getLaboratoryInfo;
+  ContractFunction? getAllLaboratory;
+  ContractFunction? requestReport;
+  ContractFunction? generateReport;
+  ContractFunction? getReport;
   int chainId = 1337;
 
   String? deployedName;
@@ -58,6 +62,10 @@ class LaboratoryContractLinking extends ChangeNotifier {
         ContractAbi.fromJson(abiCode!, "LaboratoryInfo"), contractAddress!);
     registerLaboratory = contract!.function('registerLaboratory');
     getLaboratoryInfo = contract!.function('getLaboratoryInfo');
+    getAllLaboratory = contract!.function('getAllLaboratory');
+    requestReport = contract!.function('requestReport');
+    generateReport = contract!.function('generateReport');
+    getReport = contract!.function('getReport');
     if (kDebugMode) {
       print(contract);
     }
@@ -98,5 +106,41 @@ class LaboratoryContractLinking extends ChangeNotifier {
     }
     notifyListeners();
     return laboratories;
+  }
+
+  Future<List> getLaboratoryAdd() async {
+    List laboratories = await _client
+        .call(contract: contract!, function: getAllLaboratory!, params: []);
+    if (kDebugMode) {
+      print(laboratories);
+    }
+    return laboratories;
+  }
+
+  requestLaboratoryReport(EthereumAddress docAddress, String reportType,
+      EthereumAddress labAddress, EthereumAddress patientAddress) async {
+    await _client.call(
+        contract: contract!,
+        function: requestReport!,
+        params: [docAddress, reportType, labAddress, patientAddress]);
+  }
+
+  generatePatientReport(EthereumAddress patientAddress,
+      EthereumAddress labAddress, List reportCids) async {
+    await _client.call(
+        contract: contract!,
+        function: generateReport!,
+        params: [patientAddress, labAddress, reportCids]);
+  }
+
+  Future getPatientReport(
+      EthereumAddress patientAddress, EthereumAddress labAddress) async {
+    var report = await _client.call(
+        contract: contract!,
+        function: getReport!,
+        params: [patientAddress, labAddress]);
+    if (kDebugMode) {
+      print(report);
+    }
   }
 }

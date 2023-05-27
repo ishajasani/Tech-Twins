@@ -25,6 +25,8 @@ class DoctorContractLinking extends ChangeNotifier {
   ContractFunction? bookAppointment;
   ContractFunction? confirmAppointments;
   ContractFunction? getAppointments;
+  ContractFunction? declineAppointment;
+  ContractFunction? getMeetingLink;
   int chainId = 1337;
 
   String? deployedName;
@@ -66,9 +68,8 @@ class DoctorContractLinking extends ChangeNotifier {
     bookAppointment = contract!.function("bookAppointment");
     getAppointments = contract!.function("getAppointments");
     confirmAppointments = contract!.function("appointmentConfirmed");
-    if (kDebugMode) {
-      print(contract);
-    }
+    declineAppointment = contract!.function("declineAppointment");
+    getMeetingLink = contract!.function("getMeetingLink");
   }
 
   Future regDoctor(
@@ -126,7 +127,10 @@ class DoctorContractLinking extends ChangeNotifier {
   }
 
   Future bookAppointmentFunction(
-      BigInt appointmentTimestamp, EthereumAddress docAddress) async {
+      BigInt appointmentTimestamp,
+      EthereumAddress docAddress,
+      EthereumAddress patientAddress,
+      String meetingLink) async {
     isLoading = true;
 
     await _client.sendTransaction(
@@ -134,7 +138,12 @@ class DoctorContractLinking extends ChangeNotifier {
         Transaction.callContract(
             contract: contract!,
             function: bookAppointment!,
-            parameters: [appointmentTimestamp, docAddress]),
+            parameters: [
+              appointmentTimestamp,
+              docAddress,
+              patientAddress,
+              meetingLink
+            ]),
         chainId: chainId);
     if (kDebugMode) {
       print("appointment booked");
@@ -143,10 +152,12 @@ class DoctorContractLinking extends ChangeNotifier {
   }
 
   Future confirmAppointmentFunction(BigInt appointmentId) async {
-    await _client.sendTransaction(credentials!, Transaction.callContract(
-        contract: contract!,
-        function: confirmAppointments!,
-        parameters: [appointmentId]));
+    await _client.sendTransaction(
+        credentials!,
+        Transaction.callContract(
+            contract: contract!,
+            function: confirmAppointments!,
+            parameters: [appointmentId]));
     if (kDebugMode) {
       print("Appointment Confirmed");
     }
@@ -160,5 +171,23 @@ class DoctorContractLinking extends ChangeNotifier {
       print("appointments");
     }
     return appointments;
+  }
+
+  declinePatientAppointment(BigInt index, EthereumAddress docAddress) async {
+    await _client.call(
+        contract: contract!,
+        function: declineAppointment!,
+        params: [index, docAddress]);
+  }
+
+  Future getAppointmentLink(BigInt index, EthereumAddress docAddress) async {
+    var meetingLink = await _client.call(
+        contract: contract!,
+        function: getMeetingLink!,
+        params: [index, docAddress]);
+
+    if (kDebugMode) {
+      print(meetingLink);
+    }
   }
 }
