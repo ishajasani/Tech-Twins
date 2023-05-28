@@ -158,6 +158,18 @@ class _LabProfileState extends State<LabProfile> {
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: NetworkImage(buildUrl))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Text(
+                                    name,
+                                    style: const TextStyle(
+                                        fontSize: 50,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ),
                           ),
                           const SizedBox(
                             width: 20,

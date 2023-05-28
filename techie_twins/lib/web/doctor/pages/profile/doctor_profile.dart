@@ -157,6 +157,18 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                         ? const NetworkImage(
                                             "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80")
                                         : NetworkImage(buildUrl))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Text(
+                                    name,
+                                    style: const TextStyle(
+                                        fontSize: 50,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ),
                           ),
                           const SizedBox(
                             width: 20,

@@ -43,6 +43,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
     setState(() {
       isLoading = true;
     });
+    List docAddresses = List.empty(growable: true);
     DoctorContractLinking doctorContractLinking = DoctorContractLinking();
     Future.delayed(const Duration(milliseconds: 1000), () {
       patientContractLinking
@@ -50,18 +51,19 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
           .then((value) {
         value.forEach((element) {
           element.forEach((val) {
-            setState(() {
-              appointments.add(val);
-
-              doctorContractLinking.getDoctorData(val[0]).then((value) {
+            doctorContractLinking.getAppointment(val[0]).then((value) {
+              value.forEach((val1) {
+                val1.forEach((val2) {
+                  print(val2);
+                  appointments.add(val2);
+                });
+              });
+            });
+            doctorContractLinking.getDoctorData(val[0]).then((value) {
+              setState(() {
+                doctors.add(value);
                 setState(() {
-                  if (kDebugMode) {
-                    print(value);
-                  }
-                  doctors.add(value);
-                  setState(() {
-                    isLoading = false;
-                  });
+                  isLoading = false;
                 });
               });
             });
@@ -69,7 +71,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
         });
       });
     });
-     setState(() {
+    setState(() {
       isLoading = false;
     });
   }

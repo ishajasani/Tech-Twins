@@ -41,13 +41,11 @@ class _HomeState extends State<Home> {
         }
         value.forEach((val) {
           val.forEach((val1) {
-            setState(() {
-              appointmentData.add(val1);
-            });
+            appointmentData.add(val1);
+
             contractLinking.getUserData(val1[0]).then((value) {
-              setState(() {
-                patientData.add(value);
-              });
+              patientData.add(value);
+
               Future.delayed(const Duration(milliseconds: 1000), () {
                 setState(() {
                   isLoading = false;
@@ -66,7 +64,10 @@ class _HomeState extends State<Home> {
   void confirmAppointment(int index) async {
     doctorContractLinking
         .confirmAppointmentFunction(BigInt.from(index), widget.docAddress)
-        .then((value) => Fluttertoast.showToast(msg: "Appointment confirmed"));
+        .then((value) {
+          
+      Fluttertoast.showToast(msg: "Appointment confirmed");
+    });
   }
 
   String ipfsImgeUrl = 'https://ipfs.io/ipfs/';

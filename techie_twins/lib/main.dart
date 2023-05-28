@@ -7,16 +7,12 @@ import 'package:techie_twins/mobile/pages/home/navbar.dart';
 import 'package:techie_twins/mobile/pages/onboarding.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:techie_twins/web/doctor/pages/home/home.dart';
-import 'package:techie_twins/mobile/pages/home/home.dart';
 import 'package:techie_twins/web/doctor/pages/onboarding_doctor.dart';
 import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
 import 'package:techie_twins/web/laboratory/pages/onboarding_laboratory.dart';
 import 'package:web3dart/web3dart.dart';
 
-Future<void> main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(const MyApp());
 }
 
@@ -32,7 +28,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const WebLab(),
+        home: const WebDoctor(),
       );
     } else {
       return MaterialApp(
@@ -41,7 +37,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const NavBar(),
+        home: const Mobile(),
       );
     }
   }
@@ -66,6 +62,9 @@ class _WebDoctorState extends State<WebDoctor> {
   String privatekey = "";
   WalletService walletService = WalletService();
   checkLogged() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     privatekey = await walletService.getPrivateKey();
     if (privatekey != "") {
       setState(() {
@@ -170,7 +169,7 @@ class _MobileState extends State<Mobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoggedin ? const HomeMobile() : const OnBoarding(),
+      body: isLoggedin ? const NavBar() : const OnBoarding(),
     );
   }
 }

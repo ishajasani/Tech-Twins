@@ -158,7 +158,10 @@ class DoctorContractLinking extends ChangeNotifier {
         Transaction.callContract(
             contract: contract!,
             function: confirmAppointments!,
-            parameters: [appointmentId, docAddress]));
+            parameters: [appointmentId, docAddress]),
+        
+        chainId: chainId);
+
     if (kDebugMode) {
       print("Appointment Confirmed");
     }
