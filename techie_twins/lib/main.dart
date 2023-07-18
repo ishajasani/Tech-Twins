@@ -5,7 +5,7 @@ import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/firebase_options.dart';
 import 'package:techie_twins/mobile/pages/home/navbar.dart';
 import 'package:techie_twins/mobile/pages/onboarding.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:techie_twins/web/doctor/pages/home/home.dart';
 import 'package:techie_twins/web/doctor/pages/onboarding_doctor.dart';
 import 'package:techie_twins/web/laboratory/pages/home/home_laboratory.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const WebDoctor(),
+        home: const WebLab(),
       );
     } else {
       return MaterialApp(
@@ -111,7 +111,9 @@ class _WebLabState extends State<WebLab> {
     // await walletService.removePrivateKey();
 
     privatekey = await walletService.getPrivateKeyLab();
-    print(privatekey);
+    if (kDebugMode) {
+      print(privatekey);
+    }
     if (privatekey != "") {
       setState(() {
         isLoggedin = true;

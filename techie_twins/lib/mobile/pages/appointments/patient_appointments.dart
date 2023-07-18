@@ -43,7 +43,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
     setState(() {
       isLoading = true;
     });
-    List docAddresses = List.empty(growable: true);
+    // List docAddresses = List.empty(growable: true);
     DoctorContractLinking doctorContractLinking = DoctorContractLinking();
     Future.delayed(const Duration(milliseconds: 1000), () {
       patientContractLinking
@@ -54,7 +54,9 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
             doctorContractLinking.getAppointment(val[0]).then((value) {
               value.forEach((val1) {
                 val1.forEach((val2) {
-                  print(val2);
+                  if (kDebugMode) {
+                    print(val2);
+                  }
                   appointments.add(val2);
                 });
               });

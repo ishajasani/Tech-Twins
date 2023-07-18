@@ -11,7 +11,9 @@ class AppointmentAcceptenceState extends State<AppointmentAcceptence> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Placeholder(),
+      body: Center(
+        child: Text('Appointment Acceptence'),
+      ),
     );
   }
 }

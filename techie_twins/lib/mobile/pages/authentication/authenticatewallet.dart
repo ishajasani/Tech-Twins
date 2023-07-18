@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:techie_twins/config/contract_linking/patient_contract_linking.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/config/walletservice.dart';
-import 'package:techie_twins/mobile/pages/home/home.dart';
 import 'package:techie_twins/mobile/pages/home/navbar.dart';
 import 'package:techie_twins/mobile/pages/profile/edit_details.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
@@ -27,14 +26,14 @@ class _AuthenticateWalletState extends State<AuthenticateWallet> {
       isLoading = true;
     });
     bool isValid = await WalletProvider().initializeFromKey(keyController.text);
-    
+
     if (isValid) {
       EthereumAddress address =
           EthPrivateKey.fromHex(keyController.text).address;
       contractLinking.getUserData(address).then((value) {
         if (value[0] != "") {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const NavBar()));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const NavBar()));
         } else {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const EditDetails()));

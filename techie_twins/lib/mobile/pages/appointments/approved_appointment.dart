@@ -23,6 +23,7 @@ class _ApprovedAppointmentState extends State<ApprovedAppointment> {
     WalletService().getPrivateKey().then((value) {
       doctorContractLinking
           .getAppointment(widget.doctorAddress)
+          // ignore: avoid_print
           .then((value) => print(value));
     });
   }
@@ -31,7 +32,7 @@ class _ApprovedAppointmentState extends State<ApprovedAppointment> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Placeholder(),
+        child: Text('Appointment Acceptence'),
       ),
     );
   }

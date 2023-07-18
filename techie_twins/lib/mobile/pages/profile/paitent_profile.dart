@@ -100,6 +100,12 @@ class _PaitentProfileState extends State<PaitentProfile> {
               ))
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const EditDetails())),
+        icon: const Icon(Icons.edit),
+        label: const Text("Edit"),
+      ),
       body: isFetching
           ? const Center(
               child: CircularProgressIndicator(),
@@ -154,10 +160,10 @@ class _PaitentProfileState extends State<PaitentProfile> {
                                         MediaQuery.of(context).size.width / 3.6,
                                     blur: 5,
                                     color: Colors.black.withOpacity(.2),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(4.0),
                                       child: Row(
-                                        children: const [
+                                        children: [
                                           Icon(
                                             Icons.wallet_outlined,
                                             color: Colors.white,

@@ -7,7 +7,6 @@ import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/main.dart';
-import 'package:techie_twins/web/laboratory/pages/add_details.dart';
 import 'package:techie_twins/web/laboratory/pages/profile/edit_details.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 import 'package:web3dart/web3dart.dart';

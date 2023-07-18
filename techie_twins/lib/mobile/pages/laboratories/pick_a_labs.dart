@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:techie_twins/config/contract_linking/laboratory_contract_linking.dart';
-import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/config/walletservice.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/mobile/pages/laboratories/lab_profile.dart';
@@ -59,7 +57,6 @@ class _PickALabState extends State<PickALab> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       body: isLoading
           ? const Center(

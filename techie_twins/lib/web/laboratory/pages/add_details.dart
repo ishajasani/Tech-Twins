@@ -10,8 +10,9 @@ import 'package:techie_twins/widgets/custom_textfields.dart';
 import 'package:web3dart/web3dart.dart';
 
 class AddDetailsLaboratory extends StatefulWidget {
-
-  const AddDetailsLaboratory({super.key, });
+  const AddDetailsLaboratory({
+    super.key,
+  });
 
   @override
   State<AddDetailsLaboratory> createState() => _AddDetailsLaboratoryState();
@@ -138,7 +139,7 @@ class _AddDetailsLaboratoryState extends State<AddDetailsLaboratory> {
       ),
       floatingActionButton: TextButton(
         onPressed: () async {
-           String privatekey = await WalletService().getPrivateKeyLab();
+          String privatekey = await WalletService().getPrivateKeyLab();
           if (nameController.text.isNotEmpty &&
                   reportsCountController.text.isNotEmpty &&
                   expController.text.isNotEmpty &&
@@ -164,8 +165,9 @@ class _AddDetailsLaboratoryState extends State<AddDetailsLaboratory> {
                 .then((value) => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: ((context) =>
-                            HomeLaboratory(docAddress: EthPrivateKey.fromHex(privatekey).address)))));
+                        builder: ((context) => HomeLaboratory(
+                            docAddress:
+                                EthPrivateKey.fromHex(privatekey).address)))));
           }
           // ignore: use_build_context_synchronously
         },

@@ -10,6 +10,6 @@ class VideoCallPatient extends StatefulWidget {
 class _VideoCallPatientState extends State<VideoCallPatient> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

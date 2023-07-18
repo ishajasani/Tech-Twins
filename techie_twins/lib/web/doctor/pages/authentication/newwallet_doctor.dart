@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:techie_twins/config/walletprovider.dart';
 import 'package:techie_twins/constants.dart';
 import 'package:techie_twins/web/doctor/pages/enter_details_doctors.dart';
+import 'package:techie_twins/web/laboratory/pages/add_details.dart';
 import 'package:techie_twins/widgets/custom_buttons.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -149,7 +150,7 @@ class NewWalletLaboratoryState extends State<NewWalletLaboratory> {
                 onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const EnterDetails())),
+                        builder: (context) => const AddDetailsLaboratory())),
                 child: const Text(
                   "Skip for now!!",
                   style: TextStyle(

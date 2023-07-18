@@ -2,10 +2,10 @@ module.exports = {
   networks: {
     development: {
       // host: "192.168.4.141", // --isha
-      // host: "192.168.0.105", //--mohit
-      host: "34.131.90.213",
-      port: 80,
-      network_id: "*",
+      host: "192.168.0.102", //--mohit
+      // host: "34.131.90.213",
+      port: 7545,
+      network_id: "5777",
     },
   },
   contracts_build_directory: "./src/abis/",

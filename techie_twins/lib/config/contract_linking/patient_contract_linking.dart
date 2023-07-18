@@ -54,7 +54,7 @@ class PatientContractLinking extends ChangeNotifier {
     abiCode = jsonEncode(jsonAbi['abi']);
 
     contractAddress =
-        EthereumAddress.fromHex(jsonAbi['networks']['5557']['address']);
+        EthereumAddress.fromHex(jsonAbi['networks']['5777']['address']);
   }
 
   getCredentials() {

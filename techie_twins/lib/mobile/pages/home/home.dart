@@ -4,9 +4,6 @@ import 'dart:math';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:techie_twins/constants.dart';
-import 'package:techie_twins/mobile/pages/consultant/pick_a_consultant.dart';
-import 'package:techie_twins/mobile/pages/profile/paitent_profile.dart';
 import 'package:techie_twins/widgets/custom_tiles.dart';
 
 class HomeMobile extends StatefulWidget {
